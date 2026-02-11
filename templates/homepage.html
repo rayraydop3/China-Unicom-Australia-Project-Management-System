@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澳洲联通 | 专业企业网络服务</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .logo-red {
+            color: #E60012;
+        }
+
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #E60012;
+        }
+
+        /* 主横幅区域 */
+        .hero-section {
+            margin-top: 70px;
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .hero-image {
+            flex: 0 0 60%;
+            position: relative;
+            background: #666;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+                url('/static/opera-house-4k.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero-content {
+            flex: 0 0 40%;
+            background: #f8f7f4;
+            padding: 100px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 64px;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+            letter-spacing: -1px;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            color: #555;
+            max-width: 500px;
+        }
+
+        .hero-links {
+            list-style: none;
+        }
+
+        .hero-links li {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+        }
+
+        .hero-links li:first-child {
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .hero-links a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .hero-links a:hover {
+            color: #E60012;
+        }
+
+        .hero-links a::after {
+            content: '>';
+            color: #E60012;
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        .hero-cta {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .hero-cta a {
+            color: #E60012;
+            text-decoration: underline;
+            text-decoration-color: #E60012;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* 服务页面样式 */
+        .services-section {
+            padding: 100px 60px;
+            background: white;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 56px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #1a1a1a;
+            letter-spacing: -1px;
+        }
+
+        .search-section {
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 0;
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 18px 24px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 0;
+            background: #f5f5f5;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-button {
+            width: 60px;
+            background: #E60012;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .search-button:hover {
+            background: #cc0010;
+        }
+
+        .view-all-link {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .view-all-link a {
+            color: #E60012;
+            text-decoration: underline;
+            text-decoration-color: #E60012;
+            font-size: 15px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+            gap: 15px;
+        }
+
+        .service-icon {
+            width: 24px;
+            height: 24px;
+            color: #E60012;
+            flex-shrink: 0;
+        }
+
+        .service-name {
+            font-size: 18px;
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .service-name:hover {
+            color: #E60012;
+        }
+
+        /* 关于我们部分 */
+        .about-section {
+            display: flex;
+            min-height: 600px;
+        }
+
+        .about-image {
+            flex: 0 0 60%;
+            position: relative;
+            background: #666;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+                url('/static/sydney-tower-4k.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .about-content {
+            flex: 0 0 40%;
+            background: #e8e8e5;
+            padding: 100px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 64px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+            letter-spacing: -1px;
+        }
+
+        .about-description {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            color: #555;
+            max-width: 500px;
+        }
+
+        .about-links {
+            list-style: none;
+        }
+
+        .about-links li {
+            border-bottom: 1px solid #d0d0d0;
+            padding: 20px 0;
+        }
+
+        .about-links li:first-child {
+            border-top: 1px solid #d0d0d0;
+        }
+
+        .about-links a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .about-links a:hover {
+            color: #E60012;
+        }
+
+        .about-links a::after {
+            content: '>';
+            color: #E60012;
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        .about-cta {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #d0d0d0;
+        }
+
+        .about-cta a {
+            color: #E60012;
+            text-decoration: underline;
+            text-decoration-color: #E60012;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .hero-section, .about-section {
+                flex-direction: column;
+            }
+
+            .hero-image, .about-image {
+                min-height: 400px;
+            }
+
+            .hero-content, .about-content {
+                padding: 60px 40px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 30px;
+            }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 14px;
+            }
+
+            .hero-title, .about-title {
+                font-size: 42px;
+            }
+
+            .section-title {
+                font-size: 42px;
+            }
+
+            .services-section {
+                padding: 60px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo-section">
+            <span class="logo-text">澳洲</span><span class="logo-text logo-red">联通</span>
+            <img src="/static/logo.png" alt="Logo" class="logo-img">
+        </div>
+        <div class="nav-links">
+            <a href="#services">服务</a>
+            <a href="#about">关于我们</a>
+            <a href="/pricing">报价系统</a>
+            <a href="#contact">联系我们</a>
+        </div>
+    </nav>
+
+    <!-- 主横幅区域 -->
+    <section class="hero-section">
+        <div class="hero-image"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">服务</h1>
+            <p class="hero-description">
+                无论您是新建企业、扩展业务，还是追求数字化转型，让我们帮您实现。我们提供专业的专线服务、网络覆盖和解决方案，为您的业务成功保驾护航。
+            </p>
+            <ul class="hero-links">
+                <li><a href="/pricing">报价评估系统</a></li>
+                <li><a href="/article/sme-communication">中小企业解决方案</a></li>
+                <li><a href="/article/network-coverage">网络覆盖查询</a></li>
+                <li><a href="/article/innovation-leadership">企业数字化转型</a></li>
+            </ul>
+            <div class="hero-cta">
+                <a href="/pricing">开始使用我们的服务</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务搜索区域 -->
+    <section class="services-section" id="services">
+        <div class="services-container">
+            <h2 class="section-title">查找服务</h2>
+            <div class="search-section">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="输入关键词查找服务，例如：专线、带宽、MPLS">
+                    <button class="search-button">🔍</button>
+                </div>
+                <div class="view-all-link">
+                    <a href="#all-services">查看所有服务</a>
+                </div>
+            </div>
+            <div class="services-grid" id="all-services">
+                <div class="service-item">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <a href="/pricing" class="service-name">专线服务 (DIA)</a>
+                </div>
+                <div class="service-item">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <a href="/article/network-coverage" class="service-name">网络覆盖与区域服务</a>
+                </div>
+                <div class="service-item">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                    </svg>
+                    <a href="/article/sme-communication" class="service-name">中小企业解决方案</a>
+                </div>
+                <div class="service-item">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <a href="/article/innovation-leadership" class="service-name">企业数字化转型</a>
+                </div>
+                <div class="service-item">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                    </svg>
+                    <a href="#security" class="service-name">网络安全与防护</a>
+                </div>
+                <div class="service-item">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+                    </svg>
+                    <a href="#pricing" class="service-name">价格与套餐</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们部分 -->
+    <section class="about-section" id="about">
+        <div class="about-image"></div>
+        <div class="about-content">
+            <h2 class="about-title">关于我们</h2>
+            <p class="about-description">
+                我们致力于为澳大利亚企业提供卓越的网络服务超过20年。从中小企业到大型企业，我们帮助各行各业的客户建立可靠、高速、安全的网络连接，推动业务增长和数字化转型。
+            </p>
+            <ul class="about-links">
+                <li><a href="#rankings">我们的排名与认证</a></li>
+                <li><a href="#coverage">服务覆盖区域</a></li>
+                <li><a href="#solutions">解决方案与产品</a></li>
+                <li><a href="#careers">加入澳洲联通</a></li>
+            </ul>
+            <div class="about-cta">
+                <a href="#about-us">关于我们</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 & 页脚 -->
+    <section class="footer-section" id="contact">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <span class="logo-text" style="font-size:24px;">澳洲</span><span class="logo-text logo-red" style="font-size:24px;">联通</span>
+                    </div>
+                    <p class="footer-desc">Australia Unicom — 专业企业网络服务提供商，致力于为澳大利亚企业提供卓越的光纤专线、SD-WAN 与数据中心互联服务。</p>
+                    <div class="footer-sla">
+                        <span class="sla-badge">99.99% SLA</span>
+                        <span class="sla-text">服务可用性承诺</span>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">核心服务</h4>
+                    <ul class="footer-list">
+                        <li><a href="/pricing">企业光纤专线 (DIA)</a></li>
+                        <li><a href="/pricing">SD-WAN 解决方案</a></li>
+                        <li><a href="/pricing">数据中心互联</a></li>
+                        <li><a href="/pricing">跨国专线 (悉尼-上海)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">价格参考</h4>
+                    <ul class="footer-list price-ref">
+                        <li><span>100Mbps 专线 (悉尼 CBD)</span><strong>$299/月起</strong></li>
+                        <li><span>1000Mbps 专线 (悉尼 CBD)</span><strong>$599/月起</strong></li>
+                        <li><span>跨国专线 (悉尼-上海)</span><strong><a href="/pricing" style="color:#ff9f0a;">需人工核价</a></strong></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">联系我们</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <div>
+                                <div class="contact-label">客服热线</div>
+                                <a href="tel:1300864266" class="contact-value phone-number">1300-UNICOM</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🕐</span>
+                            <div>
+                                <div class="contact-label">服务时间</div>
+                                <span class="contact-value">24小时 · 中英双语客服</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🏢</span>
+                            <div>
+                                <div class="contact-label">总部</div>
+                                <span class="contact-value">Sydney, Australia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 澳洲联通 Australia Unicom. All rights reserved.</span>
+                <span class="footer-tagline">中英双语 24小时客服 · 99.99% SLA 服务承诺</span>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        /* --- 页脚样式 --- */
+        .footer-section {
+            width: 100%;
+            background: #0a0a0a;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 80px 60px 40px;
+            color: #ccc;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1.2fr 1.2fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        .footer-logo { margin-bottom: 16px; }
+        .footer-desc {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .footer-sla {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sla-badge {
+            background: rgba(230, 0, 18, 0.15);
+            color: #E60012;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(230, 0, 18, 0.3);
+        }
+        .sla-text {
+            font-size: 12px;
+            color: #666;
+        }
+        .footer-heading {
+            font-size: 16px;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .footer-list {
+            list-style: none;
+        }
+        .footer-list li {
+            margin-bottom: 12px;
+        }
+        .footer-list li a {
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .footer-list li a:hover {
+            color: #E60012;
+        }
+        .footer-list.price-ref li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 13px;
+        }
+        .footer-list.price-ref li span { color: #888; }
+        .footer-list.price-ref li strong { color: #30d158; font-size: 14px; }
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .contact-icon {
+            font-size: 20px;
+            margin-top: 2px;
+        }
+        .contact-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 2px;
+        }
+        .contact-value {
+            font-size: 14px;
+            color: #ccc;
+        }
+        .phone-number {
+            color: #E60012;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        .phone-number:hover {
+            color: #ff1a1a;
+        }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 30px;
+            font-size: 13px;
+            color: #555;
+        }
+        .footer-tagline {
+            color: #666;
+            font-size: 12px;
+        }
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+        @media (max-width: 768px) {
+            .footer-section { padding: 60px 30px 30px; }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <!-- AI 聊天框组件 - 在所有页面显示 -->
+    <style>
+        /* --- 呼吸脉冲动画 (pulse-glow) --- */
+        @keyframes pulse-glow {
+            0% {
+                transform: scale(1);
+                box-shadow:
+                    0 4px 12px rgba(230, 0, 18, 0.4),
+                    0 0 0 0 rgba(230, 0, 18, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow:
+                    0 4px 16px rgba(230, 0, 18, 0.5),
+                    0 0 0 12px rgba(230, 0, 18, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow:
+                    0 4px 12px rgba(230, 0, 18, 0.4),
+                    0 0 0 0 rgba(230, 0, 18, 0);
+            }
+        }
+
+        .deepseek-chat-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #E60012;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(230, 0, 18, 0.4);
+            z-index: 10000;
+            animation: pulse-glow 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            will-change: transform, box-shadow;
+        }
+        .deepseek-chat-btn:hover {
+            animation: none;
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(230, 0, 18, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .deepseek-chat-container {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 400px;
+            height: 600px;
+            background: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            display: none;
+            flex-direction: column;
+            z-index: 10001;
+        }
+        .deepseek-chat-container.active {
+            display: flex;
+        }
+        .deepseek-chat-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            background: #1a1a1a;
+        }
+        .deepseek-chat-header h3 {
+            margin: 0;
+            color: white;
+            font-size: 18px;
+            flex: 1;
+        }
+        .model-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .model-selector label {
+            color: #aaa;
+            font-size: 12px;
+        }
+        .model-selector select {
+            padding: 6px 12px;
+            background: #333;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            color: white;
+            font-size: 12px;
+            outline: none;
+            cursor: pointer;
+            min-width: 120px;
+        }
+        .deepseek-chat-close {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+        }
+        .deepseek-chat-close:hover {
+            color: white;
+        }
+        .deepseek-chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #1a1a1a;
+        }
+        .deepseek-message {
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+            word-wrap: break-word;
+            line-height: 1.5;
+        }
+        .deepseek-message.user {
+            background: #E60012;
+            color: white;
+            align-self: flex-end;
+        }
+        .deepseek-message.ai {
+            background: rgba(255,255,255,0.1);
+            color: #ddd;
+            align-self: flex-start;
+        }
+        .deepseek-chat-input-container {
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            gap: 10px;
+            background: #1a1a1a;
+        }
+        .deepseek-chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: #333;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+        }
+        .deepseek-chat-send {
+            padding: 12px 24px;
+            background: #E60012;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .deepseek-chat-send:hover {
+            background: #ff1a1a;
+        }
+        .deepseek-chat-send:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        @media (max-width: 768px) {
+            .deepseek-chat-container {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+                height: calc(100vh - 140px);
+            }
+        }
+    </style>
+    <button class="deepseek-chat-btn" onclick="toggleDeepSeekChat()" title="AI 数据分析助手">💬</button>
+    <div class="deepseek-chat-container" id="deepseek-chat">
+        <div class="deepseek-chat-header">
+            <h3>🤖 AI 数据分析助手</h3>
+            <div class="model-selector">
+                <label>模型:</label>
+                <select id="model-select" onchange="changeModel()">
+                    <option value="lmstudio">LM Studio (本地免费，推荐)</option>
+                    <option value="gemini">Gemini 2.0 Flash</option>
+                    <option value="qwen">通义千问</option>
+                    <option value="deepseek">DeepSeek</option>
+                    <option value="ollama">Ollama (本地免费，需安装)</option>
+                </select>
+            </div>
+            <div class="model-selector" style="margin-top: 8px;">
+                <label style="font-size: 11px;">联网搜索:</label>
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 11px;">
+                    <input type="checkbox" id="enable-search" checked style="width: auto; height: auto; margin: 0;">
+                    <span>启用实时资料查找</span>
+                </label>
+            </div>
+            <button class="deepseek-chat-close" onclick="toggleDeepSeekChat()">×</button>
+        </div>
+        <div class="deepseek-chat-messages" id="deepseek-messages">
+            <div class="deepseek-message ai">
+                你好！我是 AI 数据分析助手，基于项目的训练数据库为你提供专业分析。你可以问我关于价格、运营商、地区分布等问题。当前使用 <strong>LM Studio</strong> 模型（本地免费，推荐）。
+            </div>
+        </div>
+        <div class="deepseek-chat-input-container">
+            <input type="text" class="deepseek-chat-input" id="deepseek-input" 
+                   placeholder="输入你的问题..." 
+                   onkeypress="if(event.key === 'Enter') sendDeepSeekMessage()">
+            <button class="deepseek-chat-send" onclick="sendDeepSeekMessage()" id="deepseek-send-btn">发送</button>
+        </div>
+    </div>
+    <script>
+        let currentModel = localStorage.getItem('selectedModel') || 'lmstudio';
+
+        function getModelName(modelValue) {
+            const options = document.getElementById('model-select').options;
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].value === modelValue) {
+                    return options[i].textContent;
+                }
+            }
+            return modelValue;
+        }
+
+        function updateModelStatus() {
+            const modelSelect = document.getElementById('model-select');
+            if (modelSelect) {
+                modelSelect.value = currentModel;
+            }
+        }
+
+        function changeModel() {
+            const modelSelect = document.getElementById('model-select');
+            if (modelSelect) {
+                currentModel = modelSelect.value;
+                localStorage.setItem('selectedModel', currentModel);
+                updateModelStatus();
+
+                const messagesContainer = document.getElementById('deepseek-messages');
+                if (messagesContainer) {
+                    const tipDiv = document.createElement('div');
+                    tipDiv.className = 'deepseek-message ai';
+                    tipDiv.style.fontSize = '12px';
+                    tipDiv.style.color = '#888';
+                    tipDiv.textContent = `已切换到 ${getModelName(currentModel)} 模型`;
+                    messagesContainer.appendChild(tipDiv);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+            }
+        }
+
+        function toggleDeepSeekChat() {
+            const chatContainer = document.getElementById('deepseek-chat');
+            if (chatContainer) {
+                chatContainer.classList.toggle('active');
+                if (chatContainer.classList.contains('active')) {
+                    const input = document.getElementById('deepseek-input');
+                    if (input) input.focus();
+                }
+            }
+        }
+
+        function shouldSearch(message) {
+            const keywords = ['最新', '最近', '现在', '当前', '今年', '明年', '未来', '趋势',
+                            '新闻', '更新', '变化', '涨价', '降价', '政策', '规定',
+                            '市场', '行业', '竞争', '对比', '比较', '资料', '信息'];
+            const msgLower = message.toLowerCase();
+            return keywords.some(keyword => msgLower.includes(keyword));
+        }
+
+        async function sendDeepSeekMessage() {
+            const input = document.getElementById('deepseek-input');
+            const sendBtn = document.getElementById('deepseek-send-btn');
+            const messagesContainer = document.getElementById('deepseek-messages');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'deepseek-message user';
+            userMessageDiv.textContent = message;
+            messagesContainer.appendChild(userMessageDiv);
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            const enableSearch = document.getElementById('enable-search').checked;
+            
+            if (enableSearch && shouldSearch(message)) {
+                const searchTip = document.createElement('div');
+                searchTip.className = 'deepseek-message ai';
+                searchTip.style.fontSize = '12px';
+                searchTip.style.color = '#888';
+                searchTip.textContent = '🔍 正在联网搜索相关资料...';
+                searchTip.id = 'search-tip';
+                messagesContainer.appendChild(searchTip);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'deepseek-message ai';
+            loadingDiv.textContent = `正在使用 ${getModelName(currentModel)} 思考...`;
+            loadingDiv.id = 'loading-message';
+            messagesContainer.appendChild(loadingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            if (input) input.disabled = true;
+            if (sendBtn) sendBtn.disabled = true;
+            const modelSelect = document.getElementById('model-select');
+            if (modelSelect) modelSelect.disabled = true;
+            const enableSearchCheckbox = document.getElementById('enable-search');
+            if (enableSearchCheckbox) enableSearchCheckbox.disabled = true;
+
+            try {
+                const response = await fetch('/deepseek/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        message: message,
+                        model: currentModel,
+                        enable_search: enableSearch
+                    })
+                });
+
+                const rawText = await response.text();
+                let json;
+                try {
+                    json = JSON.parse(rawText);
+                } catch (parseErr) {
+                    throw new Error(`HTTP ${response.status} 返回非JSON：${rawText.slice(0, 200)}`);
+                }
+
+                const loadingMsg = document.getElementById('loading-message');
+                if (loadingMsg) loadingMsg.remove();
+                const searchTip = document.getElementById('search-tip');
+                if (searchTip) searchTip.remove();
+
+                if (!response.ok) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'deepseek-message ai';
+                    errorDiv.textContent = '错误: ' + (json.message || `HTTP ${response.status}`);
+                    messagesContainer.appendChild(errorDiv);
+                } else if (json.status === 'success') {
+                    const aiMessageDiv = document.createElement('div');
+                    aiMessageDiv.className = 'deepseek-message ai';
+                    // 服务器返回的是 response 字段，不是 message
+                    const responseText = json.response || json.message || '无响应';
+                    // 处理换行，将 \n 转换为 <br>
+                    aiMessageDiv.innerHTML = responseText.replace(/\n/g, '<br>');
+                    messagesContainer.appendChild(aiMessageDiv);
+                } else {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'deepseek-message ai';
+                    errorDiv.textContent = '错误: ' + (json.message || '未知错误');
+                    messagesContainer.appendChild(errorDiv);
+                }
+
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            } catch (e) {
+                const loadingMsg = document.getElementById('loading-message');
+                if (loadingMsg) loadingMsg.remove();
+                const searchTip = document.getElementById('search-tip');
+                if (searchTip) searchTip.remove();
+
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'deepseek-message ai';
+                errorDiv.textContent = '网络错误: ' + (e && e.message ? e.message : '请稍后重试');
+                messagesContainer.appendChild(errorDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            } finally {
+                if (input) input.disabled = false;
+                if (sendBtn) sendBtn.disabled = false;
+                if (modelSelect) modelSelect.disabled = false;
+                if (enableSearchCheckbox) enableSearchCheckbox.disabled = false;
+                if (input) input.focus();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateModelStatus();
+        });
+    </script>
+</body>
+</html>
