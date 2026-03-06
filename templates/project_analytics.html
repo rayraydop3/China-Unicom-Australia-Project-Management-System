@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澳洲联通 | 项目数据分析</title>
+    <link rel="stylesheet" href="/static/css/global.css">
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        :root{--accent:#E60012;--green:#30d158;--yellow:#ff9f0a;--red:#ff453a}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#000;background-image:radial-gradient(circle at top right,#2a2a2a 0%,#000 80%);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+        .header{width:100%;max-width:1400px;height:60px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px}
+        .logo{font-size:24px;font-weight:700;margin-right:auto}.logo span{color:var(--accent)}
+        .header a{color:var(--accent);text-decoration:none;font-size:13px;margin-left:16px}
+        .page-title{width:100%;max-width:1400px;padding:0 20px;margin-bottom:20px;font-size:28px;font-weight:700}
+        .grid{width:100%;max-width:1400px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:16px;padding-bottom:60px}
+        @media(max-width:500px){.grid{grid-template-columns:1fr}}
+        .chart-card{background:rgba(20,20,20,0.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px}
+        .chart-title{font-size:15px;font-weight:700;color:#aaa;margin-bottom:16px}
+        canvas{display:block;width:100%}
+        .kpi-row{width:100%;max-width:1400px;padding:0 20px;display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+        .kpi{background:rgba(20,20,20,0.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px 24px;flex:1;min-width:150px;text-align:center}
+        .kpi-value{font-size:32px;font-weight:700}
+        .kpi-label{font-size:11px;color:#666;margin-top:4px}
+        body::after{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:9999;pointer-events:none;opacity:.04;animation:gs .5s steps(4) infinite}
+        @keyframes gs{0%{transform:translate(0,0)}25%{transform:translate(-2%,-3%)}50%{transform:translate(3%,1%)}75%{transform:translate(-1%,2%)}100%{transform:translate(2%,-1%)}}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">澳洲<span>联通</span></div>
+        <a href="/projects">← 项目列表</a>
+        <a href="/">首页</a>
+    </div>
+    <h1 class="page-title">项目数据分析</h1>
+
+    <div class="kpi-row">
+        <div class="kpi"><div class="kpi-value" id="kpi-total" style="color:#fff">-</div><div class="kpi-label">总项目数</div></div>
+        <div class="kpi"><div class="kpi-value" id="kpi-active" style="color:var(--green)">-</div><div class="kpi-label">进行中</div></div>
+        <div class="kpi"><div class="kpi-value" id="kpi-completed" style="color:#5e5ce6">-</div><div class="kpi-label">已完成</div></div>
+        <div class="kpi"><div class="kpi-value" id="kpi-avg" style="color:var(--yellow)">-</div><div class="kpi-label">平均进度</div></div>
+    </div>
+
+    <div class="grid">
+        <div class="chart-card"><div class="chart-title">项目状态分布</div><canvas id="chart-status" height="250"></canvas></div>
+        <div class="chart-card"><div class="chart-title">阶段问题热力图</div><canvas id="chart-heatmap" height="250"></canvas></div>
+        <div class="chart-card"><div class="chart-title">各项目进度对比</div><canvas id="chart-progress" height="300"></canvas></div>
+        <div class="chart-card"><div class="chart-title">产品类型分布</div><canvas id="chart-product" height="250"></canvas></div>
+    </div>
+
+    <script>
+        let stats = null;
+
+        document.addEventListener('DOMContentLoaded', loadStats);
+
+        async function loadStats() {
+            try {
+                const res = await fetch('/api/projects/stats');
+                const json = await res.json();
+                if (json.status === 'success') { stats = json.stats; renderAll(); }
+            } catch(e) { console.error(e); }
+        }
+
+        function renderAll() {
+            // KPIs
+            document.getElementById('kpi-total').textContent = stats.total;
+            document.getElementById('kpi-active').textContent = stats.active;
+            document.getElementById('kpi-completed').textContent = stats.completed;
+            const avgProgress = stats.progress_list.length > 0 ? Math.round(stats.progress_list.reduce((s,p) => s + p.progress, 0) / stats.progress_list.length) : 0;
+            document.getElementById('kpi-avg').textContent = avgProgress + '%';
+
+            drawStatusChart();
+            drawHeatmap();
+            drawProgressChart();
+            drawProductChart();
+        }
+
+        function setupCanvas(id) {
+            const c = document.getElementById(id);
+            const dpr = window.devicePixelRatio || 1;
+            const W = c.parentElement.clientWidth - 48;
+            const H = parseInt(c.getAttribute('height'));
+            c.width = W * dpr; c.height = H * dpr;
+            c.style.width = W + 'px'; c.style.height = H + 'px';
+            const ctx = c.getContext('2d');
+            ctx.scale(dpr, dpr);
+            return {ctx, W, H};
+        }
+
+        // 1. Status donut chart
+        function drawStatusChart() {
+            const {ctx, W, H} = setupCanvas('chart-status');
+            const data = [{label:'进行中',value:stats.active,color:'#30d158'},{label:'已完成',value:stats.completed,color:'#5e5ce6'},{label:'已取消',value:stats.cancelled,color:'#555'}];
+            const total = data.reduce((s,d) => s + d.value, 0) || 1;
+            const cx = W/2, cy = H/2 - 10, r = Math.min(W,H)/2 - 40, innerR = r * 0.55;
+
+            let startAngle = -Math.PI/2;
+            data.forEach(d => {
+                const sweep = (d.value/total) * Math.PI * 2;
+                ctx.beginPath(); ctx.moveTo(cx + innerR * Math.cos(startAngle), cy + innerR * Math.sin(startAngle));
+                ctx.arc(cx, cy, r, startAngle, startAngle + sweep);
+                ctx.arc(cx, cy, innerR, startAngle + sweep, startAngle, true);
+                ctx.closePath();
+                ctx.fillStyle = d.color; ctx.fill();
+                startAngle += sweep;
+            });
+
+            // Center text
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 28px -apple-system'; ctx.textAlign = 'center';
+            ctx.fillText(total, cx, cy + 4);
+            ctx.fillStyle = '#666'; ctx.font = '11px -apple-system';
+            ctx.fillText('总计', cx, cy + 20);
+
+            // Legend
+            let ly = H - 20;
+            ctx.textAlign = 'left';
+            data.forEach((d, i) => {
+                const lx = (W / data.length) * i + 20;
+                ctx.fillStyle = d.color;
+                ctx.fillRect(lx, ly - 8, 10, 10);
+                ctx.fillStyle = '#aaa'; ctx.font = '11px -apple-system';
+                ctx.fillText(`${d.label}: ${d.value}`, lx + 14, ly);
+            });
+        }
+
+        // 2. Heatmap
+        function drawHeatmap() {
+            const {ctx, W, H} = setupCanvas('chart-heatmap');
+            const issues = stats.stage_issues;
+            const stageIds = Object.keys(issues).sort((a,b) => a-b);
+            if (stageIds.length === 0) { ctx.fillStyle = '#555'; ctx.font = '13px -apple-system'; ctx.fillText('暂无数据', W/2-30, H/2); return; }
+
+            const cellH = 36, pad = 90, gap = 6;
+            const cellW = Math.min((W - pad - 20) / 3 - gap, 80);
+            const statuses = ['green', 'yellow', 'red'];
+            const statusNames = ['顺利', '有问题', '严重'];
+            const maxVal = Math.max(1, ...stageIds.flatMap(id => statuses.map(s => issues[id][s] || 0)));
+
+            // Header
+            statuses.forEach((s, i) => {
+                ctx.fillStyle = '#666'; ctx.font = '10px -apple-system'; ctx.textAlign = 'center';
+                ctx.fillText(statusNames[i], pad + i * (cellW + gap) + cellW/2, 14);
+            });
+
+            stageIds.forEach((id, row) => {
+                const y = 24 + row * (cellH + gap);
+                ctx.fillStyle = '#888'; ctx.font = '11px -apple-system'; ctx.textAlign = 'right';
+                ctx.fillText(issues[id].name, pad - 8, y + cellH/2 + 4);
+
+                statuses.forEach((s, col) => {
+                    const val = issues[id][s] || 0;
+                    const intensity = val / maxVal;
+                    const colors = {green:`rgba(48,209,88,${0.1+intensity*0.7})`,yellow:`rgba(255,159,10,${0.1+intensity*0.7})`,red:`rgba(255,69,58,${0.1+intensity*0.7})`};
+                    const x = pad + col * (cellW + gap);
+                    ctx.fillStyle = colors[s];
+                    ctx.beginPath();
+                    const cr = 6;
+                    ctx.moveTo(x+cr, y); ctx.lineTo(x+cellW-cr, y); ctx.arcTo(x+cellW, y, x+cellW, y+cr, cr);
+                    ctx.lineTo(x+cellW, y+cellH-cr); ctx.arcTo(x+cellW, y+cellH, x+cellW-cr, y+cellH, cr);
+                    ctx.lineTo(x+cr, y+cellH); ctx.arcTo(x, y+cellH, x, y+cellH-cr, cr);
+                    ctx.lineTo(x, y+cr); ctx.arcTo(x, y, x+cr, y, cr);
+                    ctx.fill();
+
+                    if (val > 0) {
+                        ctx.fillStyle = '#fff'; ctx.font = 'bold 13px -apple-system'; ctx.textAlign = 'center';
+                        ctx.fillText(val, x + cellW/2, y + cellH/2 + 5);
+                    }
+                });
+            });
+        }
+
+        // 3. Progress comparison (horizontal bars)
+        function drawProgressChart() {
+            const {ctx, W, H} = setupCanvas('chart-progress');
+            const list = stats.progress_list.sort((a,b) => b.progress - a.progress);
+            if (list.length === 0) { ctx.fillStyle = '#555'; ctx.font = '13px -apple-system'; ctx.fillText('暂无数据', W/2-30, H/2); return; }
+
+            const barH = 26, gap = 8, pad = 140, maxBars = Math.min(list.length, 10);
+            list.slice(0, maxBars).forEach((p, i) => {
+                const y = 10 + i * (barH + gap);
+                // Name
+                ctx.fillStyle = '#888'; ctx.font = '11px -apple-system'; ctx.textAlign = 'right';
+                const name = p.name.length > 14 ? p.name.substring(0,14)+'...' : p.name;
+                ctx.fillText(name, pad - 10, y + barH/2 + 4);
+
+                // Bar background
+                const barW = W - pad - 50;
+                ctx.fillStyle = 'rgba(255,255,255,0.04)';
+                ctx.fillRect(pad, y, barW, barH);
+
+                // Bar fill
+                const fillW = barW * (p.progress / 100);
+                const color = p.progress >= 100 ? 'var(--green)' : p.status === 'completed' ? '#5e5ce6' : '#E60012';
+                ctx.fillStyle = p.progress >= 100 ? '#30d158' : p.status === 'completed' ? '#5e5ce6' : '#E60012';
+                if (fillW > 0) {
+                    ctx.beginPath();
+                    const cr = 4;
+                    ctx.moveTo(pad+cr, y); ctx.lineTo(pad+fillW-cr, y); ctx.arcTo(pad+fillW, y, pad+fillW, y+cr, cr);
+                    ctx.lineTo(pad+fillW, y+barH-cr); ctx.arcTo(pad+fillW, y+barH, pad+fillW-cr, y+barH, cr);
+                    ctx.lineTo(pad+cr, y+barH); ctx.arcTo(pad, y+barH, pad, y+barH-cr, cr);
+                    ctx.lineTo(pad, y+cr); ctx.arcTo(pad, y, pad+cr, y, cr);
+                    ctx.fill();
+                }
+
+                // Percentage
+                ctx.fillStyle = '#aaa'; ctx.font = 'bold 11px -apple-system'; ctx.textAlign = 'left';
+                ctx.fillText(p.progress + '%', pad + barW + 8, y + barH/2 + 4);
+            });
+        }
+
+        // 4. Product type donut
+        function drawProductChart() {
+            const {ctx, W, H} = setupCanvas('chart-product');
+            const dist = stats.product_distribution || {};
+            const entries = Object.entries(dist);
+            if (entries.length === 0) { ctx.fillStyle = '#555'; ctx.font = '13px -apple-system'; ctx.fillText('暂无数据', W/2-30, H/2); return; }
+
+            const colors = ['#E60012','#30d158','#ff9f0a','#5e5ce6','#bf5af2'];
+            const total = entries.reduce((s,[,v]) => s + v, 0) || 1;
+            const cx = W/2, cy = H/2 - 10, r = Math.min(W,H)/2 - 40, innerR = r * 0.55;
+            const nameMap = {INTERNET:'DIA 专线',WAN:'MPLS/SD-WAN',VPN:'IP VPN'};
+
+            let startAngle = -Math.PI/2;
+            entries.forEach(([key, val], i) => {
+                const sweep = (val/total) * Math.PI * 2;
+                ctx.beginPath(); ctx.moveTo(cx + innerR * Math.cos(startAngle), cy + innerR * Math.sin(startAngle));
+                ctx.arc(cx, cy, r, startAngle, startAngle + sweep);
+                ctx.arc(cx, cy, innerR, startAngle + sweep, startAngle, true);
+                ctx.closePath();
+                ctx.fillStyle = colors[i % colors.length]; ctx.fill();
+                startAngle += sweep;
+            });
+
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 24px -apple-system'; ctx.textAlign = 'center';
+            ctx.fillText(total, cx, cy + 4);
+            ctx.fillStyle = '#666'; ctx.font = '11px -apple-system';
+            ctx.fillText('产品', cx, cy + 20);
+
+            let ly = H - 20;
+            ctx.textAlign = 'left';
+            entries.forEach(([key, val], i) => {
+                const lx = (W / entries.length) * i + 10;
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.fillRect(lx, ly - 8, 10, 10);
+                ctx.fillStyle = '#aaa'; ctx.font = '11px -apple-system';
+                ctx.fillText(`${nameMap[key]||key}: ${val}`, lx + 14, ly);
+            });
+        }
+
+        window.addEventListener('resize', () => { if (stats) renderAll(); });
+    </script>
+<script src="/static/js/global.js"></script>
+</body>
+</html>

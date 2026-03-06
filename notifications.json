@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1772154119335",
+    "project_id": "1770789098454",
+    "project_name": "悉尼CBD办公室100M专线部署",
+    "type": "warning",
+    "message": "阶段 \"方案设计\" 出现问题",
+    "timestamp": "2026-02-27 12:01:59",
+    "read": true
+  },
+  {
+    "id": "1772154108377",
+    "project_id": "1770789098454",
+    "project_name": "悉尼CBD办公室100M专线部署",
+    "type": "warning",
+    "message": "阶段 \"方案设计\" 出现问题",
+    "timestamp": "2026-02-27 12:01:48",
+    "read": true
+  },
+  {
+    "id": "1771806239921",
+    "project_id": "1771806239917",
+    "project_name": "dasfji",
+    "type": "info",
+    "message": "新项目已创建: dasfji",
+    "timestamp": "2026-02-23 11:23:59",
+    "read": true
+  },
+  {
+    "id": "1770790746639",
+    "project_id": "1770790746637",
+    "project_name": "测试全功能项目",
+    "type": "info",
+    "message": "新项目已创建: 测试全功能项目",
+    "timestamp": "2026-02-11 17:19:06",
+    "read": true
+  }
+]
