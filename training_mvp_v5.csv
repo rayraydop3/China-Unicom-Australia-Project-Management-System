@@ -1,0 +1,295 @@
+operator_manual,bandwidth_mbps,region_rule,product_type_rule,price,term_months,region_a,region_z,text_all,sheet_name,row_id
+Optus,60.0,2000,WAN,674.0,1,2000,3000.0,"Evolve Ethernet WAN | A端：60 Martin Place, Sydney,NSW 2000 Z端：Rialto South Tower, 525 Collins Street, MELBOURNE VIC, 3000 | WAN | 20251001 | 20251031",address_sheet,address_sheet__2
+Optus,4.0,2000,WAN,280.0,1,2000,,4M Fibre | Phillip St Sydney NSW | WAN | 20251101 | 20251130,address_sheet,address_sheet__4
+Optus,10.0,2000,WAN,319.0,1,2000,,10M Fibre | Farrar Pl Sydney NSW | WAN | 20251101 | 20251130,address_sheet,address_sheet__5
+Optus,4.0,6090,WAN,940.0,1,6090,,4M Fibre | Mulgul Rd Malaga WA/ | WAN | 20251101 | 20251130,address_sheet,address_sheet__6
+Optus,20.0,2600,WAN,387.0,1,2600,,20M Fibre | Coronation Dr Yarralumla ACT | WAN | 20251101 | 20251130,address_sheet,address_sheet__7
+Optus,4.0,2000,WAN,319.0,1,2000,,4M Fibre | Barangaroo NSW | WAN | 20251101 | 20251130,address_sheet,address_sheet__8
+Optus,20.0,2000,WAN,320.0,1,2000,,20M Fibre | 140 Sussex St Sydney NSW | WAN | 20251101 | 20251130,address_sheet,address_sheet__9
+Optus,10.0,2000,WAN,319.0,1,2000,,10M Fibre | Sydney NSW | WAN | 20251101 | 20251130,address_sheet,address_sheet__10
+Optus,10.0,3000,WAN,329.0,1,3000,,10M Fibre | MELBOURNE VIC | WAN | 20251101 | 20251130,address_sheet,address_sheet__11
+Optus,10.0,2000,WAN,279.0,1,2000,,"10M Fibre | Level 23, Westpac Building, Level 23 60 Martin Place, SYDNEY NSW, 2000 | WAN | 20251101 | 20251130",address_sheet,address_sheet__12
+Optus,10.0,3000,WAN,427.0,1,3000,3205.0,10M | Melbourne Swanston to Melbourne DC | WAN | 20251101 | 20251130,address_sheet,address_sheet__13
+Optus,20.0,2149,WAN,444.0,1,2149,3000.0,"20M | Burwood to Melbourne
+B End: EVC00092149 | WAN | 20251101 | 20251130",address_sheet,address_sheet__14
+Optus,20.0,2067,WAN,444.0,1,2067,3000.0,20M | chatswood to Melbourne | WAN | 20251101 | 20251130,address_sheet,address_sheet__15
+Optus,50.0,2000,WAN,399.0,1,2000,2000.0,"50M Ewan | A End: Customers DC, level 1, suite 4, St Leonard
+B End: Level 9 140 Sussex Street, SYDNEY NSW, 2000 | WAN | 20251101 | 20251130",address_sheet,address_sheet__16
+Optus,1000.0,2000,WAN,999.0,1,2000,2065.0,"1000Mbps Ewan | A End: Level 9 140 Sussex Street, SYDNEY NSW, 2000
+B End: 39 Herbert St,St Leonards,NSW,2065（Circuit ID: EVC00104077） | WAN | 20251101 | 20251130",address_sheet,address_sheet__17
+Optus,1000.0,4008,INTERNET,339.0,1,4008,,"Evolve Ethernet WAN | 1G51, LEVEL 1, INTERNATIONAL TERMINAL, BRISBANE AIRPORT | Internet | 20251001 | 20251031",address_sheet,address_sheet__18
+Optus,100.0,2020,INTERNET,399.0,1,2020,,100M Bundled | 747-767 Airport Dr Mascot NSW; | Internet | 20250901 | 20250930,address_sheet,address_sheet__19
+Optus,100.0,2000,INTERNET,559.0,1,2000,,100M Bundled | York St Sydney NSW | Internet | 20250901 | 20250930,address_sheet,address_sheet__22
+Optus,100.0,2000,INTERNET,399.0,1,2000,,100M Bundled | 126 Phillip St Sydney NSW | Internet | 20250901 | 20250930,address_sheet,address_sheet__24
+Optus,50.0,2000,INTERNET,329.0,1,2000,,50M Bundled | Barangaroo Ave Barangaroo NSW | Internet | 20250901 | 20250930,address_sheet,address_sheet__25
+Optus,300.0,2000,INTERNET,549.0,1,2000,,300M Bundled | Farrer Pl Sydney NSW | Internet | 20250901 | 20250930,address_sheet,address_sheet__26
+Optus,100.0,2000,INTERNET,399.0,1,2000,,"100M Bundled | 46-48 Market Street, Sydney NSW | Internet | 20250901 | 20250930",address_sheet,address_sheet__27
+Optus,100.0,2000,INTERNET,399.0,1,2000,,100M Bundled | Clarence St Sydney NSW | Internet | 20250901 | 20250930,address_sheet,address_sheet__28
+Optus,300.0,2015,INTERNET,499.0,1,2015,,"300M Bundled | 47-49 Bourke Road, Alexandria NSW | Internet | 20250901 | 20250930",address_sheet,address_sheet__29
+Optus,100.0,4000,INTERNET,249.24,1,4000,,100M Bundled | Brisbane City QLD | Internet | 20250901 | 20250919,address_sheet,address_sheet__33
+Optus,100.0,2000,INTERNET,459.0,1,2000,,100M Bundled | Barangaroo NSW | Internet | 20250901 | 20250930,address_sheet,address_sheet__37
+Optus,300.0,2000,INTERNET,549.0,1,2000,,"300M Bundled | 2-26 PARK STREET, SYDNEY, NSW, 2000 | Internet | 20251101 | 20251130",address_sheet,address_sheet__38
+Optus,100.0,2220,INTERNET,399.0,1,2220,,"100M | 7-11 The Avenue Ave, Hurstville, NSW, 2220 | Internet | 20251101 | 20251130",address_sheet,address_sheet__39
+Optus,100.0,2144,INTERNET,189.0,1,2144,,"100M | 116 South Pde, AUBURN, NSW, 2144 | Internet | 20251101 | 20251130",address_sheet,address_sheet__41
+Optus,29.0,2000,INTERNET,369.0,1,2000,,"Evolve Internet | 19-29 MARTIN Plza, SYDNEY, NSW, 2000, | Internet | 20250901 | 20250930",address_sheet,address_sheet__42
+Optus,500.0,2060,INTERNET,529.0,1,2060,,"500M Bundled | 100 Miller St. North Sydney, NSW, 2060 | Internet | 20250901 | 20250930",address_sheet,address_sheet__43
+Optus,100.0,2000,INTERNET,329.0,1,2000,,"100M/100M | Ground Floor 120 Clarence Street, SYDNEY NSW, 2000 | Internet | 20250901 | 20250930",address_sheet,address_sheet__44
+Optus,500.0,3000,INTERNET,587.0,1,3000,,500M /29 | Mel | Internet | 20250901 | 20250930,address_sheet,address_sheet__45
+Optus,100.0,2220,INTERNET,207.0,1,2220,,"EoNBN 100M/40M  /29 | 213 Forest Road, HURSTVILLE NSW, 2220 | Internet | 20250901 | 20250930",address_sheet,address_sheet__46
+Optus,1000.0,6065,INTERNET,903.0,1,6065,,1000M Evolve Internet | Telstra Corporation 620 Gnangara Rd Landsdale WA 6065 AUSTRALIA | Internet | 20250901 | 20250930,address_sheet,address_sheet__47
+Optus,100.0,3128,INTERNET,199.0,1,3128,,"EoNBN 100M/40M  /29 | Shop 101,545 Station Street,Box Hill,VIC 3128 | Internet | 20250901 | 20250930",address_sheet,address_sheet__48
+Optus,100.0,5000,INTERNET,377.0,1,5000,,"100Mbps | Ground floor,1 King William Street, Adelaide SA 5000 | Internet | 20250901 | 20250930",address_sheet,address_sheet__49
+Optus,100.0,2060,INTERNET,377.0,1,2060,,"100M | level 19 ,100 ARTHUR ST,NORTH SYDNEY NSW 2060 | Internet | 20250901 | 20250930",address_sheet,address_sheet__50
+Optus,100.0,1221,INTERNET,399.0,1,1221,,"Internet | Eolve Internet | Office 1221 Level 3 International Terminal 1, Sydney Airport | nan | 100 | 24 | 已交付",线路,线路__1
+Optus,300.0,2015,INTERNET,499.0,1,2015,,"Internet | Eolve Internet | 47-49 Bourke Road, ALEXANDRIA NSW, 2015 | nan | 300 | 36 | 已交付",线路,线路__2
+Optus,100.0,2000,INTERNET,399.0,1,2000,,"Internet | Eolve Internet | Suite 202, Level 2 46-48 Market Street, SYDNEY NSW, 2000 | nan | 100 | 36 | 已交付",线路,线路__3
+Optus,100.0,2000,INTERNET,399.0,1,2000,,"Internet | Eolve Internet | Suite 32.02, 126 Phillip Street, Sydney | nan | 100 | 36 | 已交付",线路,线路__4
+Optus,50.0,2000,INTERNET,359.8,1,2000,,"Internet | Evolve Internet | 25.01A Level 25, Tower 1, 100 Barangaroo Barangaroo NSW 2000 | nan | 50 | 36 | 已交付",线路,线路__6
+Optus,100.0,4000,INTERNET,399.0,1,4000,,"Internet | Evolve Internet | Level 29 111 Eagle Street, BRISBANE CITY QLD, 4000 | nan | 100 | 36 | 已交付",线路,线路__7
+Vocus,400.0,4000,WAN,600.0,1,4000,2000,"Ethernet | Intercapital Ethernet | 71 Eagle Street Brisbane City QLD 4000 | Westpac Building, 60 Martin Pl , Sydney NSW 2000, Australia | 400 | 36 | 已交付",线路,线路__8
+Optus,100.0,2000,WAN,795.0,1,2000,4000,"Ethernet | Evolve EWAN | Westpac Building, 60 Martin Pl , Sydney NSW 2000, Australia | Level 35 71 Eagle Street, BRISBANE CITY QLD, 4000 | 100 | 1 | 已交付",线路,线路__9
+Vocus,10000.0,2148,WAN,1500.0,1,2148,2020,Ethernet | Vocus Etherwave | 35 Huntingwood Drive NSW Huntingwood 2148 Australia | 639 Gardeners Road Mascot NSW 2020 | 10G | 12 | 已止租,线路,线路__10
+Vocus,10000.0,2148,WAN,1500.0,1,2148,2007,"Ethernet | Vocus Etherwave | 35 Huntingwood Drive NSW Huntingwood 2148 Australia | 400 Harris St, Ultimo NSW 2007, Australia | 10G | 12 | 已止租",线路,线路__11
+Vocus,10.0,2148,WAN,300.0,1,2148,2020,Ethernet | Metro Ethernet | 35 Huntingwood Drive NSW Huntingwood 2148 Australia | 639 Gardeners Road Mascot NSW 2020 | 10 | 36 | 已止租,线路,线路__12
+Vocus,10.0,2148,WAN,300.0,1,2148,2007,Ethernet | Metro Ethernet | 35 Huntingwood Drive NSW Huntingwood 2148 Australia | 400 Harris Street Ultimo NSW 2007 | 10 | 36 | 已止租,线路,线路__13
+Interactive,100.0,2065,WAN,536.0,1,2065,2000,"Ethernet | nan | Tower A- 39 Herbert Street, St Leonards, NSW 2065 | Level 28, International Tower 1, 100 Barangaroo Avenue, Baranagaroo | 100 | 36 | 已交付",线路,线路__14
+Interactive,100.0,2065,WAN,536.0,1,2065,2000,"Ethernet | nan | Tower A- 39 Herbert Street, St Leonards, NSW 2065 | Level 28, International Tower 1, 100 Barangaroo Avenue, Baranagaroo | 100 | 36 | 已交付",线路,线路__15
+Vocus,100.0,2000,INTERNET,332.0,1,2000,,"Internet | Vocus Internet Express | Suite 28.02, Level 28, International Tower One Barangaroo, NSW | nan | 100 | 36 | 已交付",线路,线路__16
+Optus,100.0,2000,INTERNET,349.0,1,2000,,"Internet | Evolve Internet | Suite 28.02, Level 28, International Tower One Barangaroo, NSW | nan | 100 | 36 | 已交付",线路,线路__17
+AAPT,400.0,2000,INTERNET,299.0,1,2000,,"Internet | IP-Line (Fibre-400) | L 27, Gateway, 1 MACQUARIE PL Sydney NSW 2000 | nan | 400 | 36 | 已交付",线路,线路__18
+Optus,300.0,2000,INTERNET,549.0,1,2000,,"Internet | Evolve Internet | Level 18, Citigroup Centre, 2 Park Street, Sydney NSW 2000 | nan | 300 | 36 | 已交付",线路,线路__19
+Optus,100.0,2144,INTERNET,259.8,1,2144,,Internet | Evolve NBN | SHOP 3 116 SOUTH PDE AUBURN NSW 2144 | nan | 100/40 | 36 | 已交付,线路,线路__20
+Optus,100.0,2220,INTERNET,399.0,1,2220,,"Internet | Evolve Internet | 275/7-11 The Avenue, Hurstville, NSW, 2220 | nan | 100 | 36 | 已升级",线路,线路__21
+AAPT,400.0,3004,INTERNET,299.0,1,3004,,"Internet | IP-Line (Fibre-400) | 360 Elezabeth Street, Melbourne, VIC 3004 | nan | 400 | 36 | 止租中",线路,线路__23
+Optus,100.0,2067,INTERNET,359.0,1,2067,,"Internet | Evolve Internet | Shop 608 being 11/LF575 Westfield Chatswood, 1 Anderson St, Chatswood, NSW 2067 | nan | 100 | 36 | 已交付",线路,线路__24
+Optus,1000.0,2000,INTERNET,1079.0,1,2000,,"Internet | Evolve Internet | Level 9 140 Sussex Street, SYDNEY NSW, 2000 | nan | 1000 | 36 | 并未付费",线路,线路__25
+Vocus,10000.0,2007,WAN,1350.0,1,2007,2020,"Ethernet | Vocus Wavelength | 400 Harris St, Ultimo NSW 2007, Australia | Unit B/639 Gardeners Rd, Mascot NSW 2020, Australia | 10G | 12 | 已止租",线路,线路__28
+Vocus,10000.0,2007,WAN,1350.0,1,2007,2020,"Ethernet | Vocus Wavelength | MMR at Global Switch, 400 Harris Street, Ultimo, Sydney | MMR at Equinix, 639 Gardeners Rd, Mascot, NSW 2020 | 10G | 12 | 已止租",线路,线路__29
+Optus,100.0,2067,INTERNET,359.0,1,2067,,"Internet | Evolve Internet | Shop 608 being 11/LF575 Westfield Chatswood, 1 Anderson Street, Chatswood NSW 2067 | nan | 100 | 36 | 已交付",线路,线路__30
+AAPT,400.0,2000,INTERNET,299.0,1,2000,,Internet | IP-Line (Fibre-400) | LEVEL 12 87 LIVERPOOL STREET Sydney NSW 2000 | nan | 400 | 36 | 已交付,线路,线路__32
+AAPT,1000.0,2010,INTERNET,499.0,1,2010,,Internet | IP-Line (Fibre-1000) | LEVEL 3 84 MARY STREET SURRY HILLS NSW 2010 | nan | 1000 | 48 | 已升级,线路,线路__33
+Vocus,10000.0,2007,WAN,1350.0,1,2007,2020,"Ethernet | Vocus Wavelength | 400 Harris St, Ultimo NSW 2007, Australia | Unit B/639 Gardeners Rd, Mascot NSW 2020 | 10G | 12 | 已止租",线路,线路__35
+Vocus,10000.0,2007,WAN,1350.0,1,2007,2020,"Ethernet | Vocus Wavelength | 400 Harris St, Ultimo NSW 2007, Australia | Unit B/639 Gardeners Rd, Mascot NSW 2020 | 10G | 12 | 已止租",线路,线路__36
+AAPT,20.0,3000,INTERNET,280.0,1,3000,,"Internet | IP-Line | Suite 502 140 Bourke STREET, Melbourne VIC 3000 | nan | 20 | 36 | 止租中",线路,线路__37
+AAPT,400.0,2015,INTERNET,499.0,1,2015,,Internet | IP-Line (Fibre-400) | 93 O'RIORDAN Street Alexandria NSW 2015 | nan | 400 | 36 | 已交付,线路,线路__38
+AAPT,1000.0,3000,INTERNET,714.0,1,3000,,Internet | IP-Line | LEVEL 21 120 COLLINS STREET Melbourne VIC 3000 | nan | 1000 | 36 | 已交付,线路,线路__39
+AAPT,400.0,2000,INTERNET,299.0,1,2000,,Internet | IP-Line | LEVEL 28 SUITE 2801 25 BLIGH STREET Sydney NSW 2000 | nan | 400 | 36 | 已交付,线路,线路__40
+Optus,500.0,2060,INTERNET,579.0,1,2060,,"Internet | Evolve Internet | Level 41 100 Miller Street, NORTH SYDNEY NSW, 2060 | nan | 500 | 1 | 已搬迁",线路,线路__41
+AAPT,400.0,3000,INTERNET,299.0,1,3000,,Internet | IP-Line | LEVEL 8 303 COLLINS STREET Melbourne VIC 3000 | nan | 400 | 36 | 已交付,线路,线路__43
+Optus,2000.0,2007,INTERNET,10200.0,1,2007,,IP Transit | IP Transit | Global Switch DC 400 Harris Street ULTIMO NSW 2007 | nan | 2G | 24 | 已止租,线路,线路__44
+Vocus,100000.0,2148,WAN,10250.0,1,2148,2007,"Ethernet | Vocus Wavelength | 35 Huntingwood Drive NSW Huntingwood 2148 Australia | 400 Harris St, Ultimo NSW 2007, Australia | 100G | 24 | 已止租",线路,线路__47
+Vocus,100000.0,2148,WAN,10250.0,1,2148,2007,"Ethernet | Vocus Wavelength | 35 Huntingwood Drive NSW Huntingwood 2148 Australia | 400 Harris St, Ultimo NSW 2007, Australia | 100G | 24 | 已止租",线路,线路__48
+Vocus,500.0,2000,INTERNET,439.0,1,2000,,"Internet | Vocus Internet Express | 58 60 Martin Place, Sydney NSW 2000 | nan | 500 | 36 | 已交付",线路,线路__49
+AAPT,400.0,2601,INTERNET,299.0,1,2601,,Internet | IP-Line (Fibre-400) | LEVEL G 10 HOBART PLACE Canberra ACT 2601 | nan | 400 | 36 | 止租中,线路,线路__50
+Vocus,10.0,1010,INTERNET,285.0,1,1010,,"IP Transit | IP Transit (AS4826) | 220 QUEEN STREET, AUCKLAND CENTRAL, AUCKLAND, AUCKLAND, 1010 | nan | 10 | 36 | 止租中",线路,线路__52
+AAPT,100.0,5062,INTERNET,228.0,1,5062,,Internet | IP-Line | 60 BELAIR ROAD Hawthorn SA 5062 | nan | 100 | 36 | 止租中,线路,线路__54
+Optus,10.0,4006,INTERNET,287.0,1,4006,,"Internet | Evolve Internet | 454 St Pauls Terrace, Fortitude Valley QLD 4006 | nan | 10 | 1 | 止租中",线路,线路__55
+Vocus,10.0,3043,INTERNET,315.0,1,3043,,"Internet | IP Transit (AS4826) | 75 Sharps Rd, Tullamarine VIC 3043, | nan | 10 | 36 | 止租中",线路,线路__56
+Telstra,100.0,3043,INTERNET,595.0,1,3043,,"Internet | nan | 75 Sharps Rd, Tullamarine VIC 3043, | nan | 100 | 36 | 已交付",线路,线路__57
+Telstra,100.0,5062,INTERNET,595.0,1,5062,,"Internet | nan | 60 Belair Rd, Hawthorn SA 5062, | nan | 100 | 36 | 已交付",线路,线路__58
+Telstra,10.0,4006,INTERNET,595.0,1,4006,,"Internet | nan | 454 St Pauls Terrace, Fortitude Valley QLD 4006 | nan | 10 | 36 | 已交付",线路,线路__59
+Telstra,10.0,6090,INTERNET,595.0,1,6090,,"Internet | DIA | 101 Malaga Dr, Malaga WA 6090 | nan | 10 | 36 | 已交付",线路,线路__60
+Optus,50.0,3000,INTERNET,179.0,1,3000,,"Internet | Evolve NBN | L2, 115 Collins Street, Melbourne VIC | nan | 50/20 | 1 | 已交付",线路,线路__61
+AAPT,400.0,3000,INTERNET,299.0,1,3000,,Internet | IP-Line | LEVEL 33 8 EXHIBITION STREET Melbourne VIC 3000 | nan | 400 | 36 | 已交付,线路,线路__62
+Optus,100.0,4000,INTERNET,443.0,1,4000,,"Internet | Evolve Internet | Capita Building, Level 1 307 Queen Street, BRISBANE CITY QLD, 4000 | nan | 100 | 1 | 已交付",线路,线路__63
+AAPT,400.0,4000,INTERNET,339.0,1,4000,,Internet | IP-Line Fiber 400 | LEVEL 1 307 QUEEN STREET Brisbane City QLD 4000 | nan | 400 | 24 | 已交付,线路,线路__64
+Optus,250.0,2000,INTERNET,339.0,1,2000,,"Internet | Evolve Internet | Ground Floor 120 Clarence Street, SYDNEY NSW, 2000 | nan | 250 | 1 | 已升级",线路,线路__65
+Vocus,500.0,2020,INTERNET,349.0,1,2020,,"Internet | Vocus Internet Express | Suite 1097, Level3, International Terminal (T1) Airport, Mascot, NSW 2020 | nan | 500 | 36 | 已升级",线路,线路__67
+Optus,1000.0,2000,WAN,899.0,1,2000,2064,"Ethernet | Evolve EWAN | Level 9 140 Sussex Street, SYDNEY NSW, 2000 | Level 1 39 herbert Street, Artarmon, NSW 2064 | 1G | 1 | 已交付",线路,线路__69
+Optus,20.0,3000,WAN,427.0,1,3000,3207,"Ethernet | Evolve EWAN | Ground floor, 219-225 Swanston Street, Melbourne VIC 3000 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 20 | 36 | 已交付",线路,线路__70
+Telstra,50.0,4000,WAN,1104.0,1,4000,3207,"Ethernet | MLL- Ethernet | 1A/B Level 1, 307 Queen Street, Brisbane QLD 4000 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 50 | 36 | 已交付",线路,线路__71
+Optus,20.0,2067,WAN,444.0,1,2067,3207,"Ethernet | Evolve EWAN | Shop 12, The Concourse, 409 Victoria Ave, Chatswood NSW 2067 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 20 | 1 | 已交付",线路,线路__72
+Telstra,50.0,2000,WAN,696.0,1,2000,3207,"Ethernet | MLL- Ethernet | Ground Level, 39-41 York St, Sydney NSW 2000 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 50 | 36 | 已交付",线路,线路__73
+Optus,20.0,2134,WAN,416.0,1,2134,3207,"Ethernet | Evolve EWAN | 170 Burwood Road, Burwood NSW 2134 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 20 | 36 | 已交付",线路,线路__74
+Telstra,50.0,3000,WAN,500.0,1,3000,3207,"Ethernet | MLL- Ethernet | Level 21 120 Collins Street Melbourne VIC 3000 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 50 | 36 | 已交付",线路,线路__75
+Telstra,50.0,5000,WAN,696.0,1,5000,3207,"Ethernet | MLL- Ethernet | Level 8, Office 1, 1 King William Street, Adelaide SA 5000 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 50 | 36 | 已交付",线路,线路__76
+Telstra,50.0,2065,WAN,696.0,1,2065,3207,"Ethernet | MLL- Ethernet | Level 1 Suite 4 Rack K26, Tower A, 39 Herbert St, St Leonards NSW 2065 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 50 | 36 | 已交付",线路,线路__77
+Telstra,50.0,2000,WAN,696.0,1,2000,3207,"Ethernet | MLL- Ethernet | Unit 1, 681 George Street, Haymarket NSW 2000 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 50 | 36 | 已交付",线路,线路__78
+Telstra,50.0,2000,WAN,795.0,1,2000,3207,"Ethernet | MLL- Ethernet | Level 9, 140 Sussex St, Sydney NSW 2000 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 50 | 36 | 已交付",线路,线路__79
+Telstra,50.0,2220,WAN,696.0,1,2220,3207,"Ethernet | MLL- Ethernet | Unit 1, 213 Forest Road, Hurstville NSW 2220 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 50 | 36 | 已交付",线路,线路__80
+Optus,20.0,2150,WAN,444.0,1,2150,3207,"Ethernet | Evolve EWAN | Ground floor, 143 Church Street, Parramatta NSW 2150 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 20 | 1 | 已交付",线路,线路__81
+Optus,20.0,4109,WAN,525.0,1,4109,3207,"Ethernet | Evolve EWAN | G1, Market Square, 341 Mains Road, Sunnybank QLD 4109 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 20 | 36 | 已交付",线路,线路__82
+Optus,20.0,3150,WAN,427.0,1,3150,3207,"Ethernet | Evolve EWAN | G01, 52-56 O’Sullivan Rd, Glen Waverley VIC 3150 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207U101 | 20 | 36 | 已交付",线路,线路__83
+Optus,100.0,4109,INTERNET,871.0,1,4109,,"Internet | Evolve Internet | G1 Market Square, 341 Mains Road, Sunnybank, QLD | nan | 100 | 36 | 已交付",线路,线路__84
+AAPT,100.0,4109,INTERNET,109.0,1,4109,,"Internet | NBN | G1 Market Square, 341 Mains Road, Sunnybank, QLD | nan | 100/40 | 36 | 已交付",线路,线路__85
+Telstra,50.0,2000,WAN,697.0,1,2000,4109,"Ethernet | MLL- Ethernet | Level 9, 140 Sussex Street, Sydney, NSW 2000 | 341 Mains Road, Sunnybank, QLD 4109 | 50 | 36 | 已交付",线路,线路__86
+AAPT,1000.0,2000,INTERNET,699.0,1,2000,,"Internet | Fiber 1000 | L29/31 Market St, Sydney NSW | nan | 1000 | 36 | 已交付",线路,线路__87
+AAPT,100.0,2000,WAN,99.0,1,2000,,"Partner Link | AWS Partner Link | L29/31 Market St, Sydney NSW | nan | 100 | 36 | 已交付",线路,线路__88
+Optus,300.0,2000,INTERNET,495.0,1,2000,,"Internet | Evolve Internet | St Martins Tower, Level 29 31 Market Street, SYDNEY NSW, 2000 | nan | 300 | 36 | 已交付",线路,线路__89
+AAPT,1000.0,2000,INTERNET,699.0,1,2000,,"Internet | FAST Fibre (NTU) | L 9, 55 CLARENCE ST SYDNEY NSW 2000 | nan | 1000 | 24 | 已交付",线路,线路__90
+Optus,100.0,2153,INTERNET,199.0,1,2153,,"Internet | EoNBN | C53/24-28 Lexington Dr, Bella vista NSW 2153 | nan | 100/40 | 36 | 已交付",线路,线路__91
+Optus,1000.0,2000,INTERNET,699.0,1,2000,,"Internet | Evolve Internet | Level 9 55 Clarence Street, SYDNEY NSW, 2000 | nan | 1G | 1 | 已交付",线路,线路__92
+Optus,100.0,2000,INTERNET,199.0,1,2000,,"Internet | Evolve NBN | Suite 1g, Ground Floor 683-689 George Street, HAYMARKET NSW, 2000 | nan | 100/40 | 1 | 并未付费",线路,线路__93
+Optus,100.0,3000,INTERNET,452.0,1,3000,,"Internet | Evolve Internet | Level 21 120 Collins Street,Melbourne.VIC 3000 | nan | 100 | 1 | 已交付",线路,线路__94
+Telstra,500.0,2000,INTERNET,719.0,1,2000,,"Internet | Whole Sales Business Internet | Level 23, 60 Martin Place, Sydney, NSW 2000 | nan | 500 | 36 | 已交付",线路,线路__95
+Optus,500.0,2000,INTERNET,587.0,1,2000,,"Internet | Evolve Internet | Level 23, 60 Martin Place, Sydney, NSW 2000 | nan | 500 | 36 | 已交付",线路,线路__96
+AAPT,400.0,3000,INTERNET,299.0,1,3000,,Internet | FAST Fibre | 341 QUEEN STREET MELBOURNE VIC 3000 | nan | 400 | 36 | 止租中,线路,线路__97
+Telstra,100.0,3128,INTERNET,477.4,1,3128,,"Internet | Whole Sales Business Internet | Shop 101,545 Station Street,Box Hill,VIC 3128 | nan | 100 | 36 | 已交付",线路,线路__98
+AAPT,100.0,3128,INTERNET,149.0,1,3128,,Internet | NBN | SHOP 101 545 STATION STREET BOX HILL VIC 3128 | nan | 100/40 | 36 | 已交付,线路,线路__99
+Telstra,50.0,3128,WAN,499.0,1,3128,3207,"Ethernet | MLL- ETHERNET | UNIT 101, LEVEL 1, BUILDING 1, 545 STATION STREET, BOX HILL, VIC, 3128 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207 U101 | 50 | 36 | 已交付",线路,线路__100
+Optus,20.0,3128,WAN,467.0,1,3128,3207,"Ethernet | Evolve EWAN | Shop 101,545 Station Street,Box Hill,VIC 3128 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207 U101 | 20 | 36 | 已交付",线路,线路__101
+Optus,100.0,2220,INTERNET,207.0,1,2220,,"Internet | EoNBN | 213 Forest Road, HURSTVILLE NSW, 2220 | nan | 100/40 | 1 | 已交付",线路,线路__102
+Optus,100.0,2067,INTERNET,207.0,1,2067,,"Internet | EoNBN | Shop 12 409 Victoria Avenue, CHATSWOOD NSW, 2067 | nan | 100/40 | 1 | 已交付",线路,线路__103
+Optus,100.0,6000,INTERNET,452.0,1,6000,,Internet | Evolve Internet | L28 77 ST GEORGES TERRACE PERTH WA 6000 | nan | 100 | 1 | 已交付,线路,线路__104
+AAPT,100.0,6000,INTERNET,194.0,1,6000,,Internet | NBN | LEVEL 28 77 ST GEORGES TERRACE PERTH WA 6000 | nan | 100/40 | 12 | 已交付,线路,线路__105
+Optus,20.0,6000,WAN,416.0,1,6000,3207,"Ethernet | Evolve EWAN | L28, 77 St George Terrance,Perth,WA,6000 | Ground floor, 437 Williamstown Road, Port Melbourne VIC 3207 U101 | 20 | 1 | 已交付",线路,线路__106
+AAPT,50.0,2000,WAN,599.0,1,2000,,Partner Link | AWS Partner Link | LEVEL 9 140 SUSSEX STREET SYDNEY NSW 2000 | nan | 50 | 24 | 已交付,线路,线路__107
+Optus,1000.0,2000,WAN,999.0,1,2000,,Ethernet | Evolve EWAN | LEVEL 9 140 SUSSEX STREET SYDNEY NSW 2000 | nan | 1G | 1 | 已交付,线路,线路__108
+Optus,50.0,2065,WAN,399.0,1,2065,2000,"Ethernet | Evolve EWAN | 39 Herbert St, St Leonards NSW 2065 | Level 9 140 Sussex Street, SYDNEY NSW, 2000 | 50 | 1 | 已交付",线路,线路__109
+Vocus,50.0,2065,WAN,305.0,1,2065,2000,"Partner Link | Vocus Cloud Connect | 11, 39 Herbert St, St Leonards, NSW 2065, Australia | 40-152 Sussex Street SYDNEY NSW 2000 Australia | 50 | 24 | 已交付",线路,线路__110
+Vocus,50.0,2007,WAN,980.0,1,2007,2007,"Partner Link | Vocus Cloud Connect | Global Switch 400 Harris St, Ultimo NSW 2007, Australia | Global Switch 400 Harris St, Ultimo NSW 2007, Australia | 50 | 24 | 已交付",线路,线路__111
+AAPT,50.0,2065,WAN,599.0,1,2065,,Partner Link | AWS Partner Link | TOWER A 39 HERBERT STREET ST LEONARDS NSW 2065 | nan | 50 | 24 | 已交付,线路,线路__112
+Optus,100.0,3128,INTERNET,199.0,1,3128,,"Internet | EoNBN | Shop 101,545 Station Street,Box Hill,VIC 3128 | nan | 100/40 | 1 | 已交付",线路,线路__113
+AAPT,400.0,2000,INTERNET,299.0,1,2000,,"Internet | FAST Fibre (NTU) | Suite 6.04, 227 Elizabeth Street, Sydney NSW 2000, AUSTRALIA | nan | 400 | 36 | 已止租",线路,线路__114
+Optus,100.0,5000,INTERNET,377.0,1,5000,,"Internet | Evolve Internet | Shop 1, Ground Floor 1 King William Street, ADELAIDE SA, 5000 | nan | 100 | 1 | 已交付",线路,线路__115
+AAPT,400.0,2060,INTERNET,314.0,1,2060,,"Internet | FAST Fibre (NTU) | level 19 ,100 ARTHUR ST,NORTH SYDNEY NSW 2060 | nan | 400 | 36 | 已交付",线路,线路__116
+Optus,100.0,2060,INTERNET,514.0,1,2060,,"Internet | Evolve Internet | level 19 ,100 ARTHUR ST,NORTH SYDNEY NSW 2060 | nan | 100 | 1 | 已交付",线路,线路__117
+AAPT,1000.0,2000,INTERNET,514.0,1,2000,,"Internet | Fibre 1000 | level 39, Governor Philip tower 1 farrer place sydney nsw 2000 | nan | 1000 | 36 | 已交付",线路,线路__118
+Optus,100.0,2000,INTERNET,349.0,1,2000,,"Internet | Evolve Internet | Suite 3, Level 21 1 York Street, SYDNEY NSW, 2000 | nan | 100 | 12 | 已交付",线路,线路__119
+Optus,100.0,2134,INTERNET,240.57,1,2134,,"Internet | EoNBN | 170 Burwood Road, BURWOOD NSW, 2134 | nan | 100/40 | 1 | 已交付",线路,线路__120
+Optus,100.0,3000,INTERNET,240.57,1,3000,,"Internet | EoNBN | G0, S01, 219-225 Swanston St, MELBOURNE, VIC, 3000, Australia | nan | 100/40 | 1 | 已交付",线路,线路__121
+Optus,100.0,2000,INTERNET,399.0,1,2000,,"Internet | Evolve Internet | Level 5 120 Clarence Street, SYDNEY NSW, 2000 | nan | 100 | 36 | 已交付",线路,线路__122
+Optus,300.0,2000,INTERNET,549.0,1,2000,,"Internet | Evolve Internet | L39 1 Farrer Place, Sydney, NSW 2000 | nan | 300 | 36 | 已交付",线路,线路__123
+Optus,100.0,2210,INTERNET,399.0,1,2210,,"Internet | Evolve Internet | level 2, 2 Help Street Chatswood NSW 2210 | nan | 100 | 36 | 已止租",线路,线路__124
+Optus,300.0,2000,INTERNET,549.0,1,2000,,"Internet | Evolve Internet | St Martins Tower, Level 29 31 Market Street, SYDNEY NSW, 2000 | nan | 300 | 36 | 已交付",线路,线路__125
+Vocus,20.0,2000,VPN,410.0,1,2000,,"MPLS-VPN | IP WAN | Level 42, Tower One, International Towers, 100 Barangaroo Avenue, Barangaroo NSW 2000 | nan | 20 | 36 | 已交付",线路,线路__126
+Vocus,20.0,2065,VPN,410.0,1,2065,,"MPLS-VPN | IP WAN | Tower A, 39 Herbert Street, St Leonards NSW 2065 | nan | 20 | 36 | 已交付",线路,线路__127
+Vocus,20.0,6000,VPN,410.0,1,6000,,"MPLS-VPN | IP WAN | Level 28, St Martins Tower, 44 St Georges Terrace, Perth WA 6000 Australia | nan | 20 | 36 | 已交付",线路,线路__128
+Vocus,20.0,3000,VPN,410.0,1,3000,,"MPLS-VPN | IP WAN | Level 3, 379 Collins Street, Melbourne VIC 3000 Australia | nan | 20 | 36 | 已交付",线路,线路__129
+Vocus,20.0,4000,VPN,410.0,1,4000,,"MPLS-VPN | IP WAN | Level 29, 111 Eagle Street, Brisbane 4000 | nan | 20 | 36 | 已交付",线路,线路__130
+Optus,1000.0,2000,INTERNET,639.0,1,2000,,"Internet | Evolve Internet | 001, 28, S01, 100 Barangaroo Ave, Barangaroo, NSW, 2000, Australia | nan | 1000 | 1 | 已交付",线路,线路__131
+AAPT,400.0,2113,INTERNET,299.0,1,2113,,Internet | Fibre 400 | LEVEL G B 03 78 WATERLOO ROAD Macquarie Park NSW 2113 | nan | 400 | 36 | 已交付,线路,线路__132
+Telstra,20.0,2603,INTERNET,353.2,1,2603,,"DIA | WBI | 12 Talbot Street, Forrest, ACT 2603, Australia | nan | 20 | 36 | 已交付",线路,线路__133
+Optus,100.0,2603,INTERNET,159.0,1,2603,,"Internet | EoNBN | 12 Talbot Street, Forrest, ACT 2603, Australia | nan | 100/40 | 36 | 已交付",线路,线路__134
+Optus,2000.0,2000,INTERNET,2495.0,1,2000,,"Internet | EoDWDM | Level 9 140 Sussex Street, SYDNEY NSW, 2000 | nan | 2000 | 24 | 已交付",线路,线路__135
+AAPT,400.0,2000,INTERNET,299.0,1,2000,,Internet | Fibre 400 | SUITE 1702 570 GEORGE STREET SYDNEY NSW 2000 | nan | 400 | 36 | 已交付,线路,线路__136
+AAPT,100.0,2765,INTERNET,139.0,1,2765,,Internet | NBN-FTTP | LOT 2051 33 WOODGATE PARKWAY BOX HILL NSW 2765 | nan | 100/40 | 24 | 已交付,线路,线路__137
+AAPT,400.0,2060,INTERNET,299.0,1,2060,,"Internet | IP-Line (Fibre-400) | Level 41, 100 Miller Street, North Sydney, NSW 2060 | nan | 400 | 36 | 已交付",线路,线路__138
+AAPT,400.0,2138,INTERNET,299.0,1,2138,,"Internet | FAST Fibre (NTU) | Suite 303, Building F, 1 Homebush Bay Dr. Rhodes, NSW 2138
+AUSTRALIA | nan | 400 | 36 | 已止租",线路,线路__139
+AAPT,400.0,2067,INTERNET,299.0,1,2067,,Internet | FAST Fibre (NTU) | LEVEL 2 SUITE 2 8 HELP STREET CHATSWOOD NSW 2067 | nan | 400 | 36 | 已交付,线路,线路__140
+AAPT,50.0,2065,INTERNET,599.0,1,2065,,Internet | FAST Fibre (NTU) | TOWER A 39 HERBERT STREET ST LEONARDS NSW 2065 | nan | 50 | 24 | 已交付,线路,线路__141
+AAPT,250.0,2000,INTERNET,280.0,1,2000,,"Internet | FAST Fibre (NTU) | SUITE 3503, 31 MARKET STREET SYDNEY, NSW 2000 | nan | 250 | 36 | 已交付",线路,线路__142
+AAPT,400.0,2000,INTERNET,299.0,1,2000,,Internet | FAST Fibre (NTU) | 15 CASTLEREAGH STREET SYDNEY NSW 2000 | nan | 400 | 36 | 已交付,线路,线路__143
+AAPT,400.0,3000,INTERNET,299.0,1,3000,,Internet | FAST Fibre (NTU) | LEVEL 30 525 COLLINS STREET MELBOURNE VIC 3000 | nan | 400 | 36 | 已交付,线路,线路__144
+Optus,300.0,2000,INTERNET,825.0,1,2000,,"Internet | Evolve Internet | Westpac Building, Level 20 60 Martin Place, SYDNEY NSW, 2000 | nan | 300 | 12 | 已交付",线路,线路__146
+Optus,100.0,UNKNOWN,INTERNET,439.0,1,,,Internet | Evolve Internet | Level 14 comms rack RU 2 port 3 RAD NTU | nan | 100 | 24 | 已交付,线路,线路__147
+Vocus,400.0,2015,INTERNET,1406.0,1,2015,,"Internet | Enterprise Internet | Unit B/200 Bourke Road, Alexandria, NSW 2015, Australia | nan | 400 | 12 | 已交付",线路,线路__148
+AAPT,400.0,3000,INTERNET,299.0,1,3000,,"Internet | FAST Fibre (NTU) | SE 2, LEVEL 14 NORTH TOW, 80 COLLINS ST MELBOURNE VIC 3000 | nan | 400 | 36 | 已止租",线路,线路__149
+Telstra,10.0,UNKNOWN,WAN,404.0,1,,,IEPL | nan | nan | nan | 10 | 36 | 已交付,线路,线路__150
+Optus,20.0,2000,INTERNET,320.0,1,2000,2020,"DIA | Evolve EWAN | Level 9 140 Sussex Street, SYDNEY NSW, 2000 | 639b Gardeners Road, MASCOT NSW, 2020 | 20 | 36 | 已交付",线路,线路__152
+Telstra,40.0,UNKNOWN,INTERNET,685.95,1,,,DIA | nan | nan | nan | 40 | 36 | 已交付,线路,线路__153
+Optus,10.0,2000,WAN,255.0,1,2000,2020,"IEPL | Evolve EWAN | Suite 3, Level 21 1 York Street, SYDNEY NSW, 2000 | 639b Gardeners Road, MASCOT NSW, 2020 | 10 | 36 | 已交付",线路,线路__154
+Optus,10.0,2000,WAN,279.0,1,2000,2020,"IEPL | Evolve EWAN | Westpac Building, Level 23 60 Martin Place, SYDNEY NSW, 200 2000 | 639b Gardeners Road, MASCOT NSW, 2020 | 10 | 1 | 已交付",线路,线路__155
+Optus,10.0,2000,WAN,279.0,1,2000,2020,"IEPL | Evolve EWAN | Suite C, Level 45 2-26 Park Street, SYDNEY NSW, 2000 | 639b Gardeners Road, MASCOT NSW, 2020 | 10 | 1 | 已交付",线路,线路__158
+Telstra,50.0,2000,WAN,575.0,1,2000,,"IEPL | MLL- Ethernet | Level 18, 2 Chifley Square, Sydney, NSW, 2000, Australia | CU POP SY1 | 50 | nan | 已交付",线路,线路__159
+Telstra,50.0,2020,INTERNET,990.0,1,2020,2000,"DIA | MLL- Ethernet | 639 Gardeners Road, MASCOT NSW, 2020 | SUITE 1303, 370 PITT ST, SYDNEY, NSW 2000 | 50 | 36 | 已交付",线路,线路__160
+Optus,4.0,2000,INTERNET,280.0,1,2000,2020,"DIA | Evolve EWAN | Tower 1, Level 28 100 Barangaroo Avenue, BARANGAROO NSW, 2000 | 639b Gardeners Road, MASCOT NSW, 2020 | 4 | 12 | 已交付",线路,线路__162
+Optus,10.0,2007,WAN,279.0,1,2007,,"IEPL | Evolve EWAN | Level 6 390 Harris Street, ULTIMO NSW, 2007 | nan | 10 | 12 | 已交付",线路,线路__163
+Optus,10.0,2000,WAN,280.0,1,2000,2020,"IEPL | Evolve EWAN | Level 31 88 Phillip Street, SYDNEY NSW, 2000 | 639b Gardeners Road, MASCOT NSW, 2020 | 10 | 12 | 已升级",线路,线路__164
+Spark,2.0,6011,WAN,1100.0,1,6011,,"IEPL | nan | 2-6 Glenmore Street, Kelburn, Wellington, New Zealand | nan | 2 | 12 | 已交付",线路,线路__165
+Optus,20.0,2600,WAN,387.0,1,2600,2020,"IEPL | Evolve EWAN | Embassy of China, 15 Coronation Drive, YARRALUMLA ACT, 2600 | 639b Gardeners Road, MASCOT NSW, 2020 | 20 | 36 | 已升级",线路,线路__166
+Optus,4.0,6090,WAN,940.0,1,6090,2020,"IEPL | Evolve EWAN | 16 Mulgul Road, MALAGA WA, 6090 | 639b Gardeners Road, MASCOT NSW, 2020 | 4 | 12 | 已升级",线路,线路__167
+Optus,4.0,2000,WAN,280.0,1,2000,2020,"IEPL | Evolve EWAN | Tower 1, Level 28 100 Barangaroo Avenue, BARANGAROO NSW, 2000 | 639b Gardeners Road, MASCOT NSW, 2020 | 4 | 12 | 已交付",线路,线路__168
+Telstra,50.0,6067,WAN,1212.0,1,6067,6008,"IEPL | nan | PERTH I T CENTRE, 620 GNANGARA ROAD, CULLACABARDEE, WA, 6067 | 37 LEMNOS STREET, SHENTON PARK, WA, 6008 | 50 | 36 | 已交付",线路,线路__169
+Spark,10.0,9071,WAN,9775.0,1,9071,2020,"IEPL | Carrier Ethernet - E-Access EPL | Rue d'Auvergne, Nambatu, Port Vila, Vanuatu | 639b Gardeners Road, MASCOT NSW, 2020 | 10 | 36 | 并未付费",线路,线路__170
+Spark,10.0,UNKNOWN,WAN,5800.0,1,,2020,"IEPL | International Carrier Ethernet | Embassy of China, 183 Queen Elizabeth Drive, Suva, Fiji | 639b Gardeners Road, MASCOT NSW, 2020 | 10 | 36 | 并未付费",线路,线路__171
+Optus,10.0,3004,WAN,289.0,1,3004,2020,"IEPL | Evolve EWAN | Level 8 564 St Kilda Road, MELBOURNE VIC, 3004 | 639b Gardeners Road, MASCOT NSW, 2020 | 10 | 1 | 已交付",线路,线路__172
+Optus,100.0,6065,INTERNET,863.0,1,6065,,DIA | Evolve Internet | Telstra Corporation 620 Gnangara Rd Landsdale WA 6065 AUSTRALIA | nan | 100 | 36 | 已交付,线路,线路__173
+Optus,10.0,2000,VPN,279.0,1,2000,2020,"MPLS-VPN | Evolve EWAN | Mlc Centre, Level 47 19-29 Martin Place, SYDNEY NSW, 2000 | 639b Gardeners Road, MASCOT NSW, 2020 | 10 | 1 | 已交付",线路,线路__174
+Equinix,10000.0,UNKNOWN,WAN,200.0,1,,,IEPL | Cross Connection | CU Rack | Customer Rack in Equinix | 10G | 1 | 已交付,线路,线路__175
+Equinix,10000.0,UNKNOWN,WAN,200.0,1,,,IEPL | Cross Connection | CU Rack | Ali Customer Rack in Equinix | 10G | 1 | 已交付,线路,线路__176
+Equinix,10000.0,UNKNOWN,WAN,200.0,1,,,IEPL | Cross Connection | Telstra Rack | CU Rack | 10G | 1 | 已交付,线路,线路__177
+Telstra,10.0,2113,INTERNET,393.0,1,2113,,"DIA | Ethernet Access Service | Ground Floor, Suite 2, 67 Epping Road, Macquarie Park | nan | 10 | 36 | 已交付",线路,线路__178
+Optus,20.0,2000,WAN,285.0,1,2000,2020,"IEPL | Evolve EWAN | level 39, Governor Philip tower 1 farrer place sydney nsw 2000 | 639b Gardeners Road, MASCOT NSW, 2020 | 20 | 36 | 已交付",线路,线路__179
+Optus,20.0,6000,WAN,279.0,1,6000,6008,"IEPL | Evolve EWAN | Level 21, 77 St. Georges Tce, Perth, WA 6000, Australia | Unit 13, 37 Lemnos St, Shenton Park WA 6008 | 20 | 12 | 已交付",线路,线路__180
+Optus,500.0,2007,WAN,499.0,1,2007,2020,"IEPL | Evolve EWAN | Level 6 390 Harris Street, ULTIMO NSW, 2007 | Building Name/Number SY1:01:000340 
+ Level 1 639b Gardeners Road, MASCOT NSW, 2020 | 500 | 12 | 已交付",线路,线路__181
+Optus,50.0,2064,INTERNET,279.0,1,2064,2020,"DIA | Evolve EWAN | Tower B, Level 1, 39 Herbert Street, ARTARMON NSW 2064 | SY1:01:000340, Level 1, 639b Gardeners Road, MASCOT NSW, 2020 | 50 | 36 | 已交付",线路,线路__182
+Optus,100.0,2000,WAN,1348.0,1,2000,3000,"Ethernet | Evolve EWAN | 60 Martin Place, Sydney,NSW 2000 | Rialto South Tower, 525 Collins Street, MELBOURNE VIC, 3000 | 100 | nan | 已交付",线路,线路__183
+Optus,200.0,3000,INTERNET,549.0,1,3000,,"Internet | Evolve Internet | Level 34/Rialto South Tower,525 Collins St., Melbourne VIC 3000 | nan | 200 | nan | 已交付",线路,线路__184
+Optus,100.0,4000,INTERNET,379.0,1,4000,,"Internet | Evolve Internet | Brisbane Office: Level 35,71 Eagle Street, Brisbane QLD 4000 | nan | 100 | nan | 已交付",线路,线路__185
+Optus,20.0,6000,VPN,598.0,1,6000,,"IP VPN | Evolve IPVPN | Level 28, St Martins Tower, 44 St Georges Terrace, Perth, WA 6000 | nan | 20 | nan | 已交付",线路,线路__186
+Optus,50.0,2000,INTERNET,329.0,1,2000,,"Internet | Evolve Internet | Level 42, Tower 1, 100 Barangaroo Avenue Barangaroo | nan | 50 | nan | 已交付",线路,线路__187
+Optus,500.0,2000,INTERNET,749.0,1,2000,,"Internet | Evolve Internet | Level 42, Tower 1, 100 Barangaroo Avenue Barangaroo | nan | 500 | nan | 已交付",线路,线路__188
+Optus,1000.0,2000,WAN,1980.0,1,2000,2065,"Ethernet | Evolve EWAN | Level 42 Tower 1 100 Barangaroo Avenue Barangaroo | Tower A, 39 Herbert St, St Leonards NSW 2065 (Interactive ICBC Rack) | 1G | nan | 已交付",线路,线路__189
+Optus,500.0,2600,INTERNET,924.0,1,2600,,Internet | Evolve Internet | 200 Alexandrina Dr. Yarralumla ACT 2600 | nan | 500 | nan | 已交付,线路,线路__190
+Optus,500.0,2600,INTERNET,924.5,1,2600,,Internet | Evolve Internet | 200 Alexandrina Dr. Yarralumla ACT 2600 | nan | 500 | nan | 已交付,线路,线路__191
+Optus,100.0,2010,INTERNET,830.0,1,2010,,Internet | Evolve Internet | 539 Elizabeth St Surry Hill 2010 | nan | 100 | nan | 已交付,线路,线路__192
+Optus,1000.0,2050,INTERNET,1079.0,1,2050,,"Internet | Evolve Internet | Ground Floor Comms Room, 39 Dunblane Street Camperdown NSW 2050 Australia | nan | 1G | nan | 已交付",线路,线路__193
+Optus,1000.0,2050,INTERNET,1079.0,1,2050,,"Internet | Evolve Internet | Ground Floor Comms Room, 39 Dunblane Street Camperdown NSW 2050 Australia | nan | 1G | nan | 已交付",线路,线路__194
+Optus,100.0,2000,INTERNET,399.0,1,2000,,"Internet | Evolve Internet | Level 32, 126 Phillip Street Sydney NSW 2000 | nan | 100 | nan | 已交付",线路,线路__195
+Optus,10.0,2000,WAN,638.0,1,2000,2020,"Ethernet | Evolve EWAN | Level 3, 120 Clarence Street, Sydney, NSW 2000 | level 3, Sydney international airport terminal 1, Mascot, NSW, 2020 | 10 | nan | 已交付",线路,线路__196
+Optus,10.0,3000,WAN,578.0,1,3000,2000,"Ethernet | Evolve EWAN | Level 6 342 Flinders Street, MELBOURNE VIC, 3000 | Level 3, 120 Clarence Street, Sydney, NSW 2000 | 10 | nan | 已交付",线路,线路__197
+Optus,10.0,3000,WAN,578.0,1,3000,3045,"Ethernet | Evolve EWAN | Level 6 342 Flinders Street, MELBOURNE VIC, 3000 | Level 2 terminal 2, Melbourne airport, Tullamarine, VIC 3045 | 10 | nan | 已交付",线路,线路__198
+Optus,100.0,3000,INTERNET,399.0,1,3000,,"Internet | Evolve Internet | Level 6 342 Flinders Street, MELBOURNE VIC, 3000 | nan | 100 | nan | 已交付",线路,线路__199
+Optus,500.0,2067,INTERNET,459.0,1,2067,,"Internet | Evolve Internet | Unit 905, Floor 9/12 Help St, Chatswood NSW 2067 | nan | 500 | nan | 已交付",线路,线路__200
+Optus,100.0,2000,INTERNET,369.0,1,2000,,"Internet | Evolve Internet | Level 47, MLC Centre，19-29 Martin Pl, Sydney NSW 2000, Australia | nan | 100 | nan | 已交付",线路,线路__201
+Optus,20.0,2000,VPN,598.0,1,2000,,IP VPN | Evolve IPVPN | Level 42 Tower 1 100 Barangaroo Avenue Barangaroo | nan | 20 | nan | 已交付,线路,线路__202
+Optus,20.0,2065,VPN,598.0,1,2065,,"IP VPN | Evolve IPVPN | Tower A, 39 Herbert St, St. Leonards, Sydney, NSW 2065 | nan | 20 | nan | 已交付",线路,线路__203
+Optus,20.0,3000,VPN,598.0,1,3000,,"IP VPN | Evolve IPVPN | Level3, 379 COLLINS STREET, MELBOURNE，VIC | nan | 20 | nan | 已交付",线路,线路__204
+Optus,20.0,4000,VPN,598.0,1,4000,,"IP VPN | Evolve IPVPN | Suite 2901, Part of Level 29, 111 Eagle Street, Brisbane, QLD 4000 | nan | 20 | nan | 已交付",线路,线路__205
+Optus,100.0,2065,INTERNET,287.0,1,2065,,"Internet | Evolve Internet | Level 1 Suite 4 Rack K26, Tower A, 39 Herbert St, St Leonards NSW  2065 | nan | 100 | 12 | 已交付",线路,线路__207
+Vocus,10.0,2007,WAN,276.0,1,2007,2020,"Ethernet | Metro Ethernet | 400 Harris Street Ultimo Nsw 2007 | 639 Gardeners Road, Mascot Nsw 2020 Australia | 10 | 36 | 已交付",线路,线路__208
+Telstra,100.0,2000,INTERNET,626.0,1,2000,,"Internet | Whole Sales Business Internet | Unit 1, 681 George Street, Haymarket NSW 2000 | nan | 100 | 12 | 已交付",线路,线路__209
+Telstra,100.0,2220,INTERNET,626.0,1,2220,,"Internet | Whole Sales Business Internet | Level 1, 213 Forest Road, Hurstville NSW 2220 | nan | 100 | 12 | 已交付",线路,线路__210
+Telstra,100.0,2150,INTERNET,626.0,1,2150,,"Internet | Whole Sales Business Internet | Ground floor, 143 Church Street, Parramatta NSW 2150 | nan | 100 | 12 | 已交付",线路,线路__211
+Telstra,100.0,2134,INTERNET,626.0,1,2134,,"Internet | Whole Sales Business Internet | 170 BURWOOD ROAD, BURWOOD NSW 2134 | nan | 100 | 12 | 已交付",线路,线路__212
+Telstra,100.0,3000,INTERNET,626.0,1,3000,,"Internet | Whole Sales Business Internet | 219-225 SWANSTON STREET, MELBOURNE VIC 3000 | nan | 100 | 12 | 已交付",线路,线路__213
+AAPT,100.0,5000,INTERNET,224.0,1,5000,,"Internet | NBN-FTTB | Level 8, Office 1, 1 King William Street, Adelaide SA 5000 | nan | 100/40 | 12 | 已交付",线路,线路__214
+AAPT,250.0,2067,INTERNET,414.0,1,2067,,"Internet | FAST Fibre (NTU) | Shop 12 409 Victoria Avenue, CHATSWOOD NSW, 2067 | nan | 250 | 12 | 已交付",线路,线路__215
+AAPT,100.0,2000,INTERNET,224.0,1,2000,,"Internet | NBN-FTTC | Unit 1, 681 George Street, Haymarket NSW 2000 | nan | 25-100M
+/5-40M | 12 | 已交付",线路,线路__216
+AAPT,100.0,2150,INTERNET,224.0,1,2150,,"Internet | NBN-HFC | Ground floor, 143 Church Street, Parramatta NSW 2150 | nan | 100/40 | 12 | 已交付",线路,线路__217
+Vocus,500.0,2000,INTERNET,500.0,1,2000,,"Internet | Vocus Internet Express | 100 Barangaroo Avenue, Barangaroo NSW 2000, Australia | nan | 500 | nan | 已交付",线路,线路__218
+Vocus,500.0,2000,INTERNET,500.0,1,2000,,"Internet | Vocus Internet Express | 100 Barangaroo Avenue, Barangaroo NSW 2000, Australia | nan | 500 | nan | 已交付",线路,线路__219
+Optus,200.0,2007,WAN,399.0,1,2007,2020,"Ethernet | Evolve EWAN | Level 6 390 Harris Street, ULTIMO NSW, 2007 | 639b Gardeners Road, MASCOT NSW, 2020 | 200 | 12 | 已交付",线路,线路__220
+Occom,100.0,2033,INTERNET,100.0,1,2033,,"Internet | NBNCo SME Unlimited 100/40 | Office 1, 19 Anzac Parade, Kensington NSW 2033 | nan | 100 | 36 | 已交付",线路,线路__223
+Occom,100.0,2016,INTERNET,100.0,1,2016,,"Internet | NBNCo SME Unlimited 100/40 | Lot 1, 68 George Street, Redfern NSW 2016 | nan | 100 | 36 | 已交付",线路,线路__224
+Optus,300.0,2000,INTERNET,825.0,1,2000,,"Internet | Evolve Internet | Westpac Building, Level 20 60 Martin Place, SYDNEY NSW, 2000 | nan | 300 | 12 | 已交付",线路,线路__226
+Optus,100.0,2000,INTERNET,339.0,1,2000,,"Internet | Evolve Internet | Level 25, 123 Pitt Street, Sydney | nan | 100 | 12 | 已交付",线路,线路__227
+Optus,100.0,2000,INTERNET,339.0,1,2000,,"Internet | Evolve Internet | Suite 2, Ground Floor, 117 Clarence Street, SYDNEY, NSW, 2000 | nan | 100 | 12 | 已交付",线路,线路__228
+Optus,1000.0,2000,INTERNET,639.0,1,2000,,"Internet | Evolve Internet | 2801 One Internetational Tower Tower 1, 100 Barangaroo Avenue, BARANGAROO NSW, 2000 | nan | 1000 | 12 | 已交付",线路,线路__229
+Optus,10.0,2065,WAN,249.0,1,2065,2020,"IEPL | Evolve EWAN | 39 herbert street, st leonards nsw 2065 | 639b Gardeners Road, MASCOT NSW, 2020 | 10 | 12 | 已交付",线路,线路__233
+Optus,300.0,2000,INTERNET,559.0,1,2000,,"DIA | Evolve Internet | Suite 3, Level 21 1 York Street, SYDNEY NSW, 2000 | nan | 300 | nan | 已交付",线路,线路__234
+Optus,20.0,2000,WAN,339.0,1,2000,4008,"IEPL | Evolve EWAN | Ground Floor 120 Clarence Street, SYDNEY NSW, 2000 | 1 Airport Drive, BRISBANE AIRPORT QLD, 4008 | 20 | nan | 已交付",线路,线路__236
+AAPT,400.0,1302,INTERNET,299.0,1,1302,,"DIA | Fibre400 | Suite 1302, L13, Tower A, 821 Pacific Highway, 
+Chatswood, NSW | nan | 400 | 36 | 已交付",线路,线路__237
+Spark,10.0,2020,WAN,550.0,1,2020,0632,"IEPL | E--Access – EVPL | 639b Gardeners Road, MASCOT NSW, 2020 | 24 Unity Drive North, Rosedale, North Shore, Auckland | 10 | 12 | 已交付",线路,线路__238
+Telstra,100.0,2113,INTERNET,3000.0,1,2113,,"DIA | WBI | A, Fl 6, Se 603, 11 - 17 Khartoum Rd, Macquarie Park,
+NSW 2113 | nan | 100 | 12 | 已交付",线路,线路__239
+Optus,100.0,3000,WAN,321.0,1,3000,2000,"Ethernet | Evolve Internet | Level 50 101 Collins Street, MELBOURNE VIC, 3000 | L28 International Tower One 100 Barangaroo Avenue, BARANGAROO NSW, 2000 | 100 | 36 | 已交付",线路,线路__240
+Optus,100.0,3000,INTERNET,279.0,1,3000,,"DIA | Evolve EWAN | Level 50 101 Collins Street, MELBOURNE VIC, 3000 | nan | 100 | 36 | 已交付",线路,线路__241
+Optus,200.0,2143,INTERNET,329.0,1,2143,,"DIA | Evolve Internet | G2/391 Park Rd, Regents Park NSW 2143, Australia | nan | 200 | 36 | 已交付",线路,线路__242
+AAPT,400.0,2060,INTERNET,299.0,1,2060,,"DIA | Fast Fibre 400 | Level 16, 177 Pacific Highway, North Sydney NSW 2060 | nan | 400 | 36 | 已交付",线路,线路__243
+Vocus,100.0,3000,WAN,405.0,1,3000,2065,"Ethernet | Ethernet | 101 COLLINS STREET, MELBOURNE VIC 3000 AUSTRALIA | 39 Herbert Street St Leonards Nsw 2065 | 100 | 36 | 已交付",线路,线路__244
+AAPT,400.0,2612,INTERNET,354.0,1,2612,,"DIA | Fast Fibre 400 | Level 2 103 Northbourne Avenue, TURNER ACT 2612 | nan | 400 | 36 | 已交付",线路,线路__245
+Optus,200.0,2612,INTERNET,329.0,1,2612,,"DIA | Evolve Internet | 103 Northbourne Avenue, TURNER ACT, 2612 | nan | 200 | 36 | 已交付",线路,线路__246
+AAPT,400.0,3000,INTERNET,299.0,1,3000,,"DIA | Fast Fibre 400 | Suite 1103, 80 Collins Street, Melbourne VIC 3000 | nan | 400 | 36 | 已交付",线路,线路__247
+AAPT,400.0,3000,INTERNET,354.0,1,3000,,"DIA | Fast Fibre 400 | Suite 1203, 80 Collins Street, Melbourne VIC 3000 | nan | 400 | 36 | 已交付",线路,线路__248
+AAPT,400.0,2138,INTERNET,299.0,1,2138,,Internet | FAST Fibre (NTU) | G2 1F Homebush Bay Drive Rhodes | nan | 400 | 36 | 已交付,线路,线路__250
+Optus,500.0,2060,INTERNET,529.0,1,2060,,"Internet | Evolve Internet | Level 16, 177 Pacific Highway, North Sydney NSW 2060 | nan | 500 | 36 | 已交付",线路,线路__251
+Optus,100.0,2113,INTERNET,509.0,1,2113,,"Internet | Evolve Internet | 11 Khartoum Road, MACQUARIE PARK NSW, 2113 | nan | 100 | 36 | 已交付",线路,线路__252
+Telstra,200.0,2143,INTERNET,614.8,1,2143,,Internet | WBI | G2/391 Park Road Regents Park NSW 2143 | nan | 200 | 36 | 已交付,线路,线路__253
+AAPT,1000.0,2000,INTERNET,499.0,1,2000,,"Internet | FastFibre1000 | Level 09/55 Clarence St, Sydney, NSW 2000 AUSTRALIA | nan | 1000 | 36 | 已交付",线路,线路__254
+AAPT,400.0,2138,INTERNET,299.0,1,2138,,Internet | FastFibre400 | G2 1F Homebush Bay Drive Rhodes | nan | 400 | 36 | 已交付,线路,线路__255
+Optus,250.0,2065,INTERNET,349.0,1,2065,,"Internet | Evolve Internet | Shop 608 11/LF57 Westfield Chatswood, 1 Anderson St, Chatswood NSW 2065 | nan | 250 | 36 | 已升级",线路,线路__256
+Telstra,200.0,3061,INTERNET,614.8,1,3061,,"Internet | WBI | 17A Cooper St, Campellfield, VIC 3061 Australia | nan | 200 | 36 | 已交付",线路,线路__257
+Telstra,1000.0,2000,INTERNET,853.3,1,2000,,"Internet | WBI | Level 6, 1 Sussex St, Barangaroo NSW 2000 | nan | 1000 | 36 | 已交付",线路,线路__258
+Optus,1000.0,2050,INTERNET,639.0,1,2050,,"Internet | Evolve Internet | 39 Dunblane Street, CAMPERDOWN NSW, 2050 | nan | 1000 | 36 | 已交付",线路,线路__259
+AAPT,400.0,2060,INTERNET,299.0,1,2060,,"Internet | Fast Fibre 400 | Level 16, 177 Pacific Highway, North Sydney NSW 2060 | nan | 400 | 36 | 已交付",线路,线路__260
+Optus,10.0,2000,INTERNET,319.0,1,2000,3045,"Internet | Evolve EWAN | Level 3, 120 Clarence Street, Sydney, NSW 2000 | terminal 2, Melbourne airport, Tullamarine, VIC 3045 | 10 | 36 | 已交付",线路,线路__262
+Telstra,1000.0,2050,INTERNET,853.3,1,2050,,"Internet | WBI | 39 Dunblane Street, Camperdown Sdyney NSW 2050 | nan | 1000 | 36 | 已交付",线路,线路__263
+Optus,1000.0,2050,INTERNET,589.0,1,2050,,"Internet | Evolve Internet | 39 Dunblane Street, Camperdown Sdyney NSW 2050 | nan | 1000 | 36 | 已交付",线路,线路__264
+Optus,100.0,2050,INTERNET,269.0,1,2050,,Internet | Evolve Internet | 39 Dunblane Street Camperdown NSW 2050 | nan | 100 | 36 | 已交付,线路,线路__265
+Optus,100.0,2000,INTERNET,399.0,1,2000,,"Internet | Full-Mesh EWAN | Level 42, 100 BARANGAROO AVENUE, BARANGAROO, NSW, 2000 | nan | 100 | 36 | 已交付",线路,线路__266
+Optus,100.0,2064,INTERNET,399.0,1,2064,,"Internet | Full-Mesh EWAN | Tower Unit 1 39 Herbert Street, ARTARMON NSW, 2064 | nan | 100 | 36 | 已交付",线路,线路__267
+Optus,100.0,6000,INTERNET,805.0,1,6000,,"Internet | Full-Mesh EWAN | Level 20 58 Mounts Bay Road, PERTH WA, 6000 | nan | 100 | 36 | 已交付",线路,线路__268
+Optus,100.0,3000,INTERNET,451.0,1,3000,,"Internet | Full-Mesh EWAN | Level 3 379 Collins Street, MELBOURNE VIC, 3000 | nan | 100 | 36 | 已交付",线路,线路__269
+Optus,100.0,4000,INTERNET,451.0,1,4000,,"Internet | Full-Mesh EWAN | Level 29 111 Eagle Street, BRISBANE CITY QLD, 4000 | nan | 100 | 36 | 已交付",线路,线路__270
+Optus,100.0,2000,INTERNET,289.0,1,2000,,"Internet | Evolve Internet | Level 42, 100 BARANGAROO AVENUE, BARANGAROO, NSW, 2000 | nan | 100 | 36 | 已升级",线路,线路__271
+Optus,1000.0,2000,INTERNET,699.0,1,2000,,"Internet | Evolve Internet | Level 42, 100 BARANGAROO AVENUE, BARANGAROO, NSW, 2000 | nan | 1000 | 36 | 已升级",线路,线路__272
+Vocus,50.0,2000,INTERNET,450.0,1,2000,,"Internet | IPWAN | Level 42, 100 BARANGAROO AVENUE, BARANGAROO, NSW, 2000 | nan | 50 | 36 | 已升级",线路,线路__273
+Vocus,50.0,2065,INTERNET,450.0,1,2065,,"Internet | IPWAN | Tower B, 39 Herbert Street, St Leonards NSW 2065 | nan | 50 | 36 | 已升级",线路,线路__274
+Vocus,50.0,3000,INTERNET,450.0,1,3000,,"Internet | IPWAN | Level 3 379 Collins Street, MELBOURNE VIC, 3000 | nan | 50 | 36 | 已升级",线路,线路__275
+Vocus,50.0,2065,INTERNET,305.0,1,2065,,"Internet | AWS Partner Link | 11, 39 Herbert St, St Leonards NSW 2065 | nan | 50 | 24 | 已交付",线路,线路__276
