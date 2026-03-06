@@ -1,0 +1,395 @@
+[
+  {
+    "id": "1770789098454",
+    "name": "悉尼CBD办公室100M专线部署",
+    "client": "ABC Company Pty Ltd",
+    "product_type": "INTERNET",
+    "region": "2000",
+    "bandwidth": "100",
+    "created_at": "2026-02-11 16:51:38",
+    "updated_at": "2026-02-27 12:01:59",
+    "stages": [
+      {
+        "id": 1,
+        "name": "需求确认",
+        "name_en": "Requirement Confirmation",
+        "sub_categories": [],
+        "status": "green",
+        "progress": 100,
+        "notes": "客户需求已确认",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": []
+      },
+      {
+        "id": 2,
+        "name": "方案设计",
+        "name_en": "Solution Design",
+        "sub_categories": [
+          "询价",
+          "解决方案",
+          "线上核查"
+        ],
+        "status": "yellow",
+        "progress": 60,
+        "notes": "方案需要客户确认修改",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "2026-02-27 12:01:42",
+        "blocked_by": [
+          1
+        ]
+      },
+      {
+        "id": 3,
+        "name": "合同签署",
+        "name_en": "Contract Signing",
+        "sub_categories": [],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          2
+        ]
+      },
+      {
+        "id": 4,
+        "name": "采购流程",
+        "name_en": "Procurement",
+        "sub_categories": [
+          "线上转定",
+          "采购需求",
+          "采购合同签署"
+        ],
+        "blocked_by": [
+          3
+        ],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": ""
+      },
+      {
+        "id": 5,
+        "name": "下单",
+        "name_en": "Place Order",
+        "sub_categories": [],
+        "blocked_by": [
+          4
+        ],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": ""
+      },
+      {
+        "id": 6,
+        "name": "现场勘察",
+        "name_en": "Site Survey",
+        "sub_categories": [],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          5
+        ]
+      },
+      {
+        "id": 7,
+        "name": "工程施工",
+        "name_en": "Installation",
+        "sub_categories": [],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          6
+        ]
+      },
+      {
+        "id": 8,
+        "name": "系统测试",
+        "name_en": "System Testing",
+        "sub_categories": [],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          7
+        ]
+      },
+      {
+        "id": 9,
+        "name": "项目交付",
+        "name_en": "Project Delivery",
+        "sub_categories": [],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          8
+        ]
+      }
+    ],
+    "overall_progress": 23,
+    "status": "active",
+    "priority": "medium",
+    "team": [],
+    "due_date": "",
+    "comments": [],
+    "activity_log": [
+      {
+        "action": "状态变更",
+        "detail": "阶段 \"方案设计\" 状态: 顺利 → 有问题",
+        "timestamp": "2026-02-27 12:01:59"
+      },
+      {
+        "action": "状态变更",
+        "detail": "阶段 \"方案设计\" 状态: 有问题 → 顺利",
+        "timestamp": "2026-02-27 12:01:52"
+      },
+      {
+        "action": "阶段完成",
+        "detail": "阶段 \"方案设计\" 已完成",
+        "timestamp": "2026-02-27 12:01:52"
+      },
+      {
+        "action": "状态变更",
+        "detail": "阶段 \"方案设计\" 状态: 顺利 → 有问题",
+        "timestamp": "2026-02-27 12:01:48"
+      },
+      {
+        "action": "状态变更",
+        "detail": "阶段 \"方案设计\" 状态: 有问题 → 顺利",
+        "timestamp": "2026-02-27 12:01:42"
+      },
+      {
+        "action": "阶段完成",
+        "detail": "阶段 \"方案设计\" 已完成",
+        "timestamp": "2026-02-27 12:01:42"
+      }
+    ],
+    "attachments": [],
+    "pricing_ref": "",
+    "tags": []
+  },
+  {
+    "id": "1770789114323",
+    "name": "墨尔本数据中心SD-WAN互联",
+    "client": "XYZ Holdings",
+    "product_type": "WAN",
+    "region": "3000",
+    "bandwidth": "500",
+    "created_at": "2026-02-11 16:51:54",
+    "updated_at": "2026-02-11 16:58:42",
+    "stages": [
+      {
+        "id": 1,
+        "name": "需求确认",
+        "name_en": "Requirement Confirmation",
+        "sub_categories": [],
+        "status": "green",
+        "progress": 100,
+        "notes": "已确认",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": []
+      },
+      {
+        "id": 2,
+        "name": "方案设计",
+        "name_en": "Solution Design",
+        "sub_categories": [
+          "询价",
+          "解决方案",
+          "线上核查"
+        ],
+        "status": "green",
+        "progress": 100,
+        "notes": "方案已批准",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          1
+        ]
+      },
+      {
+        "id": 3,
+        "name": "合同签署",
+        "name_en": "Contract Signing",
+        "sub_categories": [],
+        "status": "green",
+        "progress": 100,
+        "notes": "合同已签",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          2
+        ]
+      },
+      {
+        "id": 4,
+        "name": "采购流程",
+        "name_en": "Procurement",
+        "sub_categories": [
+          "线上转定",
+          "采购需求",
+          "采购合同签署"
+        ],
+        "blocked_by": [
+          3
+        ],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": ""
+      },
+      {
+        "id": 5,
+        "name": "下单",
+        "name_en": "Place Order",
+        "sub_categories": [],
+        "blocked_by": [
+          4
+        ],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": ""
+      },
+      {
+        "id": 6,
+        "name": "现场勘察",
+        "name_en": "Site Survey",
+        "sub_categories": [],
+        "status": "green",
+        "progress": 100,
+        "notes": "已完成",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          5
+        ]
+      },
+      {
+        "id": 7,
+        "name": "工程施工",
+        "name_en": "Installation",
+        "sub_categories": [],
+        "status": "red",
+        "progress": 30,
+        "notes": "光纤施工遇到市政管道阻碍，需要重新规划路由",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          6
+        ]
+      },
+      {
+        "id": 8,
+        "name": "系统测试",
+        "name_en": "System Testing",
+        "sub_categories": [],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          7
+        ]
+      },
+      {
+        "id": 9,
+        "name": "项目交付",
+        "name_en": "Project Delivery",
+        "sub_categories": [],
+        "status": "pending",
+        "progress": 0,
+        "notes": "",
+        "assignee": "",
+        "start_date": "",
+        "due_date": "",
+        "started_at": "",
+        "completed_at": "",
+        "blocked_by": [
+          8
+        ]
+      }
+    ],
+    "overall_progress": 61,
+    "status": "active",
+    "priority": "medium",
+    "team": [],
+    "due_date": "",
+    "comments": [],
+    "activity_log": [],
+    "attachments": [],
+    "pricing_ref": "",
+    "tags": []
+  }
+]

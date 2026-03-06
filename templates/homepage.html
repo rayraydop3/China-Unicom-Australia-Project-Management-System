@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>澳洲联通 | 专业企业网络服务</title>
+    <link rel="stylesheet" href="/static/css/global.css">
     <style>
         * {
             box-sizing: border-box;
@@ -417,12 +418,17 @@
         <div class="logo-section">
             <span class="logo-text">澳洲</span><span class="logo-text logo-red">联通</span>
             <img src="/static/logo.png" alt="Logo" class="logo-img">
+            <button class="version-badge" onclick="showChangelog()" title="查看更新日志">
+              <span class="version-badge-text">v0.4.0.1&nbsp;&nbsp;06/03/2026</span>
+            </button>
         </div>
         <div class="nav-links">
-            <a href="#services">服务</a>
-            <a href="#about">关于我们</a>
-            <a href="/pricing">报价系统</a>
-            <a href="#contact">联系我们</a>
+            <a href="#services" data-zh="服务" data-en="Services">服务</a>
+            <a href="#about" data-zh="关于我们" data-en="About">关于我们</a>
+            <a href="/pricing" data-zh="报价系统" data-en="Pricing">报价系统</a>
+            <a href="/projects" data-zh="项目管理" data-en="Projects" style="color:#E60012;font-weight:600;">项目管理</a>
+            <a href="#contact" data-zh="联系我们" data-en="Contact">联系我们</a>
+            <button onclick="toggleLang()" id="lang-toggle" style="background:#E60012;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;">EN</button>
         </div>
     </nav>
 
@@ -430,18 +436,19 @@
     <section class="hero-section">
         <div class="hero-image"></div>
         <div class="hero-content">
-            <h1 class="hero-title">服务</h1>
-            <p class="hero-description">
+            <h1 class="hero-title" data-zh="服务" data-en="Services">服务</h1>
+            <p class="hero-description" data-zh="无论您是新建企业、扩展业务，还是追求数字化转型，让我们帮您实现。我们提供专业的专线服务、网络覆盖和解决方案，为您的业务成功保驾护航。" data-en="Whether you're starting a new business, expanding operations, or pursuing digital transformation — let us help you succeed. We provide professional dedicated line services, network coverage, and solutions to power your business.">
                 无论您是新建企业、扩展业务，还是追求数字化转型，让我们帮您实现。我们提供专业的专线服务、网络覆盖和解决方案，为您的业务成功保驾护航。
             </p>
             <ul class="hero-links">
-                <li><a href="/pricing">报价评估系统</a></li>
-                <li><a href="/article/sme-communication">中小企业解决方案</a></li>
-                <li><a href="/article/network-coverage">网络覆盖查询</a></li>
-                <li><a href="/article/innovation-leadership">企业数字化转型</a></li>
+                <li><a href="/pricing" data-zh="报价评估系统" data-en="Pricing System">报价评估系统</a></li>
+                <li><a href="/projects" data-zh="项目进度管理系统" data-en="Project Management">项目进度管理系统</a></li>
+                <li><a href="/article/sme-communication" data-zh="中小企业解决方案" data-en="SME Solutions">中小企业解决方案</a></li>
+                <li><a href="/article/network-coverage" data-zh="网络覆盖查询" data-en="Network Coverage">网络覆盖查询</a></li>
+                <li><a href="/article/innovation-leadership" data-zh="企业数字化转型" data-en="Digital Transformation">企业数字化转型</a></li>
             </ul>
             <div class="hero-cta">
-                <a href="/pricing">开始使用我们的服务</a>
+                <a href="/pricing" data-zh="开始使用我们的服务" data-en="Get Started with Our Services">开始使用我们的服务</a>
             </div>
         </div>
     </section>
@@ -449,11 +456,11 @@
     <!-- 服务搜索区域 -->
     <section class="services-section" id="services">
         <div class="services-container">
-            <h2 class="section-title">查找服务</h2>
+            <h2 class="section-title" data-zh="查找服务" data-en="Find Services">查找服务</h2>
             <div class="search-section">
                 <div class="search-container">
-                    <input type="text" class="search-input" placeholder="输入关键词查找服务，例如：专线、带宽、MPLS">
-                    <button class="search-button">🔍</button>
+                    <input type="text" class="search-input" id="service-search-input" placeholder="输入关键词查找服务，例如：专线、带宽、MPLS" onkeydown="if(event.key==='Enter') searchToAI()">
+                    <button class="search-button" onclick="searchToAI()">🔍</button>
                 </div>
                 <div class="view-all-link">
                     <a href="#all-services">查看所有服务</a>
@@ -464,37 +471,37 @@
                     <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                     </svg>
-                    <a href="/pricing" class="service-name">专线服务 (DIA)</a>
+                    <a href="/pricing" class="service-name" data-zh="专线服务 (DIA)" data-en="Dedicated Internet Access (DIA)">专线服务 (DIA)</a>
                 </div>
                 <div class="service-item">
                     <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
-                    <a href="/article/network-coverage" class="service-name">网络覆盖与区域服务</a>
+                    <a href="/article/network-coverage" class="service-name" data-zh="网络覆盖与区域服务" data-en="Network Coverage & Regional Services">网络覆盖与区域服务</a>
                 </div>
                 <div class="service-item">
                     <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
                     </svg>
-                    <a href="/article/sme-communication" class="service-name">中小企业解决方案</a>
+                    <a href="/article/sme-communication" class="service-name" data-zh="中小企业解决方案" data-en="SME Solutions">中小企业解决方案</a>
                 </div>
                 <div class="service-item">
                     <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                     </svg>
-                    <a href="/article/innovation-leadership" class="service-name">企业数字化转型</a>
+                    <a href="/article/innovation-leadership" class="service-name" data-zh="企业数字化转型" data-en="Digital Transformation">企业数字化转型</a>
                 </div>
                 <div class="service-item">
                     <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
                     </svg>
-                    <a href="#security" class="service-name">网络安全与防护</a>
+                    <a href="#security" class="service-name" data-zh="网络安全与防护" data-en="Cybersecurity">网络安全与防护</a>
                 </div>
                 <div class="service-item">
                     <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
                     </svg>
-                    <a href="#pricing" class="service-name">价格与套餐</a>
+                    <a href="#pricing" class="service-name" data-zh="价格与套餐" data-en="Pricing & Plans">价格与套餐</a>
                 </div>
             </div>
         </div>
@@ -504,8 +511,8 @@
     <section class="about-section" id="about">
         <div class="about-image"></div>
         <div class="about-content">
-            <h2 class="about-title">关于我们</h2>
-            <p class="about-description">
+            <h2 class="about-title" data-zh="关于我们" data-en="About Us">关于我们</h2>
+            <p class="about-description" data-zh="我们致力于为澳大利亚企业提供卓越的网络服务超过20年。从中小企业到大型企业，我们帮助各行各业的客户建立可靠、高速、安全的网络连接，推动业务增长和数字化转型。" data-en="We have been dedicated to providing exceptional network services to Australian businesses for over 20 years. From SMEs to large enterprises, we help clients across all industries build reliable, high-speed, and secure network connections to drive business growth and digital transformation.">
                 我们致力于为澳大利亚企业提供卓越的网络服务超过20年。从中小企业到大型企业，我们帮助各行各业的客户建立可靠、高速、安全的网络连接，推动业务增长和数字化转型。
             </p>
             <ul class="about-links">
@@ -913,11 +920,11 @@
             <div class="model-selector">
                 <label>模型:</label>
                 <select id="model-select" onchange="changeModel()">
-                    <option value="lmstudio">LM Studio (本地免费，推荐)</option>
+                    <option value="ollama">Ollama (本地免费，推荐)</option>
                     <option value="gemini">Gemini 2.0 Flash</option>
                     <option value="qwen">通义千问</option>
                     <option value="deepseek">DeepSeek</option>
-                    <option value="ollama">Ollama (本地免费，需安装)</option>
+                    <option value="lmstudio">LM Studio (本地免费)</option>
                 </select>
             </div>
             <div class="model-selector" style="margin-top: 8px;">
@@ -931,7 +938,7 @@
         </div>
         <div class="deepseek-chat-messages" id="deepseek-messages">
             <div class="deepseek-message ai">
-                你好！我是 AI 数据分析助手，基于项目的训练数据库为你提供专业分析。你可以问我关于价格、运营商、地区分布等问题。当前使用 <strong>LM Studio</strong> 模型（本地免费，推荐）。
+                你好！我是 AI 数据分析助手，基于项目的训练数据库为你提供专业分析。你可以问我关于价格、运营商、地区分布等问题。当前使用 <strong>Ollama</strong> 模型（本地免费，推荐）。
             </div>
         </div>
         <div class="deepseek-chat-input-container">
@@ -942,7 +949,7 @@
         </div>
     </div>
     <script>
-        let currentModel = localStorage.getItem('selectedModel') || 'lmstudio';
+        let currentModel = localStorage.getItem('selectedModel') || 'ollama';
 
         function getModelName(modelValue) {
             const options = document.getElementById('model-select').options;
@@ -979,6 +986,25 @@
                     messagesContainer.scrollTop = messagesContainer.scrollHeight;
                 }
             }
+        }
+
+        function searchToAI() {
+            const searchInput = document.getElementById('service-search-input');
+            const query = searchInput ? searchInput.value.trim() : '';
+            if (!query) return;
+            // 打开 AI 助手
+            const chatContainer = document.getElementById('deepseek-chat');
+            if (chatContainer && !chatContainer.classList.contains('active')) {
+                chatContainer.classList.add('active');
+            }
+            // 将搜索内容填入 AI 输入框并发送
+            const aiInput = document.getElementById('deepseek-input');
+            if (aiInput) {
+                aiInput.value = query;
+                sendMessage();
+            }
+            // 清空搜索框
+            searchInput.value = '';
         }
 
         function toggleDeepSeekChat() {
@@ -1112,5 +1138,43 @@
             updateModelStatus();
         });
     </script>
+
+    <!-- 中英双语切换 -->
+    <script>
+        let currentLang = localStorage.getItem('siteLang') || 'zh';
+
+        function toggleLang() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            localStorage.setItem('siteLang', currentLang);
+            applyLang();
+        }
+
+        function applyLang() {
+            const btn = document.getElementById('lang-toggle');
+            if (btn) btn.textContent = currentLang === 'zh' ? 'EN' : '中文';
+
+            document.querySelectorAll('[data-zh][data-en]').forEach(el => {
+                const text = el.getAttribute('data-' + currentLang);
+                if (text) {
+                    // 保留子元素（如图标），只更新文本
+                    if (el.children.length === 0) {
+                        el.textContent = text;
+                    } else {
+                        // 更新第一个文本节点
+                        for (let node of el.childNodes) {
+                            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                                node.textContent = text;
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 页面加载时应用语言设置
+        document.addEventListener('DOMContentLoaded', applyLang);
+    </script>
+<script src="/static/js/global.js"></script>
 </body>
 </html>

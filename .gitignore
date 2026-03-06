@@ -22,3 +22,14 @@ Desktop.ini
 
 # 日志
 *.log
+
+# 上传文件（运行时生成）
+uploads/
+
+# 训练数据和脚本（本地用，不需要部署）
+training_mvp_v5.csv
+trainadvance.py
+
+# Windows 本地启动脚本
+*.vbs
+*.bat

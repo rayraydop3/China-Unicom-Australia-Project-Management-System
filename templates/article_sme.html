@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>为中小企业打造更高效的通信解决方案 | 澳洲联通</title>
+    <link rel="stylesheet" href="/static/css/global.css">
     <style>
         * {
             box-sizing: border-box;
@@ -133,6 +134,9 @@
     <div class="header-bar">
         <span class="logo-text">澳洲</span><span class="logo-text logo-red">联通</span>
         <img src="/static/logo.png" alt="Logo" class="logo-img">
+        <button class="version-badge" onclick="showChangelog()" title="查看更新日志">
+          <span class="version-badge-text">v0.4.0.1&nbsp;&nbsp;06/03/2026</span>
+        </button>
         <a href="/" class="back-link">← 返回首页</a>
     </div>
 
@@ -153,7 +157,7 @@
 
                 <p>这就是为什么澳洲联通提供专业的专线服务，帮助中小企业快速建立可靠的网络连接。我们理解中小企业需要快速响应市场变化，因此我们的专线服务可以在最短时间内完成部署，让您的业务迅速上线。</p>
 
-                <p>专为中小企业设计的定价方案，无需承担大型企业的成本负担。灵活的合同期限和透明的定价，让您完全掌控预算。同时，我们提供企业级的安全保障，保护您的业务数据不受威胁，<span class="highlight-text">99.9%的网络可用性保证</span>，确保业务连续性。</p>
+                <p>专为中小企业设计的定价方案，无需承担大型企业的成本负担。灵活的合同期限和透明的定价，让您完全掌控预算。同时，我们提供企业级的安全保障，保护您的业务数据不受威胁，<span class="highlight-text">99.99%的网络可用性保证</span>，确保业务连续性。</p>
 
                 <p>无论您的企业需要多地点办公连接、远程团队协作，还是云服务集成，我们都有适合的解决方案。我们的MPLS和SD-WAN解决方案可以为您建立一个统一、安全的网络，让所有办公地点像在一个局域网内一样工作。</p>
 
@@ -338,17 +342,24 @@
             <div class="model-selector">
                 <label>模型:</label>
                 <select id="model-select" onchange="changeModel()">
-                    <option value="lmstudio">LM Studio</option>
+                    <option value="ollama">Ollama (推荐)</option>
                     <option value="gemini">Gemini</option>
                     <option value="qwen">通义千问</option>
                     <option value="deepseek">DeepSeek</option>
-                    <option value="ollama">Ollama</option>
+                    <option value="lmstudio">LM Studio</option>
                 </select>
+            </div>
+            <div class="model-selector" style="margin-top: 8px;">
+                <label style="font-size: 11px;">联网搜索:</label>
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 11px;">
+                    <input type="checkbox" id="enable-search" checked style="width: auto; height: auto; margin: 0;">
+                    <span>启用实时资料查找</span>
+                </label>
             </div>
             <button class="deepseek-chat-close" onclick="toggleDeepSeekChat()">×</button>
         </div>
         <div class="deepseek-chat-messages" id="deepseek-messages">
-            <div class="deepseek-message ai">你好！我是 AI 数据分析助手。</div>
+            <div class="deepseek-message ai">你好！我是 AI 数据分析助手，基于项目数据库为你提供专业分析。当前使用 <strong>Ollama</strong> 模型。</div>
         </div>
         <div class="deepseek-chat-input-container">
             <input type="text" class="deepseek-chat-input" id="deepseek-input" placeholder="输入你的问题..." onkeypress="if(event.key === 'Enter') sendDeepSeekMessage()">
@@ -356,51 +367,88 @@
         </div>
     </div>
     <script>
-        let currentModel = localStorage.getItem('selectedModel') || 'lmstudio';
+        let currentModel = localStorage.getItem('selectedModel') || 'ollama';
         function changeModel() {
             currentModel = document.getElementById('model-select').value;
             localStorage.setItem('selectedModel', currentModel);
         }
         function toggleDeepSeekChat() {
-            document.getElementById('deepseek-chat').classList.toggle('active');
+            const chat = document.getElementById('deepseek-chat');
+            chat.classList.toggle('active');
+            if (chat.classList.contains('active')) {
+                document.getElementById('deepseek-input').focus();
+            }
+        }
+        // TTS 语音朗读
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
+            }
         }
         async function sendDeepSeekMessage() {
             const input = document.getElementById('deepseek-input');
             const message = input.value.trim();
             if (!message) return;
             const messagesContainer = document.getElementById('deepseek-messages');
+            const sendBtn = document.getElementById('deepseek-send-btn');
+            const enableSearch = document.getElementById('enable-search').checked;
+
             const userDiv = document.createElement('div');
             userDiv.className = 'deepseek-message user';
             userDiv.textContent = message;
             messagesContainer.appendChild(userDiv);
             input.value = '';
+
+            if (enableSearch) {
+                const searchTip = document.createElement('div');
+                searchTip.className = 'deepseek-message ai';
+                searchTip.style.fontSize = '12px';
+                searchTip.style.color = '#888';
+                searchTip.textContent = '🔍 正在联网搜索相关资料...';
+                searchTip.id = 'search-tip';
+                messagesContainer.appendChild(searchTip);
+            }
+
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'deepseek-message ai';
             loadingDiv.textContent = '正在思考...';
+            loadingDiv.id = 'loading-message';
             messagesContainer.appendChild(loadingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            sendBtn.disabled = true;
             try {
                 const response = await fetch('/deepseek/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: message, model: currentModel, enable_search: true })
+                    body: JSON.stringify({ message: message, model: currentModel, enable_search: enableSearch })
                 });
                 const rawText = await response.text();
                 let json;
-                try {
-                    json = JSON.parse(rawText);
-                } catch (parseErr) {
+                try { json = JSON.parse(rawText); } catch (parseErr) {
                     throw new Error(`HTTP ${response.status} 返回非JSON：${rawText.slice(0, 200)}`);
                 }
                 loadingDiv.remove();
+                const tip = document.getElementById('search-tip');
+                if (tip) tip.remove();
+
                 const aiDiv = document.createElement('div');
                 aiDiv.className = 'deepseek-message ai';
                 if (!response.ok) {
                     aiDiv.textContent = '错误: ' + (json.message || `HTTP ${response.status}`);
                 } else if (json.status === 'success') {
-                    // 服务器返回的是 response 字段
                     const responseText = json.response || json.message || '无响应';
-                    // 处理换行，将 \n 转换为 <br>
                     aiDiv.innerHTML = responseText.replace(/\n/g, '<br>');
+                    // 添加朗读按钮
+                    const speakBtn = document.createElement('button');
+                    speakBtn.textContent = '🔊 朗读';
+                    speakBtn.style.cssText = 'margin-top:8px;padding:4px 10px;font-size:11px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:#aaa;cursor:pointer;';
+                    speakBtn.onclick = () => speakText(responseText);
+                    aiDiv.appendChild(speakBtn);
                 } else {
                     aiDiv.textContent = '错误: ' + (json.message || '未知错误');
                 }
@@ -408,12 +456,17 @@
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             } catch (e) {
                 loadingDiv.remove();
+                const tip = document.getElementById('search-tip');
+                if (tip) tip.remove();
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'deepseek-message ai';
                 errorDiv.textContent = '网络错误: ' + (e && e.message ? e.message : '请稍后重试');
                 messagesContainer.appendChild(errorDiv);
             }
+            sendBtn.disabled = false;
+            input.focus();
         }
     </script>
+<script src="/static/js/global.js"></script>
 </body>
 </html>

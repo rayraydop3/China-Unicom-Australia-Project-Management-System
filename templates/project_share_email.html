@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>澳洲联通 | {{ project.name }} — 项目进度报告</title>
+<style>
+  body{margin:0;padding:0;background:#f4f4f4;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#222}
+  .wrapper{max-width:680px;margin:30px auto;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.12)}
+  .top-bar{background:#E60012;padding:20px 30px;display:flex;align-items:center;justify-content:space-between}
+  .brand{font-size:22px;font-weight:700;color:#fff;letter-spacing:1px}
+  .top-tag{font-size:11px;color:rgba(255,255,255,0.75);background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.3)}
+  .body{padding:28px 30px}
+  .project-title{font-size:24px;font-weight:700;color:#111;margin-bottom:6px}
+  .badges{margin-bottom:18px}
+  .badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;margin-right:6px}
+  .badge-red{background:#fde8e8;color:#c0392b}
+  .badge-yellow{background:#fef6e4;color:#d35400}
+  .badge-green{background:#e8f8ef;color:#27ae60}
+  .badge-gray{background:#f0f0f0;color:#666}
+  .badge-blue{background:#e8f4fd;color:#2980b9}
+  .section{margin-bottom:24px}
+  .section-title{font-size:12px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #f0f0f0}
+  .meta-table{width:100%;border-collapse:collapse}
+  .meta-table td{padding:7px 10px;font-size:13px;vertical-align:top}
+  .meta-table td:first-child{color:#999;font-size:11px;width:90px;padding-left:0}
+  .meta-table td:last-child{color:#333;font-weight:500}
+  .meta-table tr:nth-child(even) td{background:#fafafa;border-radius:4px}
+  /* Progress */
+  .prog-outer{height:12px;background:#f0f0f0;border-radius:6px;overflow:hidden;margin:8px 0 4px}
+  .prog-inner{height:100%;border-radius:6px}
+  .prog-label{display:flex;justify-content:space-between;font-size:11px;color:#999}
+  /* Stages */
+  .stage-row{display:flex;align-items:center;gap:12px;padding:10px 12px;margin-bottom:6px;border-radius:8px;background:#fafafa;border-left:3px solid #ddd}
+  .stage-row.st-green{border-left-color:#27ae60;background:#f0fdf4}
+  .stage-row.st-yellow{border-left-color:#f39c12;background:#fffbf0}
+  .stage-row.st-red{border-left-color:#e74c3c;background:#fff5f5}
+  .stage-row.st-pending{border-left-color:#ddd;background:#fafafa}
+  .stage-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;background:#eee;color:#888}
+  .stage-num.st-green{background:#d4edda;color:#27ae60}
+  .stage-num.st-yellow{background:#fef3cd;color:#f39c12}
+  .stage-num.st-red{background:#f8d7da;color:#e74c3c}
+  .stage-name{flex:1;font-size:13px;font-weight:600;color:#222}
+  .stage-sub{font-size:11px;color:#999;margin-top:2px}
+  .stage-pct{font-size:12px;font-weight:700;min-width:38px;text-align:right}
+  .st-green .stage-pct{color:#27ae60}
+  .st-yellow .stage-pct{color:#f39c12}
+  .st-red .stage-pct{color:#e74c3c}
+  .st-pending .stage-pct{color:#aaa}
+  .mini-bar-bg{width:60px;height:4px;background:#e0e0e0;border-radius:2px;overflow:hidden}
+  .mini-bar-fill{height:100%;border-radius:2px}
+  .st-green .mini-bar-fill{background:#27ae60}
+  .st-yellow .mini-bar-fill{background:#f39c12}
+  .st-red .mini-bar-fill{background:#e74c3c}
+  .st-pending .mini-bar-fill{background:#ccc}
+  /* Team */
+  .team-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .team-chip{display:inline-flex;align-items:center;gap:6px;background:#f5f5f5;border:1px solid #e8e8e8;border-radius:20px;padding:4px 12px 4px 6px;font-size:12px;color:#444}
+  .avatar{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
+  /* Footer */
+  .footer{background:#f9f9f9;padding:18px 30px;border-top:1px solid #eee;text-align:center}
+  .footer p{font-size:11px;color:#aaa;margin:3px 0}
+  .footer a{color:#E60012;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="top-bar">
+    <div class="brand">澳洲<span style="opacity:0.85">联通</span></div>
+    <div class="top-tag">项目进度报告</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Title + Badges -->
+    <div class="project-title">{{ project.name }}</div>
+    <div class="badges">
+      {% set prio = project.priority or 'medium' %}
+      {% if prio == 'high' %}<span class="badge badge-red">高优先级</span>
+      {% elif prio == 'low' %}<span class="badge badge-green">低优先级</span>
+      {% else %}<span class="badge badge-yellow">中优先级</span>{% endif %}
+
+      {% set st = project.status or 'active' %}
+      {% if st == 'completed' %}<span class="badge badge-gray">已完成</span>
+      {% elif st == 'cancelled' %}<span class="badge badge-red">已取消</span>
+      {% else %}<span class="badge badge-blue">进行中</span>{% endif %}
+    </div>
+
+    <!-- Meta -->
+    <div class="section">
+      <div class="section-title">项目信息</div>
+      <table class="meta-table">
+        <tr><td>客户</td><td>{{ project.client or '未指定' }}</td></tr>
+        <tr><td>产品类型</td><td>{{ project.product_type or '-' }}</td></tr>
+        <tr><td>区域邮编</td><td>{{ project.region or '-' }}</td></tr>
+        <tr><td>带宽</td><td>{% if project.bandwidth %}{{ project.bandwidth }} Mbps{% else %}-{% endif %}</td></tr>
+        <tr><td>创建时间</td><td>{{ project.created_at or '-' }}</td></tr>
+        <tr><td>预计交付</td><td>{{ project.due_date or '-' }}</td></tr>
+      </table>
+    </div>
+
+    <!-- Overall progress -->
+    <div class="section">
+      <div class="section-title">总体进度</div>
+      {% set prog = project.overall_progress or 0 %}
+      <div class="prog-outer">
+        <div class="prog-inner" style="width:{{ prog }}%;background:{% if prog >= 100 %}#27ae60{% else %}#E60012{% endif %}"></div>
+      </div>
+      <div class="prog-label"><span>完成度</span><span><strong>{{ prog }}%</strong></span></div>
+    </div>
+
+    <!-- Team -->
+    {% if project.team %}
+    <div class="section">
+      <div class="section-title">项目团队</div>
+      <div class="team-chips">
+        {% set colors = ['#E60012','#27ae60','#f39c12','#5e5ce6','#8e44ad','#e74c3c','#2980b9','#f1c40f'] %}
+        {% for m in project.team %}
+        {% set name = m.name if m is mapping else m %}
+        {% set role = m.role if m is mapping else '成员' %}
+        <div class="team-chip">
+          <div class="avatar" style="background:{{ colors[loop.index0 % colors|length] }}">{{ name[0] }}</div>
+          {{ name }}<span style="color:#bbb;font-size:10px;margin-left:2px">{{ role }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Stages -->
+    <div class="section">
+      <div class="section-title">阶段进度 ({{ project.stages|length }} 个阶段)</div>
+      {% for s in project.stages %}
+      {% set st = s.status or 'pending' %}
+      <div class="stage-row st-{{ st }}">
+        <div class="stage-num st-{{ st }}">{{ s.id }}</div>
+        <div style="flex:1;min-width:0">
+          <div class="stage-name">{{ s.name }}</div>
+          <div class="stage-sub">{{ s.name_en or '' }}{% if s.assignee %} · {{ s.assignee }}{% endif %}{% if s.notes %} · {{ s.notes[:50] }}{% endif %}</div>
+        </div>
+        <div class="mini-bar-bg"><div class="mini-bar-fill" style="width:{{ s.progress }}%"></div></div>
+        <div class="stage-pct">{{ s.progress }}%</div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>本报告由 <a href="#">澳洲联通项目管理系统</a> 自动生成</p>
+    <p>生成时间：{{ generated_at }} &nbsp;·&nbsp; 此为只读快照，实时数据请登录系统查看</p>
+  </div>
+
+</div><!-- /wrapper -->
+</body>
+</html>

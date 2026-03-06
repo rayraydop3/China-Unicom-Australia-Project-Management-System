@@ -1,100 +1,180 @@
-# 澳洲电信专线价格预测系统
+# Australia Unicom - Telecommunications Project Management Platform
 
-基于 CatBoost 机器学习模型的企业网络服务价格预测系统。
+A comprehensive telecommunications project management platform for Australia Unicom, combining ML-based pricing prediction, full project lifecycle management, AI-powered analytics, and real-time monitoring.
 
-## 项目结构
+## Features
+
+### AI Price Prediction Engine
+- CatBoost machine learning model for telecom line pricing
+- Supports multiple carriers: Telstra, Optus, Vocus, TPG, Superloop, Aussie Broadband
+- Product types: Internet, WAN, VPN
+- Automatic postcode-to-zone mapping for Australian regions
+- Confidence scoring and price floor protection (minimum AUD $50)
+
+### Project Lifecycle Management
+- 7-stage workflow tracking:
+  1. Requirement Confirmation
+  2. Solution Design
+  3. Supplier Inquiry
+  4. Internal Approval
+  5. Contract Signing
+  6. Engineering Implementation
+  7. Project Acceptance
+- Gantt chart visualization for project timelines
+- File upload/download for project attachments
+- Manual review and approval workflows
+
+### AI Smart Assistant
+- Multi-model support:
+  - Ollama (free, local deployment - recommended)
+  - Google Gemini (generous free tier)
+  - Alibaba Qwen / Tongyi Qianwen
+  - DeepSeek
+  - LM Studio (local)
+- RAG (Retrieval-Augmented Generation) with project database context
+- Web search integration via DuckDuckGo
+
+### Monitoring & Analytics Dashboard
+- Real-time project status tracking
+- Analytics charts and data visualization
+- Browser notification support
+- Smart polling for live updates
+
+### Content & Knowledge Base
+- Network coverage articles
+- Innovation leadership content
+- SME (Small & Medium Enterprise) solutions
+- Company knowledge base integration
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Backend | Flask (Python) |
+| ML Model | CatBoost Regressor |
+| Frontend | HTML / CSS / JavaScript |
+| Maps | Leaflet.js |
+| Charts | Chart.js |
+| AI Integration | Multi-model LLM API (Ollama, Gemini, Qwen, DeepSeek) |
+| Web Search | DuckDuckGo Search API |
+| Rate Limiting | Flask-Limiter |
+
+## Project Structure
 
 ```
-PriceSystem_Web/
-├── server.py              # Flask Web 服务器
-├── trainadvance.py        # 模型训练脚本
-├── telecom_model.cbm      # 训练好的模型文件
-├── training_mvp_v5.csv    # 训练数据
-├── templates/
-│   └── index.html         # 前端界面
-└── requirements.txt       # Python 依赖包
+├── server.py                  # Flask backend (routes, API, AI integration)
+├── trainadvance.py            # CatBoost model training script
+├── telecom_model.cbm          # Trained ML model (binary)
+├── training_mvp_v5.csv        # Training dataset
+├── company_knowledge.txt      # Company knowledge base for AI assistant
+├── requirements.txt           # Python dependencies
+├── manual_reviews.csv         # Manual review records
+├── notifications.json         # Notification data store
+├── projects.json              # Project data store
+├── user_feedback.csv          # User feedback records
+├── static/
+│   ├── css/
+│   │   └── global.css         # Global design system & responsive styles
+│   ├── js/
+│   │   └── global.js          # Toast, modal, polling & notification utilities
+│   ├── logo.png               # Brand logo
+│   ├── app.ico                # Favicon
+│   ├── opera-house-4k.jpg     # Hero image
+│   └── sydney-tower-4k.jpg    # Hero image
+└── templates/
+    ├── homepage.html           # Landing page
+    ├── index.html              # Price estimation interface with map
+    ├── project_monitor.html    # Project monitoring dashboard
+    ├── project_detail.html     # Individual project detail & Gantt chart
+    ├── project_analytics.html  # Analytics dashboard
+    ├── project_print.html      # Print/export template
+    ├── article_coverage.html   # Network coverage article
+    ├── article_innovation.html # Innovation leadership article
+    └── article_sme.html        # SME solutions article
 ```
 
-## 安装步骤
+## Getting Started
 
-### 1. 安装 Python 依赖
+### Prerequisites
+
+- Python 3.9+
+- pip
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone <repository-url>
+cd Telecommunication-sysytem-about-Australia-unicom
+```
+
+2. **Install dependencies**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. 训练模型（如果模型文件不存在）
+3. **Train the model** (skip if `telecom_model.cbm` already exists)
 
 ```bash
 python trainadvance.py
 ```
 
-这将生成 `telecom_model.cbm` 模型文件。
-
-### 3. 启动 Web 服务器
+4. **Start the server**
 
 ```bash
 python server.py
 ```
 
-服务器将在 `http://localhost:5000` 启动。
+The server will start at `http://localhost:5000`.
 
-## 使用方法
+### AI Assistant Configuration (Optional)
 
-1. 打开浏览器访问 `http://localhost:5000`
-2. 填写表单信息：
-   - 运营商（Operator）
-   - 带宽（Bandwidth，单位：Mbps）
-   - 地区邮编（Region Code）
-   - 产品类型（Type）
-   - 服务周期（Term，月）
-3. 点击"开始估价"按钮
-4. 查看预测价格结果
+The AI assistant supports multiple backends. Configure via environment variables or in-app settings:
 
-## 功能特点
+| Provider | Setup | Cost |
+|----------|-------|------|
+| Ollama | Install [Ollama](https://ollama.ai), run locally | Free |
+| Google Gemini | API key required | Free tier available |
+| Alibaba Qwen | API key required | Free tier available |
+| DeepSeek | API key required | Pay-per-use |
+| LM Studio | Install [LM Studio](https://lmstudio.ai), run locally | Free |
 
-- 🤖 AI 驱动的价格预测
-- 📍 智能地区归类（邮编自动转换为大区）
-- 📊 数据增强技术提升模型准确性
-- 🛡️ 价格保底机制（最低 50 澳元）
-- 🎨 现代化黑色主题界面
-- 💬 **AI 数据分析助手**：基于项目数据库的专有化 AI 分析
-  - ✅ **支持 Ollama（完全免费，本地运行）** - 推荐！
-  - ✅ 支持 Google Gemini（免费额度大）
-  - ✅ 支持通义千问（国内访问快）
-  - ✅ 支持 DeepSeek（备用）
-  - 详见 `免费模型配置指南.md`
+## API Endpoints
 
-## 技术栈
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | Homepage |
+| GET | `/pricing` | Price estimation page |
+| POST | `/predict` | Run price prediction |
+| GET | `/health` | Health check |
+| GET | `/projects` | List all projects |
+| POST | `/projects` | Create a new project |
+| GET | `/projects/<id>` | Project detail page |
+| GET | `/monitor` | Project monitoring dashboard |
+| GET | `/analytics` | Analytics dashboard |
+| POST | `/chat` | AI assistant chat |
+| GET | `/notifications` | Get notifications |
+| POST | `/feedback` | Submit user feedback |
 
-- **后端**: Flask + CatBoost + DeepSeek API
-- **前端**: HTML/CSS/JavaScript
-- **机器学习**: CatBoost Regressor
-- **AI 分析**: DeepSeek Chat API (RAG 检索增强生成)
+## Usage
 
-## 注意事项
+1. **Price Estimation** — Navigate to the pricing page, fill in operator, bandwidth (Mbps), postcode, product type, and contract term, then click "Start Estimation" to get an AI-predicted price.
 
-- 确保 `telecom_model.cbm` 文件存在，否则服务器无法启动
-- 如果修改了训练脚本，需要重新训练模型
-- 服务器默认运行在 `0.0.0.0:5000`，允许局域网访问
+2. **Project Management** — Create and track telecommunications projects through a 7-stage workflow. Each stage supports notes, file attachments, and manual reviews.
 
-## 🚀 局域网部署
+3. **AI Assistant** — Chat with the AI assistant for data analysis, project insights, and general telecom questions. The assistant has access to the project database and company knowledge base.
 
-如果您需要将项目部署到公司局域网，让同事持续访问：
+4. **Monitoring & Analytics** — Use the dashboard to monitor project progress in real-time and view analytics across all projects.
 
-1. **查看部署指南**：`局域网部署指南.md` - 详细的部署步骤
-2. **查看操作手册**：`操作手册.md` - 日常操作和维护说明
-3. **使用启动脚本**：`启动服务器.bat` - 一键启动服务器
-4. **配置自动启动**：`创建开机自启动.bat` - 设置开机自动启动（需管理员权限）
-5. **配置防火墙**：`配置防火墙.bat` - 自动配置防火墙规则（需管理员权限）
+## Notes
 
-### 快速部署步骤
+- Ensure `telecom_model.cbm` exists before starting the server; otherwise the prediction engine will not function.
+- The server binds to `0.0.0.0:5000` by default, allowing LAN access.
+- Rate limiting is set to 200 requests per hour per IP address.
+- Data files (`projects.json`, `notifications.json`, `manual_reviews.csv`, `user_feedback.csv`) are stored locally as flat files.
 
-1. 将项目复制到服务器电脑（建议路径：`D:\PriceSystem_Web`）
-2. 安装 Python 和依赖：`pip install -r requirements.txt`
-3. 配置防火墙：右键 `配置防火墙.bat` → 以管理员身份运行
-4. 设置开机自启动：右键 `创建开机自启动.bat` → 以管理员身份运行
-5. 测试启动：双击 `启动服务器.bat`
-6. 记录 IP 地址，告诉同事访问：`http://[IP地址]:5000`
+## License
 
-详细说明请查看 `局域网部署指南.md`。
+This project is proprietary to Australia Unicom.

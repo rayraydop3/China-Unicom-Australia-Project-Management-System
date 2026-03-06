@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>澳洲联通 | 项目进度管理系统</title>
+    <link rel="stylesheet" href="/static/css/global.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-color: #000000; --text-color: #ffffff; --accent-red: #E60012;
+            --input-bg: #333333; --card-bg: #1a1a1a;
+            --green: #30d158; --yellow: #ff9f0a; --red: #ff453a; --pending-gray: #555;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at top right, #2a2a2a 0%, #000000 80%);
+            color: var(--text-color); min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .header-bar {
+            width: 100%; max-width: 1400px; height: 70px;
+            display: flex; align-items: center; padding: 0 20px;
+            margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo-text { font-size: 28px; font-weight: bold; color: white; }
+        .logo-red { color: var(--accent-red); margin-left: 5px; }
+        .logo-img { width: 32px; height: 32px; margin-left: 12px; object-fit: contain; }
+        .header-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+        .header-right a { color: var(--accent-red); text-decoration: none; font-size: 13px; }
+        .notif-btn { position: relative; cursor: pointer; background: none; border: none; padding: 6px; }
+        .notif-btn svg { width: 22px; height: 22px; stroke: #aaa; fill: none; transition: stroke 0.2s; }
+        .notif-btn:hover svg { stroke: #fff; }
+        .notif-badge { position: absolute; top: 0; right: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--red); color: white; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid #000; }
+        .notif-badge.hidden { display: none; }
+        .notif-panel { display: none; position: absolute; top: 40px; right: 0; width: 360px; max-height: 420px; overflow-y: auto; background: rgba(25,25,25,0.98); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); z-index: 6000; padding: 12px; }
+        .notif-panel.active { display: block; }
+        .notif-panel-title { font-size: 14px; font-weight: 700; color: #aaa; padding: 4px 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 8px; }
+        .notif-item { padding: 10px; border-radius: 10px; margin-bottom: 4px; font-size: 12px; line-height: 1.5; transition: background 0.2s; cursor: pointer; }
+        .notif-item:hover { background: rgba(255,255,255,0.05); }
+        .notif-item.unread { border-left: 3px solid var(--accent-red); }
+        .notif-item .notif-time { color: #555; font-size: 10px; margin-top: 4px; }
+        .notif-item .notif-project { color: var(--accent-red); font-weight: 600; }
+        .notif-empty { color: #555; text-align: center; padding: 30px; font-size: 13px; }
+        .page-title-section { width: 100%; max-width: 1400px; padding: 0 20px; margin-bottom: 16px; }
+        .page-title { font-size: 32px; font-weight: bold; margin-bottom: 6px; }
+        .page-subtitle { color: #888; font-size: 14px; }
+        /* Search/Filter bar */
+        .filter-bar { width: 100%; max-width: 1400px; padding: 0 20px; margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .search-input { flex: 1; min-width: 200px; height: 42px; padding: 0 14px 0 38px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: white; font-size: 14px; outline: none; transition: border-color 0.2s; }
+        .search-input:focus { border-color: var(--accent-red); }
+        .search-wrap { position: relative; flex: 1; min-width: 200px; }
+        .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: #666; fill: none; pointer-events: none; }
+        .filter-select { height: 42px; padding: 0 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #ccc; font-size: 13px; outline: none; cursor: pointer; }
+        .filter-select option { background: #222; color: #ccc; }
+        /* Stats */
+        .action-bar { width: 100%; max-width: 1400px; padding: 0 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .stats-row { display: flex; gap: 14px; flex-wrap: wrap; }
+        .stat-card { background: rgba(20,20,20,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 20px; display: flex; align-items: center; gap: 10px; min-width: 120px; }
+        .stat-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .stat-icon svg { width: 16px; height: 16px; }
+        .stat-icon.icon-total { background: rgba(255,255,255,0.08); }
+        .stat-icon.icon-total svg { fill: #fff; stroke: #fff; }
+        .stat-icon.icon-active { background: rgba(48,209,88,0.12); }
+        .stat-icon.icon-active svg { fill: var(--green); stroke: var(--green); }
+        .stat-icon.icon-warning { background: rgba(255,159,10,0.12); }
+        .stat-icon.icon-warning svg { fill: var(--yellow); stroke: var(--yellow); }
+        .stat-icon.icon-critical { background: rgba(255,69,58,0.12); }
+        .stat-icon.icon-critical svg { fill: var(--red); stroke: var(--red); }
+        .stat-info { display: flex; flex-direction: column; }
+        .stat-number { font-size: 22px; font-weight: 700; line-height: 1; }
+        .stat-label { font-size: 10px; color: #888; margin-top: 3px; }
+        .action-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-action { padding: 10px 20px; background: var(--accent-red); color: white; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-action:hover { background: #ff1a1a; transform: translateY(-1px); }
+        .btn-action.secondary { background: rgba(255,255,255,0.08); color: #ccc; }
+        .btn-action.secondary:hover { background: rgba(255,255,255,0.15); color: #fff; }
+        /* Project cards */
+        .projects-wrapper { width: 100%; max-width: 1400px; padding: 0 20px; display: flex; flex-direction: column; align-items: stretch; }
+        .projects-container { width: 100%; display: flex; flex-direction: column; gap: 18px; padding-bottom: 20px; }
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 24px 0 40px; width: 100%; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.12); margin-top: 16px; flex-shrink: 0; background: rgba(255,255,255,0.02); border-radius: 12px; }
+        .pagination button { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #ccc; padding: 8px 16px; border-radius: 10px; font-size: 13px; cursor: pointer; transition: all 0.3s; }
+        .pagination button:hover:not(:disabled) { background: var(--accent-red); color: #fff; border-color: var(--accent-red); }
+        .pagination button:disabled { opacity: 0.3; cursor: not-allowed; }
+        .pagination button.active { background: var(--accent-red); color: #fff; border-color: var(--accent-red); font-weight: 700; }
+        .pagination .page-info { color: #888; font-size: 12px; margin: 0 8px; }
+        .project-card { background: rgba(20,20,20,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 24px 28px; box-shadow: 0 0 12px rgba(230,0,18,0.15), 0 6px 24px rgba(0,0,0,0.3); transition: all 0.3s; }
+        .project-card:hover { border-color: rgba(230,0,18,0.4); box-shadow: 0 0 20px rgba(230,0,18,0.3), 0 10px 36px rgba(0,0,0,0.4); transform: translateY(-2px); }
+        .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+        .project-name-link { font-size: 20px; font-weight: 700; margin-bottom: 4px; color: white; text-decoration: none; cursor: pointer; transition: color 0.2s; }
+        .project-name-link:hover { color: var(--accent-red); }
+        .project-meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+        .project-meta-item { font-size: 12px; color: #777; }
+        .project-meta-item span { color: #bbb; }
+        .priority-tag { padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        .priority-tag.high { background: rgba(255,69,58,0.15); color: var(--red); }
+        .priority-tag.medium { background: rgba(255,159,10,0.15); color: var(--yellow); }
+        .priority-tag.low { background: rgba(48,209,88,0.15); color: var(--green); }
+        .due-tag { padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; }
+        .due-tag.overdue { background: rgba(255,69,58,0.15); color: var(--red); animation: blink 1.5s infinite; }
+        .due-tag.soon { background: rgba(255,159,10,0.15); color: var(--yellow); }
+        .due-tag.ok { background: rgba(255,255,255,0.06); color: #888; }
+        @keyframes blink { 50% { opacity: 0.6; } }
+        .team-avatars { display: flex; margin-left: 8px; }
+        .team-avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white; border: 2px solid #111; margin-left: -6px; }
+        .team-avatar:first-child { margin-left: 0; }
+        .team-more { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 9px; color: #888; margin-left: -6px; border: 2px solid #111; }
+        .project-actions { display: flex; gap: 8px; flex-shrink: 0; }
+        .btn-sm { padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); color: #bbb; font-size: 11px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px; }
+        .btn-sm:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .btn-sm.danger { border-color: rgba(255,69,58,0.2); color: #ff453a; }
+        .btn-sm.danger:hover { background: rgba(255,69,58,0.1); }
+        .overall-progress { margin-bottom: 18px; }
+        .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .progress-label { font-size: 12px; color: #888; }
+        /* Segmented progress bar */
+        .progress-segmented { width: 100%; }
+        .progress-seg-track { display: flex; width: 100%; height: 6px; gap: 3px; }
+        .progress-seg { flex: 1; height: 100%; border-radius: 3px; background: rgba(255,255,255,0.06); transition: background 0.4s; }
+        .progress-seg.filled { background: var(--accent-red); }
+        .progress-seg-labels { display: flex; width: 100%; margin-top: 6px; }
+        .progress-seg-labels span { flex: 1; text-align: center; font-size: 9px; color: #555; }
+        /* Stages pipeline */
+        .stages-pipeline { display: flex; gap: 0; align-items: flex-start; overflow-x: auto; padding: 8px 0; }
+        .stage-item { flex: 1; min-width: 90px; display: flex; flex-direction: column; align-items: center; position: relative; cursor: pointer; }
+        .stage-dot { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; z-index: 1; transition: all 0.3s; border: 2px solid transparent; position: relative; }
+        .stage-dot svg { width: 20px; height: 20px; }
+        .stage-dot.pending { background: rgba(60,60,60,0.3); border-color: rgba(80,80,80,0.3); }
+        .stage-dot.pending svg { fill: #555; stroke: #555; }
+        .stage-dot.green { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); }
+        .stage-dot.green svg { fill: #ccc; stroke: #ccc; }
+        .stage-dot.yellow { background: rgba(255,159,10,0.08); border-color: rgba(255,159,10,0.4); box-shadow: 0 0 12px rgba(255,159,10,0.15); }
+        .stage-dot.yellow svg { fill: var(--yellow); stroke: var(--yellow); }
+        .stage-dot.red { background: rgba(255,69,58,0.1); border-color: rgba(255,69,58,0.5); box-shadow: 0 0 12px rgba(255,69,58,0.2); animation: pulse-red 2.4s ease-in-out infinite; }
+        .stage-dot.red svg { fill: var(--red); stroke: var(--red); }
+        .stage-dot.blocked { opacity: 0.4; cursor: not-allowed; }
+        @keyframes pulse-red { 0%,100% { box-shadow: 0 0 12px rgba(255,69,58,0.2); } 50% { box-shadow: 0 0 24px rgba(255,69,58,0.4); } }
+        .stage-item:hover .stage-dot:not(.blocked) { transform: scale(1.1) translateY(-2px); }
+        .stage-dot .status-badge { position: absolute; top: -3px; right: -3px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #111; }
+        .stage-dot .status-badge svg { width: 8px; height: 8px; }
+        .stage-dot.green .status-badge { background: #aaa; }
+        .stage-dot.green .status-badge svg, .stage-dot.yellow .status-badge svg, .stage-dot.red .status-badge svg { fill: #fff; stroke: #fff; }
+        .stage-dot.yellow .status-badge { background: var(--yellow); }
+        .stage-dot.red .status-badge { background: var(--red); }
+        .stage-name { font-size: 10px; color: #999; margin-top: 8px; text-align: center; line-height: 1.3; font-weight: 500; }
+        .stage-progress-text { font-size: 9px; color: #555; margin-top: 2px; font-weight: 600; }
+        .stage-expand-btn { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-left: 4px; border-radius: 4px; background: rgba(255,255,255,0.06); cursor: pointer; transition: all 0.2s; vertical-align: middle; }
+        .stage-expand-btn:hover { background: rgba(255,255,255,0.12); }
+        .stage-expand-btn svg { width: 10px; height: 10px; transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); }
+        .stage-expand-btn.expanded { background: rgba(230,0,18,0.15); }
+        .stage-expand-btn.expanded svg { transform: rotate(180deg); }
+        /* Sub-expand inline accordion */
+        .sub-expand-section { display: none; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 10px; padding-top: 12px; }
+        .sub-expand-section.open { display: block; animation: subExpandIn 0.25s cubic-bezier(0.4,0,0.2,1); }
+        @keyframes subExpandIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+        .sub-section-header { font-size: 10px; color: #666; margin-bottom: 10px; padding: 0 2px 6px; border-bottom: 1px solid rgba(255,255,255,0.04); letter-spacing: 0.3px; }
+        .sub-stages-row { display: flex; gap: 0; align-items: flex-start; overflow-x: auto; padding: 4px 0 8px; }
+        .sub-stage-item { flex: 1; min-width: 72px; display: flex; flex-direction: column; align-items: center; cursor: default; }
+        .sub-stage-dot { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1); transition: all 0.2s; }
+        .sub-stage-dot svg { width: 18px; height: 18px; fill: none; stroke: #666; }
+        .sub-stage-item { cursor: pointer; }
+        .sub-stage-item:hover .sub-stage-dot { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); transform: scale(1.06) translateY(-2px); }
+        .sub-stage-item:hover .sub-stage-dot svg { stroke: #aaa; }
+        .sub-stage-dot.pending { background: rgba(60,60,60,0.3); border-color: rgba(80,80,80,0.3); }
+        .sub-stage-dot.pending svg { stroke: #555; }
+        .sub-stage-dot.green { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); }
+        .sub-stage-dot.green svg { stroke: #ccc; }
+        .sub-stage-dot.yellow { background: rgba(255,159,10,0.08); border-color: rgba(255,159,10,0.4); box-shadow: 0 0 10px rgba(255,159,10,0.15); }
+        .sub-stage-dot.yellow svg { stroke: var(--yellow); }
+        .sub-stage-dot.red { background: rgba(255,69,58,0.1); border-color: rgba(255,69,58,0.5); box-shadow: 0 0 10px rgba(255,69,58,0.2); }
+        .sub-stage-dot.red svg { stroke: var(--red); }
+        .sub-stage-name { font-size: 10px; color: #888; margin-top: 7px; text-align: center; line-height: 1.3; font-weight: 500; }
+        .sub-stage-status-text { font-size: 9px; color: #555; margin-top: 2px; font-weight: 600; }
+        /* Modals */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); z-index: 5000; align-items: center; justify-content: center; }
+        .modal-overlay.active { display: flex; }
+        .modal-box { background: rgba(25,25,25,0.98); border: 1px solid rgba(255,255,255,0.15); border-radius: 18px; padding: 24px; width: 520px; max-width: 92vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 30px rgba(230,0,18,0.3), 0 20px 60px rgba(0,0,0,0.6); }
+        .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+        .modal-field { margin-bottom: 10px; }
+        .modal-field label { display: block; font-size: 11px; color: #888; margin-bottom: 4px; }
+        .modal-field input, .modal-field select { width: 100%; height: 36px; padding: 0 10px; background: var(--input-bg); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: white; font-size: 12px; outline: none; }
+        .modal-field select option { background: #333; color: white; }
+        .modal-row { display: flex; gap: 10px; }
+        .modal-row .modal-field { flex: 1; min-width: 0; }
+        .modal-buttons { display: flex; gap: 10px; margin-top: 16px; }
+        .modal-buttons button { flex: 1; height: 40px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s; }
+        .btn-modal-cancel { background: rgba(255,255,255,0.08); color: #aaa; }
+        .btn-modal-cancel:hover { background: rgba(255,255,255,0.15); color: #fff; }
+        .btn-modal-confirm { background: var(--accent-red); color: white; }
+        .btn-modal-confirm:hover { background: #ff1a1a; }
+        .stage-edit-modal .modal-box { width: 500px; }
+        .status-selector { display: flex; gap: 6px; margin-top: 4px; }
+        .status-option { flex: 1; padding: 8px 4px; border-radius: 8px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; font-size: 10px; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .status-option.opt-green { background: rgba(48,209,88,0.06); color: var(--green); }
+        .status-option.opt-green:hover, .status-option.opt-green.selected { border-color: var(--green); background: rgba(48,209,88,0.15); }
+        .status-option.opt-yellow { background: rgba(255,159,10,0.06); color: var(--yellow); }
+        .status-option.opt-yellow:hover, .status-option.opt-yellow.selected { border-color: var(--yellow); background: rgba(255,159,10,0.15); }
+        .status-option.opt-red { background: rgba(255,69,58,0.06); color: var(--red); }
+        .status-option.opt-red:hover, .status-option.opt-red.selected { border-color: var(--red); background: rgba(255,69,58,0.15); }
+        .status-option.opt-pending { background: rgba(85,85,85,0.1); color: #888; }
+        .status-option.opt-pending:hover, .status-option.opt-pending.selected { border-color: #666; background: rgba(85,85,85,0.2); }
+        .stage-progress-slider input[type="range"] { width: 100%; height: 6px; -webkit-appearance: none; appearance: none; background: rgba(255,255,255,0.08); border-radius: 3px; outline: none; margin-top: 8px; }
+        .stage-progress-slider input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-red); cursor: pointer; }
+        .stage-progress-value { display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; color: #666; }
+        .stage-notes-input { width: 100%; height: 52px; padding: 6px 10px; background: var(--input-bg); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: white; font-size: 12px; outline: none; resize: none; font-family: inherit; }
+        .blocked-warning { background: rgba(255,159,10,0.1); border: 1px solid rgba(255,159,10,0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px; color: var(--yellow); line-height: 1.5; }
+        .empty-state { text-align: center; padding: 60px 20px; color: #555; }
+        .empty-state-icon { margin-bottom: 16px; }
+        .empty-state-text { font-size: 16px; margin-bottom: 6px; color: #777; }
+        .empty-state-hint { font-size: 13px; color: #555; }
+        .site-footer { width: 100%; background: #050505; border-top: 1px solid rgba(255,255,255,0.06); padding: 16px 40px; margin-top: auto; }
+        .footer-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 12px; }
+        /* Cyberpunk layer */
+        body::after { content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; z-index: 9999; pointer-events: none; background: transparent; filter: url(#film-grain-filter); opacity: 0.04; animation: grain-shift 0.5s steps(4) infinite; }
+        @keyframes grain-shift { 0% { transform: translate(0,0); } 25% { transform: translate(-2%,-3%); } 50% { transform: translate(3%,1%); } 75% { transform: translate(-1%,2%); } 100% { transform: translate(2%,-1%); } }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9998; pointer-events: none; background: linear-gradient(to right, rgba(255,0,0,0.05) 0%, transparent 5%), linear-gradient(to left, rgba(0,255,255,0.04) 0%, transparent 5%), linear-gradient(to bottom, rgba(255,0,120,0.03) 0%, transparent 4%), linear-gradient(to top, rgba(0,80,255,0.03) 0%, transparent 4%), radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.2) 100%); }
+        @media (max-width: 768px) {
+            .page-title { font-size: 24px; }
+            .stage-item { min-width: 90px; }
+            .project-card { padding: 16px; }
+            .stats-row { width: 100%; }
+            .stat-card { flex: 1; min-width: 100px; }
+            .filter-bar { flex-direction: column; }
+            .search-wrap { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <svg style="position:absolute;width:0;height:0;" aria-hidden="true">
+        <defs><filter id="film-grain-filter" x="0%" y="0%" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" result="noise"/><feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/><feBlend in="SourceGraphic" in2="grayNoise" mode="multiply"/></filter></defs>
+        <symbol id="ic-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></symbol>
+        <symbol id="ic-location" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+        <symbol id="ic-blueprint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+        <symbol id="ic-contract" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+        <symbol id="ic-tools" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+        <symbol id="ic-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></symbol>
+        <symbol id="ic-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+        <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+        <symbol id="ic-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+        <symbol id="ic-x-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></symbol>
+        <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+        <symbol id="ic-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
+        <symbol id="ic-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></symbol>
+        <symbol id="ic-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+        <symbol id="ic-zap" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+        <symbol id="ic-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+        <symbol id="ic-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+        <symbol id="ic-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+        <symbol id="ic-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></symbol>
+        <symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+        <symbol id="ic-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+        <symbol id="ic-bar-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></symbol>
+        <symbol id="ic-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+        <symbol id="ic-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></symbol>
+        <symbol id="ic-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></symbol>
+        <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+        <symbol id="ic-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    </svg>
+
+    <div class="header-bar">
+        <span class="logo-text">澳洲</span><span class="logo-text logo-red">联通</span>
+        <img src="/static/logo.png" alt="Logo" class="logo-img">
+        <button class="version-badge" onclick="showChangelog()" title="查看更新日志">
+          <span class="version-badge-text">v0.4.0.1&nbsp;&nbsp;06/03/2026</span>
+        </button>
+        <div class="header-right">
+            <a href="/">← 返回首页</a>
+            <a href="/pricing">报价系统</a>
+            <a href="/projects/analytics">数据分析</a>
+            <div style="position:relative;">
+                <button class="notif-btn" onclick="toggleNotifPanel()">
+                    <svg><use href="#ic-bell"/></svg>
+                    <span class="notif-badge hidden" id="notif-count">0</span>
+                </button>
+                <div class="notif-panel" id="notif-panel">
+                    <div class="notif-panel-title">通知</div>
+                    <div id="notif-list"><div class="notif-empty">暂无通知</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-title-section">
+        <h1 class="page-title"><svg style="width:30px;height:30px;vertical-align:middle;margin-right:8px;stroke:var(--accent-red);fill:none;display:inline-block;position:relative;top:-2px;"><use href="#ic-dashboard"/></svg>项目进度管理系统</h1>
+        <p class="page-subtitle">实时追踪项目进度 · 从需求到交付全链路可视化</p>
+    </div>
+
+    <!-- Search / Filter -->
+    <div class="filter-bar">
+        <div class="search-wrap">
+            <svg><use href="#ic-search"/></svg>
+            <input class="search-input" type="text" id="search-input" placeholder="精准搜索：项目名 / 客户 / 邮编 / 编号（空格分隔多关键词）" oninput="applyFilters()">
+        </div>
+        <select class="filter-select" id="filter-status" onchange="applyFilters()">
+            <option value="">全部状态</option>
+            <option value="active">进行中</option>
+            <option value="completed">已完成</option>
+            <option value="cancelled">已取消</option>
+        </select>
+        <select class="filter-select" id="filter-product" onchange="applyFilters()">
+            <option value="">全部产品</option>
+            <option value="INTERNET">DIA 专线</option>
+            <option value="WAN">MPLS/SD-WAN</option>
+            <option value="VPN">IP VPN</option>
+        </select>
+        <select class="filter-select" id="filter-priority" onchange="applyFilters()">
+            <option value="">全部优先级</option>
+            <option value="high">高优先级</option>
+            <option value="medium">中优先级</option>
+            <option value="low">低优先级</option>
+        </select>
+        <select class="filter-select" id="sort-by" onchange="applyFilters()">
+            <option value="updated">最近更新</option>
+            <option value="created">创建时间</option>
+            <option value="progress">进度</option>
+            <option value="priority">优先级</option>
+        </select>
+    </div>
+
+    <div class="action-bar">
+        <div class="stats-row">
+            <div class="stat-card"><div class="stat-icon icon-total"><svg><use href="#ic-folder"/></svg></div><div class="stat-info"><span class="stat-number" id="stat-total" style="color:#fff;">0</span><span class="stat-label">总项目</span></div></div>
+            <div class="stat-card"><div class="stat-icon icon-active"><svg><use href="#ic-play"/></svg></div><div class="stat-info"><span class="stat-number" id="stat-active" style="color:var(--green);">0</span><span class="stat-label">进行中</span></div></div>
+            <div class="stat-card"><div class="stat-icon icon-warning"><svg><use href="#ic-warn"/></svg></div><div class="stat-info"><span class="stat-number" id="stat-warning" style="color:var(--yellow);">0</span><span class="stat-label">有问题</span></div></div>
+            <div class="stat-card"><div class="stat-icon icon-critical"><svg><use href="#ic-zap"/></svg></div><div class="stat-info"><span class="stat-number" id="stat-critical" style="color:var(--red);">0</span><span class="stat-label">严重</span></div></div>
+        </div>
+        <div class="action-buttons">
+            <a class="btn-action secondary" href="/api/projects/export/csv" target="_blank"><svg style="width:14px;height:14px;stroke:currentColor;fill:none;"><use href="#ic-download"/></svg>导出CSV</a>
+            <button class="btn-action" onclick="openNewProjectModal()">+ 新建项目</button>
+        </div>
+    </div>
+
+    <div class="projects-wrapper">
+        <div class="projects-container" id="projects-container">
+            <div class="empty-state" id="empty-state">
+                <div class="empty-state-icon"><svg style="width:56px;height:56px;stroke:#444;fill:none;"><use href="#ic-inbox"/></svg></div>
+                <div class="empty-state-text">暂无项目</div>
+                <div class="empty-state-hint">点击"+ 新建项目"开始追踪您的项目</div>
+            </div>
+        </div>
+        <div class="pagination" id="pagination-controls">
+            <span class="page-info">第 1 / 1 页 · 共 0 个项目（每页 5 个）</span>
+        </div>
+    </div>
+
+    <footer class="site-footer"><div class="footer-inner">
+        <div><span class="logo-text" style="font-size:18px;">澳洲</span><span class="logo-text logo-red" style="font-size:18px;">联通</span><span style="color:#555;font-size:11px;margin-left:8px;">Australia Unicom</span></div>
+        <div><a href="tel:1300864266" style="color:#E60012;text-decoration:none;font-weight:600;">1300-UNICOM</a><span style="color:#444;margin:0 10px;">|</span><span style="color:#555;">24小时中英双语客服</span><span style="color:#444;margin:0 10px;">|</span><span style="color:#555;">99.99% SLA</span></div>
+        <div><span style="color:#555;">© 2026 Australia Unicom</span></div>
+    </div></footer>
+
+    <!-- New Project Modal -->
+    <div class="modal-overlay" id="new-project-modal">
+        <div class="modal-box">
+            <div class="modal-title">新建项目</div>
+            <div class="modal-field"><label>项目名称</label><input type="text" id="np-name" placeholder="例如：悉尼CBD办公室专线部署"></div>
+            <div class="modal-field"><label>客户名称</label><input type="text" id="np-client" placeholder="例如：ABC Company Pty Ltd"></div>
+            <div class="modal-row">
+                <div class="modal-field"><label>产品类型</label><select id="np-product"><option value="INTERNET">DIA (互联网专线)</option><option value="WAN">MPLS / SD-WAN</option><option value="VPN">IP VPN</option></select></div>
+                <div class="modal-field"><label>优先级</label><select id="np-priority"><option value="medium">中</option><option value="high">高</option><option value="low">低</option></select></div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-field"><label>地区邮编</label><input type="text" id="np-region" placeholder="例如：2000"></div>
+                <div class="modal-field"><label>带宽 (Mbps)</label><input type="number" id="np-bandwidth" placeholder="100"></div>
+            </div>
+            <div class="modal-field"><label>项目截止日期</label><input type="date" id="np-due-date"></div>
+            <div class="modal-field"><label>团队成员（逗号分隔）</label><input type="text" id="np-team" placeholder="例如：张三,李四,王五"></div>
+            <div class="modal-buttons"><button class="btn-modal-cancel" onclick="closeNewProjectModal()">取消</button><button class="btn-modal-confirm" onclick="createProject()">创建项目</button></div>
+        </div>
+    </div>
+
+    <!-- Sub-category Edit Modal -->
+    <div class="modal-overlay" id="sub-edit-modal">
+        <div class="modal-box" style="width:460px;">
+            <div class="modal-title" id="sub-edit-title">编辑子类</div>
+            <div class="modal-field"><label>状态</label>
+                <div class="status-selector" id="sub-status-selector">
+                    <div class="status-option opt-pending" data-status="pending" onclick="selectSubStatus('pending')"><svg style="width:18px;height:18px;stroke:#888;fill:none;"><use href="#ic-clock"/></svg><span>待开始</span></div>
+                    <div class="status-option opt-green" data-status="green" onclick="selectSubStatus('green')"><svg style="width:18px;height:18px;stroke:var(--green);fill:none;"><use href="#ic-check"/></svg><span>顺利</span></div>
+                    <div class="status-option opt-yellow" data-status="yellow" onclick="selectSubStatus('yellow')"><svg style="width:18px;height:18px;stroke:var(--yellow);fill:none;"><use href="#ic-alert"/></svg><span>有问题</span></div>
+                    <div class="status-option opt-red" data-status="red" onclick="selectSubStatus('red')"><svg style="width:18px;height:18px;stroke:var(--red);fill:none;"><use href="#ic-x-circle"/></svg><span>严重</span></div>
+                </div>
+            </div>
+            <div class="modal-field"><label>负责人</label><input type="text" id="sub-assignee" placeholder="负责人姓名"></div>
+            <div class="modal-field"><label>备注</label><textarea class="stage-notes-input" id="sub-notes" placeholder="记录当前子类的问题或说明..."></textarea></div>
+            <div class="modal-buttons"><button class="btn-modal-cancel" onclick="closeSubEditModal()">取消</button><button class="btn-modal-confirm" onclick="saveSubEdit()">保存</button></div>
+        </div>
+    </div>
+
+    <!-- Stage Edit Modal -->
+    <div class="modal-overlay stage-edit-modal" id="stage-edit-modal">
+        <div class="modal-box">
+            <div class="modal-title" id="stage-edit-title">编辑阶段</div>
+            <div id="blocked-warning" class="blocked-warning" style="display:none;"></div>
+            <div class="modal-field"><label>阶段状态</label>
+                <div class="status-selector" id="status-selector">
+                    <div class="status-option opt-pending" data-status="pending" onclick="selectStatus('pending')"><svg style="width:18px;height:18px;stroke:#888;fill:none;"><use href="#ic-clock"/></svg><span>待开始</span></div>
+                    <div class="status-option opt-green" data-status="green" onclick="selectStatus('green')"><svg style="width:18px;height:18px;stroke:var(--green);fill:none;"><use href="#ic-check"/></svg><span>顺利</span></div>
+                    <div class="status-option opt-yellow" data-status="yellow" onclick="selectStatus('yellow')"><svg style="width:18px;height:18px;stroke:var(--yellow);fill:none;"><use href="#ic-alert"/></svg><span>有问题</span></div>
+                    <div class="status-option opt-red" data-status="red" onclick="selectStatus('red')"><svg style="width:18px;height:18px;stroke:var(--red);fill:none;"><use href="#ic-x-circle"/></svg><span>严重</span></div>
+                </div>
+            </div>
+            <input type="hidden" id="stage-progress-range" value="0">
+            <div class="modal-row">
+                <div class="modal-field"><label>负责人</label><input type="text" id="stage-assignee" placeholder="负责人姓名"></div>
+                <div class="modal-field"><label>起始日期</label><input type="date" id="stage-start-date"></div>
+                <div class="modal-field"><label>截止日期</label><input type="date" id="stage-due-date"></div>
+            </div>
+            <div class="modal-field"><label>备注</label><textarea class="stage-notes-input" id="stage-notes" placeholder="记录当前阶段的问题或说明..."></textarea></div>
+            <div class="modal-buttons"><button class="btn-modal-cancel" onclick="closeStageEditModal()">取消</button><button class="btn-modal-confirm" onclick="saveStageEdit()">保存</button></div>
+        </div>
+    </div>
+
+    <script>
+        let projects = [];
+        let filteredProjects = [];
+        let currentPage = 1;
+        const PAGE_SIZE = 5;
+        let editingProjectId = null;
+        let editingStageId = null;
+        let selectedStatus = 'pending';
+        let notifications = [];
+
+        const STAGE_ICONS = {1:'ic-clipboard',2:'ic-blueprint',3:'ic-contract',4:'ic-folder',5:'ic-clipboard',6:'ic-location',7:'ic-tools',8:'ic-shield',9:'ic-rocket'};
+        const STATUS_BADGE_ICONS = {green:'ic-check',yellow:'ic-alert',red:'ic-x-circle'};
+        const PRIORITY_ORDER = {high:0,medium:1,low:2};
+        const AVATAR_COLORS = ['#E60012','#30d158','#ff9f0a','#5e5ce6','#bf5af2','#ff453a','#64d2ff','#ffd60a'];
+
+        document.addEventListener('DOMContentLoaded', () => { loadProjects(); loadNotifications(); });
+
+        async function loadProjects() {
+            try {
+                const res = await fetch('/api/projects');
+                const json = await res.json();
+                if (json.status === 'success') { projects = json.projects; applyFilters(); updateStats(); }
+            } catch (e) { console.error('加载失败:', e); }
+        }
+
+        async function loadNotifications() {
+            try {
+                const res = await fetch('/api/notifications');
+                const json = await res.json();
+                if (json.status === 'success') {
+                    notifications = json.notifications || [];
+                    renderNotifications();
+                }
+            } catch(e) {}
+        }
+
+        function renderNotifications() {
+            const list = document.getElementById('notif-list');
+            const badge = document.getElementById('notif-count');
+            const unread = notifications.filter(n => !n.read).length;
+            badge.textContent = unread;
+            badge.classList.toggle('hidden', unread === 0);
+            if (notifications.length === 0) { list.innerHTML = '<div class="notif-empty">暂无通知</div>'; return; }
+            list.innerHTML = notifications.slice(0, 20).map(n => {
+                const typeColors = {critical:'var(--red)',warning:'var(--yellow)',complete:'var(--green)',info:'#aaa'};
+                return `<div class="notif-item ${n.read ? '' : 'unread'}" onclick="window.location='/projects/${n.project_id}'">
+                    <div><span class="notif-project">${n.project_name}</span></div>
+                    <div style="color:${typeColors[n.type] || '#aaa'}">${n.message}</div>
+                    <div class="notif-time">${n.timestamp}</div>
+                </div>`;
+            }).join('');
+        }
+
+        function toggleNotifPanel() {
+            const panel = document.getElementById('notif-panel');
+            panel.classList.toggle('active');
+            if (panel.classList.contains('active') && notifications.some(n => !n.read)) {
+                fetch('/api/notifications/read', {method:'POST'});
+                notifications.forEach(n => n.read = true);
+                setTimeout(() => renderNotifications(), 500);
+            }
+        }
+
+        // --- Filter/Sort ---
+        function applyFilters() {
+            const rawSearch = document.getElementById('search-input').value.trim().toLowerCase();
+            const terms = rawSearch ? rawSearch.split(/[\s,，]+/).filter(Boolean) : [];
+            const status = document.getElementById('filter-status').value;
+            const product = document.getElementById('filter-product').value;
+            const priority = document.getElementById('filter-priority').value;
+            const sortBy = document.getElementById('sort-by').value;
+
+            filteredProjects = projects.filter(p => {
+                if (terms.length > 0) {
+                    const fields = [p.name, p.client, p.id, p.region, p.product_type];
+                    const allMatch = terms.every(t => fields.some(f => (f || '').toLowerCase().includes(t)));
+                    if (!allMatch) return false;
+                }
+                if (status && p.status !== status) return false;
+                if (product && p.product_type !== product) return false;
+                if (priority && (p.priority||'medium') !== priority) return false;
+                return true;
+            });
+
+            filteredProjects.sort((a, b) => {
+                if (sortBy === 'updated') return new Date(b.updated_at) - new Date(a.updated_at);
+                if (sortBy === 'created') return new Date(b.created_at) - new Date(a.created_at);
+                if (sortBy === 'progress') return (b.overall_progress||0) - (a.overall_progress||0);
+                if (sortBy === 'priority') return (PRIORITY_ORDER[a.priority||'medium']||1) - (PRIORITY_ORDER[b.priority||'medium']||1);
+                return 0;
+            });
+            currentPage = 1;
+            renderProjects();
+        }
+
+        function renderProjects() {
+            const container = document.getElementById('projects-container');
+            const paginationEl = document.getElementById('pagination-controls');
+            if (!container) return;
+            container.innerHTML = '';
+            if (filteredProjects.length === 0) {
+                container.innerHTML = `<div class="empty-state"><div class="empty-state-icon"><svg style="width:56px;height:56px;stroke:#444;fill:none;"><use href="#ic-inbox"/></svg></div><div class="empty-state-text">${projects.length === 0 ? '暂无项目' : '没有匹配的项目'}</div><div class="empty-state-hint">${projects.length === 0 ? '点击"+ 新建项目"开始追踪' : '尝试调整筛选条件'}</div></div>`;
+                if (paginationEl) paginationEl.innerHTML = '<span class="page-info">暂无项目</span>';
+                return;
+            }
+            const totalPages = Math.ceil(filteredProjects.length / PAGE_SIZE);
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+            const start = (currentPage - 1) * PAGE_SIZE;
+            const pageItems = filteredProjects.slice(start, start + PAGE_SIZE);
+            pageItems.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = buildProjectHTML(project);
+                container.appendChild(card);
+            });
+            let html = `<button onclick="goToPage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>&laquo; 上一页</button>`;
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            html += `<button onclick="goToPage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>下一页 &raquo;</button>`;
+            html += `<span class="page-info">第 ${currentPage} / ${totalPages} 页 · 共 ${filteredProjects.length} 个项目（每页 ${PAGE_SIZE} 个）</span>`;
+            if (paginationEl) paginationEl.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderProjects();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function toggleSubExpand(btnEl) {
+            const card = btnEl.closest('.project-card');
+            if (!card) return;
+            const section = card.querySelector('.sub-expand-section');
+            if (!section) return;
+            const name = btnEl.getAttribute('data-name') || '';
+            const projectId = btnEl.getAttribute('data-project-id');
+            const stageId = parseInt(btnEl.getAttribute('data-stage-id'));
+            let subs = [];
+            try {
+                subs = JSON.parse(decodeURIComponent(btnEl.getAttribute('data-subs') || '[]'));
+            } catch (e) {}
+            if (subs.length === 0) return;
+            const isThisOpen = btnEl.classList.contains('expanded');
+            card.querySelectorAll('.stage-expand-btn.expanded').forEach(b => b.classList.remove('expanded'));
+            if (isThisOpen) {
+                section.classList.remove('open');
+                section.innerHTML = '';
+                return;
+            }
+            btnEl.classList.add('expanded');
+            const STATUS_TEXT = {green:'已完成', yellow:'有问题', red:'需关注', pending:''};
+            const subsHTML = subs.map((s, idx) => {
+                const subName = typeof s === 'string' ? s : s.name;
+                const subStatus = typeof s === 'string' ? 'pending' : (s.status || 'pending');
+                const subText = STATUS_TEXT[subStatus] || '';
+                return `<div class="sub-stage-item" onclick="openSubEdit('${projectId}',${stageId},${idx})">
+                    <div class="sub-stage-dot ${subStatus}"><svg><use href="#ic-folder"/></svg></div>
+                    <div class="sub-stage-name">${subName}</div>
+                    <div class="sub-stage-status-text">${subText}</div>
+                </div>`;
+            }).join('');
+            section.innerHTML = `<div class="sub-section-header">${name} · 小类</div><div class="sub-stages-row">${subsHTML}</div>`;
+            section.classList.add('open');
+        }
+
+        // --- Sub-category Edit ---
+        let editingSubProjectId = null, editingSubStageId = null, editingSubIdx = null, selectedSubStatus = 'pending';
+
+        function openSubEdit(projectId, stageId, subIdx) {
+            editingSubProjectId = projectId;
+            editingSubStageId = stageId;
+            editingSubIdx = subIdx;
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return;
+            const stage = project.stages.find(s => s.id === stageId);
+            if (!stage) return;
+            const subs = (stage.sub_categories || []).map(s => typeof s === 'string' ? {name: s, status: 'pending', notes: '', assignee: ''} : s);
+            const sub = subs[subIdx];
+            if (!sub) return;
+            document.getElementById('sub-edit-title').textContent = `编辑子类：${sub.name}`;
+            document.getElementById('sub-assignee').value = sub.assignee || '';
+            document.getElementById('sub-notes').value = sub.notes || '';
+            selectedSubStatus = sub.status || 'pending';
+            document.querySelectorAll('#sub-status-selector .status-option').forEach(el => el.classList.toggle('selected', el.dataset.status === selectedSubStatus));
+            document.getElementById('sub-edit-modal').classList.add('active');
+        }
+
+        function closeSubEditModal() { document.getElementById('sub-edit-modal').classList.remove('active'); }
+
+        function selectSubStatus(status) {
+            selectedSubStatus = status;
+            document.querySelectorAll('#sub-status-selector .status-option').forEach(el => el.classList.toggle('selected', el.dataset.status === status));
+        }
+
+        async function saveSubEdit() {
+            const project = projects.find(p => p.id === editingSubProjectId);
+            if (!project) return;
+            const stage = project.stages.find(s => s.id === editingSubStageId);
+            if (!stage) return;
+            stage.sub_categories = (stage.sub_categories || []).map(s => typeof s === 'string' ? {name: s, status: 'pending', notes: '', assignee: ''} : s);
+            const sub = stage.sub_categories[editingSubIdx];
+            if (!sub) return;
+            sub.status = selectedSubStatus;
+            sub.notes = document.getElementById('sub-notes').value.trim();
+            sub.assignee = document.getElementById('sub-assignee').value.trim();
+            try {
+                const res = await fetch(`/api/projects/${editingSubProjectId}`, {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({stages:project.stages})});
+                const json = await res.json();
+                if (json.status === 'success') {
+                    const idx = projects.findIndex(p => p.id === editingSubProjectId);
+                    if (idx >= 0) projects[idx] = json.project;
+                    applyFilters(); closeSubEditModal();
+                } else if (json.message) { Toast.error(json.message); }
+            } catch(e) { Toast.error('保存失败: ' + e.message); }
+        }
+
+        function getDueInfo(dueDate) {
+            if (!dueDate) return null;
+            const now = new Date(); const dd = new Date(dueDate + 'T23:59:59');
+            const diff = Math.ceil((dd - now) / 86400000);
+            if (diff < 0) return {cls:'overdue', text:`已超期${Math.abs(diff)}天`};
+            if (diff <= 3) return {cls:'soon', text:`${diff}天后到期`};
+            return {cls:'ok', text: dueDate};
+        }
+
+        function buildProjectHTML(project) {
+            const stages = project.stages || [];
+            const progress = project.overall_progress || 0;
+            const hasRed = stages.some(s => s.status === 'red');
+            const hasYellow = stages.some(s => s.status === 'yellow');
+
+            // Priority tag
+            const prioNames = {high:'高',medium:'中',low:'低'};
+            const prioTag = `<span class="priority-tag ${project.priority||'medium'}">${prioNames[project.priority||'medium']}</span>`;
+
+            // Due date
+            const dueInfo = getDueInfo(project.due_date);
+            const dueTag = dueInfo ? `<span class="due-tag ${dueInfo.cls}">${dueInfo.text}</span>` : '';
+
+            // Team avatars
+            let teamHTML = '';
+            const team = project.team || [];
+            if (team.length > 0) {
+                teamHTML = '<div class="team-avatars">';
+                team.slice(0, 3).forEach((m, i) => {
+                    const name = typeof m === 'string' ? m : m.name;
+                    const color = AVATAR_COLORS[i % AVATAR_COLORS.length];
+                    teamHTML += `<div class="team-avatar" style="background:${color};" title="${name}">${name[0]}</div>`;
+                });
+                if (team.length > 3) teamHTML += `<div class="team-more">+${team.length-3}</div>`;
+                teamHTML += '</div>';
+            }
+
+            // Status badge
+            const svgS = 'width:11px;height:11px;vertical-align:middle;margin-right:2px;';
+            const statusBadge = project.status === 'completed'
+                ? `<span style="color:#30d158;font-size:11px;background:rgba(48,209,88,0.12);padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#30d158;fill:none;"><use href="#ic-check-circle"/></svg>已完成</span>`
+                : project.status === 'cancelled'
+                ? '<span style="color:#888;font-size:11px;background:rgba(128,128,128,0.12);padding:2px 8px;border-radius:10px;">已取消</span>'
+                : hasRed
+                ? `<span style="color:#ff453a;font-size:11px;background:rgba(255,69,58,0.12);padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#ff453a;fill:none;"><use href="#ic-x-circle"/></svg>需关注</span>`
+                : hasYellow
+                ? `<span style="color:#ff9f0a;font-size:11px;background:rgba(255,159,10,0.12);padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#ff9f0a;fill:none;"><use href="#ic-alert"/></svg>有问题</span>`
+                : `<span style="color:#30d158;font-size:11px;background:rgba(48,209,88,0.12);padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#30d158;fill:none;"><use href="#ic-check"/></svg>正常</span>`;
+
+            // Stages pipeline: 大类 + 浮窗展开小类
+            let stagesHTML = '<div class="stages-pipeline">';
+            stages.forEach(stage => {
+                const dotClass = stage.status || 'pending';
+                const iconId = STAGE_ICONS[stage.id] || 'ic-clipboard';
+                const badgeIcon = STATUS_BADGE_ICONS[stage.status];
+                const badgeHTML = badgeIcon ? `<div class="status-badge"><svg><use href="#${badgeIcon}"/></svg></div>` : '';
+                const stageStatusText = stage.progress >= 100 ? '已完成' : (stage.status !== 'pending' ? '进行中' : '');
+                const subs = stage.sub_categories || [];
+                const subData = subs.length ? encodeURIComponent(JSON.stringify(subs)) : '';
+                const expandBtn = subs.length ? `<span class="stage-expand-btn" data-name="${stage.name}" data-subs="${subData}" data-project-id="${project.id}" data-stage-id="${stage.id}" onclick="event.stopPropagation();toggleSubExpand(this)" title="点击展开小类"><svg><use href="#ic-chevron-down"/></svg></span>` : '';
+                stagesHTML += `<div class="stage-item" onclick="openStageEdit('${project.id}',${stage.id})"><div class="stage-dot ${dotClass}"><svg><use href="#${iconId}"/></svg>${badgeHTML}</div><div class="stage-name">${stage.name}${expandBtn}</div><div class="stage-progress-text">${stageStatusText}</div></div>`;
+            });
+            stagesHTML += '</div><div class="sub-expand-section"></div>';
+
+            // Progress bar aligned to current stage: fill N out of total stages
+            let completedStages = 0;
+            for (let i = 0; i < stages.length; i++) {
+                if (stages[i].progress >= 100) completedStages++;
+                else break;
+            }
+            const segCount = stages.length;
+            let segsHTML = '<div class="progress-seg-track">';
+            for (let i = 0; i < segCount; i++) {
+                segsHTML += `<div class="progress-seg${i < completedStages ? ' filled' : ''}"></div>`;
+            }
+            segsHTML += '</div>';
+
+            return `
+                <div class="project-header">
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-size:11px;color:#888;margin-bottom:2px;">项目编号: ${project.id}</div>
+                        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
+                            <a class="project-name-link" href="/projects/${project.id}">${project.name}</a>
+                            ${statusBadge} ${prioTag} ${dueTag}
+                        </div>
+                        <div class="project-meta">
+                            <div class="project-meta-item">客户: <span>${project.client||'未指定'}</span></div>
+                            <div class="project-meta-item">产品: <span>${project.product_type||'-'}</span></div>
+                            <div class="project-meta-item">区域: <span>${project.region||'-'}</span></div>
+                            <div class="project-meta-item">带宽: <span>${project.bandwidth?project.bandwidth+'Mbps':'-'}</span></div>
+                            ${teamHTML}
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <a class="btn-sm" href="/projects/${project.id}"><svg style="width:12px;height:12px;stroke:currentColor;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-clipboard"/></svg>详情</a>
+                        <a class="btn-sm" href="/api/projects/${project.id}/export/pdf" target="_blank"><svg style="width:12px;height:12px;stroke:currentColor;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-download"/></svg>PDF</a>
+                        <a class="btn-sm" href="/api/projects/${project.id}/export/excel" target="_blank"><svg style="width:12px;height:12px;stroke:currentColor;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-download"/></svg>Excel</a>
+                        <button class="btn-sm" onclick="openShareModal('${project.id}','${project.name.replace(/'/g,"\\'")}')" style="border-color:rgba(100,210,255,0.25);color:#64d2ff"><svg style="width:12px;height:12px;stroke:#64d2ff;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-share"/></svg>分享</button>
+                        ${project.status === 'active' ? `<button class="btn-sm" onclick="markCompleted('${project.id}')"><svg style="width:12px;height:12px;stroke:var(--green);fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-check-circle"/></svg>完成</button>` : ''}
+                        <button class="btn-sm danger" onclick="deleteProject('${project.id}')"><svg style="width:12px;height:12px;stroke:#ff453a;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-trash"/></svg>删除</button>
+                    </div>
+                </div>
+                <div class="overall-progress">
+                    <div class="progress-header"><span class="progress-label">总体进度</span></div>
+                    <div class="progress-segmented">${segsHTML}</div>
+                </div>
+                ${stagesHTML}`;
+        }
+
+        function updateStats() {
+            const active = projects.filter(p => p.status === 'active');
+            document.getElementById('stat-total').textContent = projects.length;
+            document.getElementById('stat-active').textContent = active.length;
+            document.getElementById('stat-warning').textContent = projects.filter(p => p.status==='active' && p.stages && p.stages.some(s => s.status==='yellow')).length;
+            document.getElementById('stat-critical').textContent = projects.filter(p => p.status==='active' && p.stages && p.stages.some(s => s.status==='red')).length;
+        }
+
+        // --- New Project ---
+        function openNewProjectModal() { document.getElementById('new-project-modal').classList.add('active'); document.getElementById('np-name').focus(); }
+        function closeNewProjectModal() { document.getElementById('new-project-modal').classList.remove('active'); }
+
+        async function createProject() {
+            const name = document.getElementById('np-name').value.trim();
+            if (!name) { Toast.warning('请输入项目名称'); return; }
+            const teamStr = document.getElementById('np-team').value.trim();
+            const team = teamStr ? teamStr.split(',').map(n => ({name: n.trim(), role: '成员', avatar_color: AVATAR_COLORS[Math.floor(Math.random()*AVATAR_COLORS.length)]})) : [];
+            const body = {
+                name, client: document.getElementById('np-client').value.trim(),
+                product_type: document.getElementById('np-product').value,
+                priority: document.getElementById('np-priority').value,
+                region: document.getElementById('np-region').value.trim(),
+                bandwidth: document.getElementById('np-bandwidth').value.trim(),
+                due_date: document.getElementById('np-due-date').value,
+                team
+            };
+            try {
+                const res = await fetch('/api/projects', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+                const json = await res.json();
+                if (json.status === 'success') {
+                    projects.push(json.project); applyFilters(); updateStats(); closeNewProjectModal();
+                    ['np-name','np-client','np-region','np-bandwidth','np-team','np-due-date'].forEach(id => document.getElementById(id).value = '');
+                }
+            } catch(e) { Toast.error('创建失败: '+e.message); }
+        }
+
+        // --- Stage Edit ---
+        function openStageEdit(projectId, stageId) {
+            editingProjectId = projectId; editingStageId = stageId;
+            const project = projects.find(p => p.id === projectId); if (!project) return;
+            const stage = project.stages.find(s => s.id === stageId); if (!stage) return;
+
+            document.getElementById('stage-edit-title').textContent = `编辑阶段：${stage.name}`;
+            document.getElementById('stage-progress-range').value = stage.progress || 0;
+            document.getElementById('stage-notes').value = stage.notes || '';
+            document.getElementById('stage-assignee').value = stage.assignee || '';
+            document.getElementById('stage-start-date').value = stage.start_date || '';
+            document.getElementById('stage-due-date').value = stage.due_date || '';
+            selectedStatus = stage.status || 'pending';
+            document.querySelectorAll('#status-selector .status-option').forEach(el => el.classList.toggle('selected', el.dataset.status === selectedStatus));
+
+            // Check blocked
+            const blocked = stage.blocked_by || [];
+            const blockedWarning = document.getElementById('blocked-warning');
+            if (blocked.length > 0 && stage.status === 'pending') {
+                const unfinished = blocked.filter(depId => { const dep = project.stages.find(s => s.id === depId); return dep && dep.progress < 100; });
+                if (unfinished.length > 0) {
+                    const names = unfinished.map(depId => { const dep = project.stages.find(s => s.id === depId); return dep ? dep.name : ''; }).join('、');
+                    blockedWarning.textContent = `提示：前置阶段 "${names}" 尚未完成。完成前置阶段后才能开始此阶段。`;
+                    blockedWarning.style.display = 'block';
+                } else { blockedWarning.style.display = 'none'; }
+            } else { blockedWarning.style.display = 'none'; }
+
+            document.getElementById('stage-edit-modal').classList.add('active');
+        }
+        function closeStageEditModal() { document.getElementById('stage-edit-modal').classList.remove('active'); }
+        function selectStatus(status) { selectedStatus = status; document.querySelectorAll('#status-selector .status-option').forEach(el => el.classList.toggle('selected', el.dataset.status === status)); }
+
+        async function saveStageEdit() {
+            const project = projects.find(p => p.id === editingProjectId); if (!project) return;
+            const stage = project.stages.find(s => s.id === editingStageId); if (!stage) return;
+            stage.status = selectedStatus;
+            const statusProgress = {pending: 0, green: 100, yellow: 60, red: 30};
+            stage.progress = statusProgress[selectedStatus] !== undefined ? statusProgress[selectedStatus] : 0;
+            stage.notes = document.getElementById('stage-notes').value.trim();
+            stage.assignee = document.getElementById('stage-assignee').value.trim();
+            stage.start_date = document.getElementById('stage-start-date').value;
+            stage.due_date = document.getElementById('stage-due-date').value;
+            try {
+                const res = await fetch(`/api/projects/${editingProjectId}`, {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({stages:project.stages})});
+                const json = await res.json();
+                if (json.status === 'success') {
+                    const idx = projects.findIndex(p => p.id === editingProjectId);
+                    if (idx >= 0) projects[idx] = json.project;
+                    applyFilters(); updateStats(); closeStageEditModal(); loadNotifications();
+                } else if (json.message) { Toast.error(json.message); }
+            } catch(e) { Toast.error('保存失败: '+e.message); }
+        }
+
+        async function markCompleted(projectId) {
+            if (!await Dialog.confirm('确定将此项目标记为已完成？')) return;
+            try {
+                const res = await fetch(`/api/projects/${projectId}`, {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({status:'completed'})});
+                const json = await res.json();
+                if (json.status === 'success') { const idx = projects.findIndex(p => p.id === projectId); if (idx >= 0) projects[idx] = json.project; applyFilters(); updateStats(); loadNotifications(); }
+            } catch(e) { Toast.error('操作失败: '+e.message); }
+        }
+
+        async function deleteProject(projectId) {
+            if (!await Dialog.confirm('确定删除此项目？此操作不可撤销。', {type: 'danger', confirmText: '删除'})) return;
+            try {
+                const res = await fetch(`/api/projects/${projectId}`, {method:'DELETE'});
+                const json = await res.json();
+                if (json.status === 'success') { projects = projects.filter(p => p.id !== projectId); applyFilters(); updateStats(); }
+            } catch(e) { Toast.error('删除失败: '+e.message); }
+        }
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeNewProjectModal(); closeStageEditModal(); closeSubEditModal(); document.getElementById('notif-panel').classList.remove('active'); } });
+        document.addEventListener('click', e => { if (!e.target.closest('.notif-btn') && !e.target.closest('.notif-panel')) document.getElementById('notif-panel').classList.remove('active'); });
+
+        /* ===== 分享功能 ===== */
+        let _shareProjectId = '', _shareProjectName = '';
+
+        function openShareModal(projectId, projectName) {
+            _shareProjectId = projectId;
+            _shareProjectName = projectName;
+            const link = `${location.origin}/share/project/${projectId}`;
+            document.getElementById('share-link-input').value = link;
+            document.getElementById('share-modal').classList.add('active');
+        }
+
+        function closeShareModal() {
+            document.getElementById('share-modal').classList.remove('active');
+        }
+
+        async function copyShareLink() {
+            const input = document.getElementById('share-link-input');
+            try {
+                await navigator.clipboard.writeText(input.value);
+            } catch(e) {
+                input.select(); document.execCommand('copy');
+            }
+            const btn = document.getElementById('copy-link-btn');
+            btn.textContent = '已复制！';
+            btn.style.background = 'rgba(48,209,88,0.2)';
+            btn.style.borderColor = 'rgba(48,209,88,0.5)';
+            btn.style.color = '#30d158';
+            setTimeout(() => {
+                btn.textContent = '复制链接';
+                btn.style.background = '';
+                btn.style.borderColor = '';
+                btn.style.color = '';
+            }, 2000);
+        }
+
+        function shareByEmail() {
+            const project = projects.find(p => p.id === _shareProjectId);
+            const shareLink = `${location.origin}/share/project/${_shareProjectId}`;
+            const statusMap = { active: '进行中', completed: '已完成', cancelled: '已取消' };
+            const prioMap   = { high: '高优先级', medium: '中优先级', low: '低优先级' };
+            const stageIcon = { green: '✅', yellow: '⚠️', red: '🔴', pending: '⏳' };
+
+            const lines = [
+                `您好，`,
+                ``,
+                `以下是【${_shareProjectName}】的最新项目进度摘要，请查阅。`,
+                ``,
+                `━━━━━━━━━━━━━━━━━━━━━━`,
+                `项目名称：${_shareProjectName}`,
+            ];
+            if (project) {
+                if (project.client)       lines.push(`客　　户：${project.client}`);
+                if (project.product_type) lines.push(`产品类型：${project.product_type}`);
+                lines.push(`优先级　：${prioMap[project.priority] || '中优先级'}`);
+                lines.push(`项目状态：${statusMap[project.status] || project.status}`);
+                if (project.due_date)     lines.push(`预计交付：${project.due_date}`);
+                lines.push(`总体进度：${project.overall_progress || 0}%`);
+                lines.push(``, `── 各阶段进度 ──`);
+                (project.stages || []).forEach(s => {
+                    lines.push(`  ${stageIcon[s.status] || '⏳'} ${s.name}：${s.progress}%`);
+                });
+            }
+            lines.push(
+                ``,
+                `━━━━━━━━━━━━━━━━━━━━━━`,
+                `📎 查看完整在线报告：`,
+                shareLink,
+                ``,
+                `此邮件由澳洲联通项目管理系统自动生成。`
+            );
+
+            const subject = encodeURIComponent(`【澳洲联通】项目进度报告 - ${_shareProjectName}`);
+            const body    = encodeURIComponent(lines.join('\r\n'));
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+
+        async function downloadShareEml() {
+            const btn = document.getElementById('html-download-btn');
+            const orig = btn.innerHTML;
+            btn.textContent = '生成中...';
+            btn.disabled = true;
+            try {
+                const a = document.createElement('a');
+                a.href = `/api/projects/${_shareProjectId}/share/eml`;
+                a.download = '';   // 服务端 Content-Disposition 提供文件名
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => document.body.removeChild(a), 500);
+                Toast && Toast.success('EML 文件已下载，双击即可在 Outlook 中打开');
+            } catch(e) {
+                Toast && Toast.error('生成失败，请重试');
+            } finally {
+                setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1500);
+            }
+        }
+
+        document.getElementById('share-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeShareModal();
+        });
+    </script>
+
+<!-- 分享弹窗 -->
+<div class="modal-overlay" id="share-modal" style="z-index:7000">
+    <div class="modal-box" style="width:420px;max-width:94vw">
+        <div class="modal-title" style="display:flex;align-items:center;gap:8px">
+            <svg style="width:18px;height:18px;stroke:#64d2ff;fill:none;flex-shrink:0"><use href="#ic-share"/></svg>
+            分享项目
+        </div>
+        <p style="font-size:12px;color:#666;margin-bottom:16px">生成只读分享链接，或直接在邮件客户端中撰写分享邮件</p>
+
+        <!-- 静态链接 -->
+        <div style="margin-bottom:14px">
+            <div style="font-size:11px;color:#888;margin-bottom:6px;display:flex;align-items:center;gap:5px">
+                <svg style="width:13px;height:13px;stroke:#64d2ff;fill:none"><use href="#ic-link"/></svg>
+                静态分享链接
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+                <input id="share-link-input" type="text" readonly
+                    style="flex:1;height:36px;padding:0 10px;background:rgba(100,210,255,0.06);border:1px solid rgba(100,210,255,0.2);border-radius:8px;color:#ccc;font-size:12px;outline:none;font-family:monospace"
+                    onclick="this.select()">
+                <button id="copy-link-btn" onclick="copyShareLink()"
+                    style="padding:0 14px;height:36px;border-radius:8px;border:1px solid rgba(100,210,255,0.3);background:rgba(100,210,255,0.08);color:#64d2ff;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s">
+                    复制链接
+                </button>
+            </div>
+            <div style="font-size:10px;color:#555;margin-top:5px">任何人通过此链接均可查看项目只读页面</div>
+        </div>
+
+        <div style="height:1px;background:rgba(255,255,255,0.06);margin:16px 0"></div>
+
+        <!-- 邮件分享 -->
+        <div style="margin-bottom:8px">
+            <div style="font-size:11px;color:#888;margin-bottom:8px;display:flex;align-items:center;gap:5px">
+                <svg style="width:13px;height:13px;stroke:#ff9f0a;fill:none"><use href="#ic-mail"/></svg>
+                邮件分享
+            </div>
+            <!-- 主按钮：打开 Outlook / 默认邮件客户端 -->
+            <button id="email-share-btn" onclick="shareByEmail()"
+                style="width:100%;height:42px;border-radius:10px;border:1px solid rgba(255,159,10,0.35);background:rgba(255,159,10,0.1);color:#ff9f0a;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;margin-bottom:8px">
+                <svg style="width:15px;height:15px;stroke:#ff9f0a;fill:none"><use href="#ic-mail"/></svg>
+                打开 Outlook / 邮件客户端
+            </button>
+            <div style="font-size:10px;color:#555;margin-bottom:10px">自动打开系统默认邮件客户端（Outlook / Apple Mail 等），正文为纯文本格式</div>
+            <!-- 次级按钮：下载 EML（HTML格式，双击在 Outlook 中打开撰写窗口） -->
+            <button id="html-download-btn" onclick="downloadShareEml()"
+                style="width:100%;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#888;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s">
+                <svg style="width:13px;height:13px;stroke:#888;fill:none"><use href="#ic-download"/></svg>
+                下载 .eml 文件（双击在 Outlook 中打开 HTML 撰写界面）
+            </button>
+        </div>
+
+        <div class="modal-buttons" style="margin-top:20px">
+            <button class="btn-modal-cancel" onclick="closeShareModal()">关闭</button>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/global.js"></script>
+</body>
+</html>

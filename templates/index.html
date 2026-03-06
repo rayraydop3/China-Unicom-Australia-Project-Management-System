@@ -9,6 +9,7 @@
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="/static/css/global.css">
     <style>
         /* --- 0. 强制重置 (清除所有默认干扰) --- */
         * {
@@ -485,6 +486,148 @@
             color: #888;
             line-height: 1.6;
             margin-bottom: 16px;
+        }
+
+        /* 用户反馈区域 */
+        .feedback-section {
+            display: none;
+            margin-top: 15px;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            text-align: center;
+        }
+        .feedback-label {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+        .feedback-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .feedback-btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.05);
+            color: #ccc;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .feedback-btn:hover {
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+        }
+        .feedback-btn.selected-accurate {
+            background: rgba(48, 209, 88, 0.2);
+            border-color: #30d158;
+            color: #30d158;
+            pointer-events: none;
+        }
+        .feedback-btn.selected-inaccurate {
+            background: rgba(255, 69, 58, 0.2);
+            border-color: #ff453a;
+            color: #ff453a;
+            pointer-events: none;
+        }
+        .feedback-thanks {
+            font-size: 12px;
+            color: #888;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* 历史记录面板 */
+        .history-panel-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px 18px;
+            background: rgba(30,30,30,0.9);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            color: #ccc;
+            font-size: 13px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s;
+        }
+        .history-panel-toggle:hover {
+            background: rgba(50,50,50,0.95);
+            color: #fff;
+        }
+        .history-panel {
+            display: none;
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 360px;
+            max-height: 70vh;
+            background: rgba(25,25,25,0.97);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            z-index: 999;
+            overflow-y: auto;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .history-panel.active { display: block; }
+        .history-panel-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .history-panel-header h3 {
+            color: #fff;
+            font-size: 15px;
+            margin: 0;
+        }
+        .history-clear-btn {
+            font-size: 12px;
+            color: #ff453a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .history-panel-body { padding: 12px 16px; }
+        .history-record {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .history-record-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .history-record-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #30d158;
+        }
+        .history-record-time {
+            font-size: 11px;
+            color: #666;
+        }
+        .history-record-detail {
+            font-size: 12px;
+            color: #999;
+            line-height: 1.6;
+        }
+        .history-empty {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            padding: 30px 0;
         }
 
         /* 申请人工核价按钮 */
@@ -1113,6 +1256,18 @@
 </head>
 <body>
 
+    <!-- 历史记录面板 -->
+    <button class="history-panel-toggle" onclick="toggleHistoryPanel()">📋 历史记录</button>
+    <div class="history-panel" id="history-panel">
+        <div class="history-panel-header">
+            <h3>📋 估价历史</h3>
+            <button class="history-clear-btn" onclick="clearHistory()">清空</button>
+        </div>
+        <div class="history-panel-body" id="history-panel-body">
+            <div class="history-empty">暂无历史记录</div>
+        </div>
+    </div>
+
     <!-- SVG 噪点滤镜定义（不可见，仅供 CSS filter 引用） -->
     <svg style="position:absolute;width:0;height:0;" aria-hidden="true">
         <defs>
@@ -1133,7 +1288,14 @@
     <div class="header-bar">
         <span class="logo-text">澳洲</span><span class="logo-text logo-red">联通</span>
         <img src="/static/logo.png" alt="Logo" class="logo-img">
-        <a href="/" class="magnetic-target" style="margin-left: auto; color: var(--accent-red); text-decoration: none; font-size: 14px;">← 返回首页</a>
+        <button class="version-badge" onclick="showChangelog()" title="查看更新日志">
+          <span class="version-badge-text">v0.4.0.1&nbsp;&nbsp;06/03/2026</span>
+        </button>
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 12px;">
+            <a href="/projects" style="color: #ff9f0a; text-decoration: none; font-size: 13px; font-weight: 600;" data-zh="项目管理" data-en="Projects">项目管理</a>
+            <button onclick="toggleLang()" id="lang-toggle" style="background:#E60012;color:#fff;border:none;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">EN</button>
+            <a href="/" class="magnetic-target" style="color: var(--accent-red); text-decoration: none; font-size: 14px;" data-zh="← 返回首页" data-en="← Home">← 返回首页</a>
+        </div>
     </div>
 
     <div class="main-container">
@@ -1208,6 +1370,23 @@
                 <div class="history-list">
                     <div class="price-label" style="margin-bottom: 15px;">参考依据</div>
                     <div id="evidence-list"></div>
+                </div>
+
+                <!-- 用户反馈区域 -->
+                <div class="feedback-section" id="feedback-section">
+                    <div class="feedback-label">这个估价结果对您有帮助吗？</div>
+                    <div class="feedback-buttons">
+                        <button class="feedback-btn" id="fb-accurate" onclick="submitFeedback('accurate')">👍 准确</button>
+                        <button class="feedback-btn" id="fb-inaccurate" onclick="submitFeedback('inaccurate')">👎 不准确</button>
+                    </div>
+                    <div class="feedback-thanks" id="feedback-thanks">感谢您的反馈，我们会持续优化预测模型！</div>
+                </div>
+
+                <!-- 创建项目跟踪按钮 -->
+                <div id="create-project-section" style="display:none; margin-top:12px;">
+                    <button id="btn-create-project" onclick="createProjectFromQuote()" style="width:100%;padding:12px 20px;background:linear-gradient(135deg,#E60012,#ff4757);color:white;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 16px rgba(230,0,18,0.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
+                        创建项目跟踪 →
+                    </button>
                 </div>
 
                 <!-- 低置信度警告模块：当 confidence < 50% 时显示 -->
@@ -1345,13 +1524,13 @@
             <div class="model-selector">
                 <label>模型:</label>
                 <select id="model-select" onchange="changeModel()">
-                    <option value="lmstudio">LM Studio (本地免费，推荐)</option>
+                    <option value="ollama">Ollama (本地免费，推荐)</option>
                     <option value="gemini">Gemini 2.0 Flash</option>
                     <option value="qwen">通义千问</option>
                     <option value="deepseek">DeepSeek</option>
-                    <option value="ollama">Ollama (本地免费，需安装)</option>
+                    <option value="lmstudio">LM Studio (本地免费)</option>
                 </select>
-                <span class="model-status" id="model-status">已选择: LM Studio</span>
+                <span class="model-status" id="model-status">已选择: Ollama</span>
             </div>
             <div class="model-selector" style="margin-top: 8px;">
                 <label style="font-size: 11px;">联网搜索:</label>
@@ -1370,7 +1549,7 @@
         </div>
         <div class="deepseek-chat-messages" id="deepseek-messages">
             <div class="deepseek-message ai">
-                你好！我是 AI 数据分析助手，基于项目的训练数据库为你提供专业分析。你可以问我关于价格、运营商、地区分布等问题。当前使用 <strong>LM Studio</strong> 模型（本地免费，推荐）。
+                你好！我是 AI 数据分析助手，基于项目的训练数据库为你提供专业分析。你可以问我关于价格、运营商、地区分布等问题。当前使用 <strong>Ollama</strong> 模型（本地免费，推荐）。
             </div>
         </div>
         <div class="deepseek-chat-input-container">
@@ -1476,7 +1655,7 @@
                 // not-allowed: 用户拒绝麦克风权限
                 // no-speech: 没有检测到声音
                 if (event.error === 'not-allowed') {
-                    alert('请允许浏览器使用麦克风权限，才能使用语音输入功能。');
+                    Toast.warning('请允许浏览器使用麦克风权限，才能使用语音输入功能。');
                 }
                 sttIsListening = false;
                 onSTTStop();
@@ -1824,7 +2003,21 @@
                     `;
                     
                     analysisBox.style.display = 'block';
-                    
+
+                    // 显示反馈区域并重置状态
+                    const fbSection = document.getElementById('feedback-section');
+                    fbSection.style.display = 'block';
+                    // 显示创建项目按钮
+                    document.getElementById('create-project-section').style.display = 'block';
+                    const cpBtn = document.getElementById('btn-create-project');
+                    cpBtn.disabled = false; cpBtn.textContent = '创建项目跟踪 →';
+                    cpBtn.style.background = 'linear-gradient(135deg,#E60012,#ff4757)';
+                    document.getElementById('fb-accurate').className = 'feedback-btn';
+                    document.getElementById('fb-inaccurate').className = 'feedback-btn';
+                    document.getElementById('fb-accurate').disabled = false;
+                    document.getElementById('fb-inaccurate').disabled = false;
+                    document.getElementById('feedback-thanks').style.display = 'none';
+
                     // 更新置信度进度条
                     const bar = document.getElementById('confidence-bar');
                     const text = document.getElementById('confidence-text');
@@ -1864,6 +2057,9 @@
                         timestamp: new Date().toISOString()
                     };
 
+                    // 保存到历史记录
+                    saveToHistory(lastPrediction);
+
                     // 更新参考依据列表
                     const list = document.getElementById('evidence-list');
                     list.innerHTML = "";
@@ -1899,35 +2095,108 @@
          * - 记录当前输入参数和预测价格（模拟 API 提交）
          * - 按钮变为已提交状态，防止重复点击
          */
-        function requestManualReview() {
+        async function submitFeedback(rating) {
+            const btnAccurate = document.getElementById('fb-accurate');
+            const btnInaccurate = document.getElementById('fb-inaccurate');
+            const thanks = document.getElementById('feedback-thanks');
+
+            // 视觉反馈
+            if (rating === 'accurate') {
+                btnAccurate.classList.add('selected-accurate');
+            } else {
+                btnInaccurate.classList.add('selected-inaccurate');
+            }
+            btnAccurate.disabled = true;
+            btnInaccurate.disabled = true;
+            thanks.style.display = 'block';
+
+            // 提交到后端
+            try {
+                if (lastPrediction) {
+                    await fetch('/feedback', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            operator: lastPrediction.operator,
+                            product_type: lastPrediction.product_type,
+                            bandwidth: lastPrediction.bandwidth,
+                            region: lastPrediction.region,
+                            term: lastPrediction.term,
+                            ai_price: lastPrediction.predicted_price,
+                            confidence: lastPrediction.confidence,
+                            rating: rating
+                        })
+                    });
+                }
+            } catch (e) {
+                console.error('反馈提交失败:', e);
+            }
+        }
+
+        async function createProjectFromQuote() {
+            if (!lastPrediction) { Toast.warning('请先进行估价'); return; }
+            const btn = document.getElementById('btn-create-project');
+            btn.disabled = true; btn.textContent = '创建中...';
+            try {
+                const res = await fetch('/api/projects', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        name: `${lastPrediction.product_type} ${lastPrediction.bandwidth}Mbps - ${lastPrediction.region}`,
+                        client: '',
+                        product_type: lastPrediction.product_type,
+                        region: lastPrediction.region,
+                        bandwidth: lastPrediction.bandwidth,
+                        priority: 'medium',
+                        pricing_ref: `${lastPrediction.operator}|$${lastPrediction.ai_price}|置信度${lastPrediction.confidence}%`
+                    })
+                });
+                const json = await res.json();
+                if (json.status === 'success') {
+                    btn.textContent = '已创建 ✓ 点击查看';
+                    btn.style.background = 'linear-gradient(135deg,#30d158,#38ef7d)';
+                    btn.disabled = false;
+                    btn.onclick = function() { window.open('/projects/' + json.project.id, '_blank'); };
+                } else { btn.textContent = '创建失败'; btn.disabled = false; }
+            } catch(e) { btn.textContent = '创建失败'; btn.disabled = false; }
+        }
+
+        async function requestManualReview() {
             const btn = document.getElementById('btn-manual-review');
             
             // 防止重复点击
             if (btn.disabled) return;
-
-            // 模拟 API 调用：将核价请求数据输出到控制台（实际可替换为 fetch 调用后端接口）
-            console.log('========== 人工核价申请 ==========');
-            console.log('提交时间:', new Date().toLocaleString());
-            if (lastPrediction) {
-                console.log('运营商:', lastPrediction.operator);
-                console.log('带宽:', lastPrediction.bandwidth, 'Mbps');
-                console.log('地区邮编:', lastPrediction.region);
-                console.log('产品类型:', lastPrediction.product_type);
-                console.log('服务周期:', lastPrediction.term, '个月');
-                console.log('AI 预测价格: $', lastPrediction.predicted_price);
-                console.log('AI 置信度:', lastPrediction.confidence, '%');
-            }
-            console.log('===================================');
-
-            // 按钮变为已提交状态，并显示联系电话
             btn.disabled = true;
+            btn.textContent = '提交中...';
+
+            try {
+                if (lastPrediction) {
+                    await fetch('/manual-review', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            operator: lastPrediction.operator,
+                            product_type: lastPrediction.product_type,
+                            bandwidth: lastPrediction.bandwidth,
+                            region: lastPrediction.region,
+                            term: lastPrediction.term,
+                            ai_price: lastPrediction.predicted_price,
+                            confidence: lastPrediction.confidence
+                        })
+                    });
+                }
+            } catch (e) {
+                console.error('提交核价申请失败:', e);
+            }
+
+            // 按钮变为已提交状态
             btn.classList.add('submitted');
             btn.innerHTML = '✅ 已提交，专员将尽快联系您<br><span style="font-size:12px; opacity:0.9;">客服热线: 1300-UNICOM · 24小时中英双语服务</span>';
         }
 
         // --- AI 对话功能 ---
-        // 初始化：从 localStorage 读取保存的模型选择，默认使用 LM Studio
-        let currentModel = localStorage.getItem('selectedModel') || 'lmstudio';
+        // 初始化：从 localStorage 读取保存的模型选择，默认使用 Ollama
+        let currentModel = localStorage.getItem('selectedModel') || 'ollama';
         
         // 页面加载时设置模型选择器
         document.addEventListener('DOMContentLoaded', function() {
@@ -2156,6 +2425,56 @@
                 input.focus();
             }
         }
+
+        // --- 历史记录功能 ---
+        function getHistory() {
+            try {
+                return JSON.parse(localStorage.getItem('priceHistory') || '[]');
+            } catch(e) { return []; }
+        }
+
+        function saveToHistory(prediction) {
+            const history = getHistory();
+            history.unshift(prediction);
+            // 最多保存 50 条
+            if (history.length > 50) history.length = 50;
+            localStorage.setItem('priceHistory', JSON.stringify(history));
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const body = document.getElementById('history-panel-body');
+            const history = getHistory();
+            if (history.length === 0) {
+                body.innerHTML = '<div class="history-empty">暂无历史记录</div>';
+                return;
+            }
+            body.innerHTML = history.map(h => {
+                const time = new Date(h.timestamp).toLocaleString('zh-CN', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
+                return `<div class="history-record">
+                    <div class="history-record-top">
+                        <span class="history-record-price">$${h.predicted_price}/月</span>
+                        <span class="history-record-time">${time}</span>
+                    </div>
+                    <div class="history-record-detail">
+                        ${h.operator} · ${h.product_type} · ${h.bandwidth}Mbps · ${h.region} · ${h.term}个月<br>
+                        置信度: ${h.confidence}%
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function toggleHistoryPanel() {
+            document.getElementById('history-panel').classList.toggle('active');
+        }
+
+        function clearHistory() {
+            localStorage.removeItem('priceHistory');
+            renderHistory();
+        }
+
+        // 页面加载时渲染历史记录
+        document.addEventListener('DOMContentLoaded', renderHistory);
     </script>
 
     <!-- 滚动登场动画 (IntersectionObserver) -->
@@ -2366,5 +2685,32 @@
     })();
     </script>
 
+    <!-- 中英双语切换 -->
+    <script>
+        let currentLang = localStorage.getItem('siteLang') || 'zh';
+        function toggleLang() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            localStorage.setItem('siteLang', currentLang);
+            applyLang();
+        }
+        function applyLang() {
+            const btn = document.getElementById('lang-toggle');
+            if (btn) btn.textContent = currentLang === 'zh' ? 'EN' : '中文';
+            document.querySelectorAll('[data-zh][data-en]').forEach(el => {
+                const text = el.getAttribute('data-' + currentLang);
+                if (text) {
+                    if (el.children.length === 0) el.textContent = text;
+                    else {
+                        for (let node of el.childNodes) {
+                            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) { node.textContent = text; break; }
+                        }
+                    }
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', applyLang);
+    </script>
+
+<script src="/static/js/global.js"></script>
 </body>
 </html>

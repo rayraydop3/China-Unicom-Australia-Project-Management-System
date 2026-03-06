@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>项目报告 - {{ project.name }}</title>
+    <link rel="stylesheet" href="/static/css/global.css">
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#fff;color:#333;max-width:900px;margin:0 auto;padding:40px 30px}
+        h1{font-size:24px;color:#E60012;margin-bottom:4px}
+        .sub{color:#888;font-size:13px;margin-bottom:24px}
+        .section{margin-bottom:24px}
+        .section-title{font-size:16px;font-weight:700;color:#333;border-bottom:2px solid #E60012;padding-bottom:6px;margin-bottom:12px}
+        .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+        .info-item{font-size:12px}.info-item label{color:#888;display:block;font-size:10px;margin-bottom:2px}
+        .progress-bar{width:100%;height:16px;background:#eee;border-radius:8px;overflow:hidden;margin:8px 0}
+        .progress-fill{height:100%;background:#E60012;border-radius:8px}
+        .progress-text{font-size:14px;font-weight:700;text-align:right}
+        table{width:100%;border-collapse:collapse;font-size:12px}
+        th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:1px solid #ddd;font-weight:600}
+        td{padding:8px 10px;border-bottom:1px solid #eee}
+        .status-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+        .status-dot.green{background:#30d158}.status-dot.yellow{background:#ff9f0a}.status-dot.red{background:#ff453a}.status-dot.pending{background:#ccc}
+        .footer{margin-top:40px;padding-top:16px;border-top:1px solid #eee;color:#888;font-size:11px;display:flex;justify-content:space-between}
+        .print-btn{background:#E60012;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer;margin-bottom:20px}
+        @media print{.print-btn{display:none}.no-print{display:none}}
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">打印 / 导出PDF</button>
+    <h1>{{ project.name }}</h1>
+    <p class="sub">澳洲联通 项目进度管理系统 · 项目进度报告 · 生成时间: {{ project.updated_at }}</p>
+
+    <div class="section">
+        <div class="section-title">项目信息</div>
+        <div class="info-grid">
+            <div class="info-item"><label>客户</label>{{ project.client or '未指定' }}</div>
+            <div class="info-item"><label>产品类型</label>{{ project.product_type or '-' }}</div>
+            <div class="info-item"><label>区域邮编</label>{{ project.region or '-' }}</div>
+            <div class="info-item"><label>带宽</label>{{ project.bandwidth or '-' }} Mbps</div>
+            <div class="info-item"><label>优先级</label>{{ {'high':'高','medium':'中','low':'低'}.get(project.get('priority','medium'), project.get('priority','medium')) }}</div>
+            <div class="info-item"><label>状态</label>{{ {'active':'进行中','completed':'已完成','cancelled':'已取消'}.get(project.status, project.status) }}</div>
+            <div class="info-item"><label>创建时间</label>{{ project.created_at }}</div>
+            <div class="info-item"><label>更新时间</label>{{ project.updated_at }}</div>
+            <div class="info-item"><label>截止日期</label>{{ project.get('due_date', '未设置') or '未设置' }}</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">阶段详情</div>
+        <table>
+            <thead><tr><th>#</th><th>阶段名称</th><th>状态</th><th>完成情况</th><th>负责人</th><th>起始日期</th><th>截止日期</th><th>备注</th></tr></thead>
+            <tbody>
+            {% for stage in project.stages %}
+            <tr>
+                <td>{{ stage.id }}</td>
+                <td>{{ stage.name }}</td>
+                <td><span class="status-dot {{ stage.status }}"></span>{{ {'pending':'待开始','green':'顺利','yellow':'有问题','red':'严重'}.get(stage.status, stage.status) }}</td>
+                <td>{{ '已完成' if stage.progress >= 100 else '暂未完成' }}</td>
+                <td>{{ stage.get('assignee', '-') or '-' }}</td>
+                <td>{{ stage.get('start_date', '-') or '-' }}</td>
+                <td>{{ stage.get('due_date', '-') or '-' }}</td>
+                <td>{{ stage.get('notes', '') }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if project.get('team') %}
+    <div class="section">
+        <div class="section-title">团队成员</div>
+        <p style="font-size:13px">
+        {% for member in project.team %}
+            {{ member.name if member is mapping else member }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+        </p>
+    </div>
+    {% endif %}
+
+    <div class="footer">
+        <span>澳洲联通 Australia Unicom | 1300-UNICOM</span>
+        <span>© 2026 澳洲联通 Australia Unicom</span>
+    </div>
+<script src="/static/js/global.js"></script>
+</body>
+</html>

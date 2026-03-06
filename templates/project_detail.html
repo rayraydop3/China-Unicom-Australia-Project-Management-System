@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澳洲联通 | 项目详情</title>
+    <link rel="stylesheet" href="/static/css/global.css">
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        :root{--bg:#000;--accent:#E60012;--green:#30d158;--yellow:#ff9f0a;--red:#ff453a;--card:rgba(20,20,20,0.6);--border:rgba(255,255,255,0.1);--input-bg:#333}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#000;background-image:radial-gradient(circle at top right,#2a2a2a 0%,#000 80%);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+        .header{width:100%;max-width:1400px;height:60px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid var(--border);margin-bottom:20px}
+        .header a{color:var(--accent);text-decoration:none;font-size:13px;margin-right:16px}
+        .logo{font-size:24px;font-weight:700;margin-right:auto}.logo span{color:var(--accent)}
+        .main{width:100%;max-width:1400px;padding:0 20px;display:grid;grid-template-columns:1fr 380px;gap:20px;padding-bottom:60px}
+        @media(max-width:900px){.main{grid-template-columns:1fr}}
+        /* Left panel */
+        .card{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px}
+        .project-title{font-size:26px;font-weight:700;margin-bottom:8px}
+        .meta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:16px 0}
+        .meta-item{font-size:12px;color:#777}.meta-item span{color:#ccc;font-weight:500}
+        .meta-item label{display:block;color:#555;font-size:10px;margin-bottom:2px}
+        .priority-tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700}
+        .priority-tag.high{background:rgba(255,69,58,0.15);color:var(--red)}
+        .priority-tag.medium{background:rgba(255,159,10,0.15);color:var(--yellow)}
+        .priority-tag.low{background:rgba(48,209,88,0.15);color:var(--green)}
+        .due-tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600}
+        .due-tag.overdue{background:rgba(255,69,58,0.15);color:var(--red);animation:blink 1.5s infinite}
+        .due-tag.soon{background:rgba(255,159,10,0.15);color:var(--yellow)}
+        .due-tag.ok{color:#888}
+        @keyframes blink{50%{opacity:.6}}
+        .team-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+        .team-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:4px 12px 4px 4px;font-size:11px}
+        .team-chip .avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
+        /* Progress */
+        .progress-section{margin:16px 0}
+        .progress-bar-bg{width:100%;height:10px;background:rgba(255,255,255,0.06);border-radius:5px;overflow:hidden}
+        .progress-bar-fill{height:100%;border-radius:5px;transition:width 0.6s;background:linear-gradient(90deg,var(--accent),#ff4757)}
+        .progress-bar-fill.complete{background:linear-gradient(90deg,var(--green),#38ef7d)}
+        .progress-label{display:flex;justify-content:space-between;font-size:12px;color:#888;margin-top:6px}
+        /* Stages list */
+        .stage-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;margin-bottom:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all 0.2s}
+        .stage-row:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.12)}
+        .stage-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+        .stage-num.pending{background:rgba(80,80,80,0.2);color:#555}
+        .stage-num.green{background:rgba(48,209,88,0.1);color:var(--green)}
+        .stage-num.yellow{background:rgba(255,159,10,0.1);color:var(--yellow)}
+        .stage-num.red{background:rgba(255,69,58,0.1);color:var(--red)}
+        .stage-info{flex:1;min-width:0}
+        .stage-info .name{font-size:14px;font-weight:600}
+        .stage-info .sub{font-size:11px;color:#666;margin-top:2px}
+        .stage-progress-mini{width:100px;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+        .stage-progress-mini div{height:100%;border-radius:2px}
+        .stage-assignee-tag{font-size:10px;color:#888;background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:10px}
+        /* Gantt */
+        .gantt-container{position:relative;overflow-x:auto;margin-top:12px}
+        .gantt-canvas{display:block;width:100%}
+        /* Right panel - Timeline */
+        .right-panel{display:flex;flex-direction:column;gap:16px}
+        .section-title{font-size:14px;font-weight:700;color:#aaa;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+        .timeline{max-height:400px;overflow-y:auto;padding-right:8px}
+        .timeline-item{padding:10px 12px;border-left:2px solid rgba(255,255,255,0.06);margin-left:8px;margin-bottom:4px;font-size:12px;line-height:1.5;position:relative}
+        .timeline-item::before{content:'';position:absolute;left:-5px;top:14px;width:8px;height:8px;border-radius:50%;background:#333}
+        .timeline-item.comment{border-left-color:var(--accent)}.timeline-item.comment::before{background:var(--accent)}
+        .timeline-item.action::before{background:#555}
+        .timeline-item .tl-time{color:#555;font-size:10px}
+        .timeline-item .tl-author{color:var(--accent);font-weight:600}
+        /* Comment input */
+        .comment-form{display:flex;gap:8px;margin-top:8px}
+        .comment-input{flex:1;height:38px;padding:0 12px;background:var(--input-bg);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#fff;font-size:13px;outline:none}
+        .comment-btn{padding:0 16px;height:38px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+        /* Attachments */
+        .attachment-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;margin-bottom:6px;font-size:12px}
+        .attachment-item .filename{flex:1;color:#ccc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .attachment-item .size{color:#555;font-size:10px}
+        .attachment-item a{color:var(--accent);text-decoration:none;font-size:11px}
+        .attachment-item .del-btn{color:#ff453a;cursor:pointer;font-size:11px;background:none;border:none}
+        .drop-zone{border:2px dashed rgba(255,255,255,0.1);border-radius:12px;padding:20px;text-align:center;color:#555;font-size:12px;margin-top:8px;transition:all 0.2s;cursor:pointer}
+        .drop-zone:hover,.drop-zone.dragover{border-color:var(--accent);color:var(--accent);background:rgba(230,0,18,0.05)}
+        .drop-zone input{display:none}
+        .action-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+        .action-row a,.action-row button{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#ccc;transition:all 0.2s;display:inline-flex;align-items:center;gap:4px}
+        .action-row a:hover,.action-row button:hover{background:rgba(255,255,255,0.1);color:#fff}
+        /* CyberPunk */
+        body::after{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:9999;pointer-events:none;background:transparent;filter:url(#g);opacity:.04;animation:gs .5s steps(4) infinite}
+        @keyframes gs{0%{transform:translate(0,0)}25%{transform:translate(-2%,-3%)}50%{transform:translate(3%,1%)}75%{transform:translate(-1%,2%)}100%{transform:translate(2%,-1%)}}
+    </style>
+</head>
+<body>
+    <svg style="position:absolute;width:0;height:0"><defs><filter id="g" x="0%" y="0%" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="4" stitchTiles="stitch" result="n"/><feColorMatrix type="saturate" values="0" in="n" result="gn"/><feBlend in="SourceGraphic" in2="gn" mode="multiply"/></filter></defs></svg>
+
+    <div class="header">
+        <div class="logo">澳洲<span>联通</span></div>
+        <a href="/projects">← 返回项目列表</a>
+        <a href="/">首页</a>
+        <a href="/pricing">报价系统</a>
+    </div>
+
+    <div class="main">
+        <div class="left-panel">
+            <!-- Project Info -->
+            <div class="card" id="info-card">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+                    <div>
+                        <div class="project-title" id="p-name">加载中...</div>
+                        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap" id="p-badges"></div>
+                    </div>
+                    <div class="action-row" id="p-actions"></div>
+                </div>
+                <div class="meta-grid" id="p-meta"></div>
+                <div class="team-row" id="p-team"></div>
+                <div class="progress-section">
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="p-progress-bar" style="width:0%"></div></div>
+                    <div class="progress-label"><span>总体进度</span><span id="p-progress-text">0%</span></div>
+                </div>
+            </div>
+
+            <!-- Stages -->
+            <div class="card">
+                <div class="section-title">阶段进度</div>
+                <div id="stages-list"></div>
+            </div>
+
+            <!-- Gantt Chart -->
+            <div class="card">
+                <div class="section-title">甘特图</div>
+                <div class="gantt-container"><canvas id="gantt-canvas" class="gantt-canvas" height="260"></canvas></div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <!-- Attachments -->
+            <div class="card">
+                <div class="section-title">文件附件</div>
+                <div id="attachments-list"></div>
+                <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+                    拖拽文件到此处或点击上传<br><span style="font-size:10px;color:#444">支持 PDF, DOC, XLS, JPG, PNG, ZIP (10MB)</span>
+                    <input type="file" id="file-input" onchange="uploadFile(this.files[0])">
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="card">
+                <div class="section-title">时间线</div>
+                <div class="comment-form">
+                    <input class="comment-input" id="comment-input" placeholder="添加评论..." onkeydown="if(event.key==='Enter')addComment()">
+                    <button class="comment-btn" onclick="addComment()">发送</button>
+                </div>
+                <div class="timeline" id="timeline" style="margin-top:12px"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PROJECT_ID = '{{ project_id }}';
+        let project = null;
+        const AVATAR_COLORS = ['#E60012','#30d158','#ff9f0a','#5e5ce6','#bf5af2','#ff453a','#64d2ff','#ffd60a'];
+
+        document.addEventListener('DOMContentLoaded', loadProject);
+
+        async function loadProject() {
+            try {
+                const res = await fetch('/api/projects');
+                const json = await res.json();
+                if (json.status === 'success') {
+                    project = json.projects.find(p => p.id === PROJECT_ID);
+                    if (project) renderAll(); else document.getElementById('p-name').textContent = '项目未找到';
+                }
+            } catch(e) { document.getElementById('p-name').textContent = '加载失败'; }
+        }
+
+        function renderAll() {
+            renderInfo(); renderStages(); renderTimeline(); renderAttachments(); renderGantt();
+        }
+
+        function getDueInfo(d) {
+            if (!d) return null;
+            const now = new Date(), dd = new Date(d+'T23:59:59'), diff = Math.ceil((dd-now)/86400000);
+            if (diff < 0) return {cls:'overdue',text:`已超期${Math.abs(diff)}天`};
+            if (diff <= 3) return {cls:'soon',text:`${diff}天后到期`};
+            return {cls:'ok',text:d};
+        }
+
+        function renderInfo() {
+            document.getElementById('p-name').textContent = project.name;
+            document.title = `澳洲联通 | ${project.name}`;
+            const prioNames = {high:'高优先级',medium:'中优先级',low:'低优先级'};
+            const dueInfo = getDueInfo(project.due_date);
+            let badges = `<span class="priority-tag ${project.priority||'medium'}">${prioNames[project.priority||'medium']}</span>`;
+            if (dueInfo) badges += ` <span class="due-tag ${dueInfo.cls}">${dueInfo.text}</span>`;
+            const statusNames = {active:'进行中',completed:'已完成',cancelled:'已取消'};
+            badges += ` <span style="color:#888;font-size:11px;background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:8px">${statusNames[project.status]||project.status}</span>`;
+            document.getElementById('p-badges').innerHTML = badges;
+
+            document.getElementById('p-meta').innerHTML = [
+                {l:'客户',v:project.client||'未指定'},{l:'产品类型',v:project.product_type||'-'},
+                {l:'区域邮编',v:project.region||'-'},{l:'带宽',v:project.bandwidth?project.bandwidth+'Mbps':'-'},
+                {l:'创建时间',v:project.created_at||'-'},{l:'更新时间',v:project.updated_at||'-'}
+            ].map(m => `<div class="meta-item"><label>${m.l}</label><span>${m.v}</span></div>`).join('');
+
+            const team = project.team || [];
+            document.getElementById('p-team').innerHTML = team.map((m,i) => {
+                const name = typeof m === 'string' ? m : m.name;
+                const role = typeof m === 'object' ? (m.role||'成员') : '成员';
+                return `<div class="team-chip"><div class="avatar" style="background:${AVATAR_COLORS[i%AVATAR_COLORS.length]}">${name[0]}</div>${name} <span style="color:#555">${role}</span></div>`;
+            }).join('') || '<span style="color:#555;font-size:12px">暂无团队成员</span>';
+
+            const p = project.overall_progress || 0;
+            const bar = document.getElementById('p-progress-bar');
+            bar.style.width = p + '%';
+            bar.className = 'progress-bar-fill' + (p >= 100 ? ' complete' : '');
+            document.getElementById('p-progress-text').textContent = p >= 100 ? '已完成' : '暂未完成';
+
+            document.getElementById('p-actions').innerHTML = `
+                <a href="/api/projects/${PROJECT_ID}/export/pdf" target="_blank">导出PDF</a>
+                <a href="/api/projects/${PROJECT_ID}/export/excel" target="_blank">导出Excel</a>
+                <a href="/api/projects/${PROJECT_ID}/export" target="_blank">打印报告</a>
+                <a href="/projects">返回列表</a>`;
+        }
+
+        function renderStages() {
+            const list = document.getElementById('stages-list');
+            list.innerHTML = (project.stages || []).map(s => {
+                const st = s.status || 'pending';
+                const color = {green:'var(--green)',yellow:'var(--yellow)',red:'var(--red)',pending:'#555'}[st];
+                const dueInfo = getDueInfo(s.due_date);
+                const dueTxt = dueInfo ? `<span class="due-tag ${dueInfo.cls}" style="margin-left:6px">${dueInfo.text}</span>` : '';
+                let sub = s.name_en || '';
+                if ((s.sub_categories || []).length) sub += ` · 小类: ${s.sub_categories.join(', ')}`;
+                if (s.assignee) sub += ` · ${s.assignee}`;
+                if (s.notes) sub += ` · ${s.notes.substring(0,30)}`;
+                return `<div class="stage-row" onclick="editStageInline(${s.id})">
+                    <div class="stage-num ${st}">${s.id}</div>
+                    <div class="stage-info"><div class="name">${s.name} ${dueTxt}</div><div class="sub">${sub}</div></div>
+                    ${s.assignee ? `<span class="stage-assignee-tag">${s.assignee}</span>` : ''}
+                    <div class="stage-progress-mini"><div style="width:${s.progress}%;background:${color}"></div></div>
+                    <span style="font-size:12px;color:${color};font-weight:600;min-width:56px;text-align:right">${s.progress >= 100 ? '已完成' : '暂未完成'}</span>
+                </div>`;
+            }).join('');
+        }
+
+        async function editStageInline(stageId) {
+            const stage = project.stages.find(s => s.id === stageId);
+            if (!stage) return;
+            const status = await Dialog.prompt(`阶段 "${stage.name}" 状态`, {defaultValue: stage.status, placeholder: '输入: pending / green / yellow / red'});
+            if (!status || !['pending','green','yellow','red'].includes(status)) return;
+            const progress = await Dialog.prompt(`阶段进度 (0-100)`, {defaultValue: String(stage.progress), placeholder: '0-100'});
+            if (progress === null) return;
+            stage.status = status;
+            stage.progress = Math.max(0, Math.min(100, parseInt(progress) || 0));
+            const notes = await Dialog.prompt('备注:', {defaultValue: stage.notes || '', placeholder: '输入备注...'});
+            if (notes !== null) stage.notes = notes;
+            saveProject();
+        }
+
+        async function saveProject() {
+            try {
+                const res = await fetch(`/api/projects/${PROJECT_ID}`, {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({stages:project.stages})});
+                const json = await res.json();
+                if (json.status === 'success') { project = json.project; renderAll(); }
+                else if (json.message) Toast.error(json.message);
+            } catch(e) { Toast.error('保存失败'); }
+        }
+
+        // Timeline
+        function renderTimeline() {
+            const tl = document.getElementById('timeline');
+            const comments = (project.comments || []).map(c => ({...c, _type: 'comment', _time: c.timestamp}));
+            const logs = (project.activity_log || []).map(l => ({...l, _type: 'action', _time: l.timestamp}));
+            const all = [...comments, ...logs].sort((a,b) => new Date(b._time) - new Date(a._time));
+            if (all.length === 0) { tl.innerHTML = '<div style="color:#555;font-size:12px;text-align:center;padding:20px">暂无记录</div>'; return; }
+            tl.innerHTML = all.slice(0, 50).map(item => {
+                if (item._type === 'comment') {
+                    return `<div class="timeline-item comment"><span class="tl-author">${item.author}</span>: ${item.text}<div class="tl-time">${item.timestamp}</div></div>`;
+                } else {
+                    return `<div class="timeline-item action"><span style="color:#aaa">${item.action}</span> - ${item.detail}<div class="tl-time">${item.timestamp}</div></div>`;
+                }
+            }).join('');
+        }
+
+        async function addComment() {
+            const input = document.getElementById('comment-input');
+            const text = input.value.trim();
+            if (!text) return;
+            try {
+                const res = await fetch(`/api/projects/${PROJECT_ID}/comments`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,author:'管理员'})});
+                const json = await res.json();
+                if (json.status === 'success') {
+                    if (!project.comments) project.comments = [];
+                    project.comments.unshift(json.comment);
+                    input.value = '';
+                    renderTimeline();
+                }
+            } catch(e) {}
+        }
+
+        // Attachments
+        function renderAttachments() {
+            const list = document.getElementById('attachments-list');
+            const atts = project.attachments || [];
+            if (atts.length === 0) { list.innerHTML = '<div style="color:#555;font-size:12px">暂无附件</div>'; return; }
+            list.innerHTML = atts.map(a => {
+                const sizeStr = a.size > 1024*1024 ? (a.size/1024/1024).toFixed(1)+'MB' : (a.size/1024).toFixed(0)+'KB';
+                return `<div class="attachment-item">
+                    <span class="filename">${a.filename}</span><span class="size">${sizeStr}</span>
+                    <a href="/api/projects/${PROJECT_ID}/attachments/${a.id}">下载</a>
+                    <button class="del-btn" onclick="deleteAttachment('${a.id}')">删除</button>
+                </div>`;
+            }).join('');
+        }
+
+        async function uploadFile(file) {
+            if (!file) return;
+            const form = new FormData();
+            form.append('file', file);
+            try {
+                const res = await fetch(`/api/projects/${PROJECT_ID}/attachments`, {method:'POST',body:form});
+                const json = await res.json();
+                if (json.status === 'success') {
+                    if (!project.attachments) project.attachments = [];
+                    project.attachments.push(json.attachment);
+                    renderAttachments();
+                } else Toast.error(json.message || '上传失败');
+            } catch(e) { Toast.error('上传失败'); }
+        }
+
+        async function deleteAttachment(fileId) {
+            if (!await Dialog.confirm('确定删除此附件？', {type: 'danger'})) return;
+            try {
+                await fetch(`/api/projects/${PROJECT_ID}/attachments/${fileId}`, {method:'DELETE'});
+                project.attachments = (project.attachments||[]).filter(a => a.id !== fileId);
+                renderAttachments();
+            } catch(e) {}
+        }
+
+        // Drag & Drop
+        const dropZone = document.getElementById('drop-zone');
+        dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files.length) uploadFile(e.dataTransfer.files[0]); });
+
+        // Gantt Chart
+        function renderGantt() {
+            const canvas = document.getElementById('gantt-canvas');
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const W = canvas.parentElement.clientWidth;
+            const H = 260;
+            canvas.width = W * dpr; canvas.height = H * dpr;
+            canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+            ctx.scale(dpr, dpr);
+
+            const stages = project.stages || [];
+            const rowH = 30, topPad = 30, leftPad = 90, rightPad = 20;
+            const chartW = W - leftPad - rightPad;
+
+            // Calculate time range
+            const created = new Date(project.created_at);
+            let endDate = project.due_date ? new Date(project.due_date + 'T23:59:59') : new Date();
+            // Extend if any stage completed_at is beyond
+            stages.forEach(s => { if (s.completed_at) { const d = new Date(s.completed_at); if (d > endDate) endDate = d; } });
+            const totalDays = Math.max(Math.ceil((endDate - created) / 86400000), 7);
+            const now = new Date();
+            const todayPos = Math.max(0, Math.min(1, (now - created) / (endDate - created)));
+
+            // Background
+            ctx.fillStyle = 'rgba(255,255,255,0.02)';
+            ctx.fillRect(0, 0, W, H);
+
+            // Grid lines
+            ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 4; i++) {
+                const x = leftPad + (chartW * i / 4);
+                ctx.beginPath(); ctx.moveTo(x, topPad - 10); ctx.lineTo(x, topPad + stages.length * rowH + 5); ctx.stroke();
+                // Date label
+                const d = new Date(created.getTime() + totalDays * 86400000 * i / 4);
+                ctx.fillStyle = '#444'; ctx.font = '10px -apple-system';
+                ctx.fillText(`${d.getMonth()+1}/${d.getDate()}`, x - 12, topPad - 14);
+            }
+
+            // Today line
+            const todayX = leftPad + chartW * todayPos;
+            ctx.strokeStyle = 'rgba(230,0,18,0.5)'; ctx.lineWidth = 1.5; ctx.setLineDash([4,3]);
+            ctx.beginPath(); ctx.moveTo(todayX, topPad - 10); ctx.lineTo(todayX, topPad + stages.length * rowH + 5); ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = '#E60012'; ctx.font = 'bold 9px -apple-system'; ctx.fillText('今天', todayX - 10, topPad - 14);
+
+            // Bars
+            const colors = {pending:'rgba(80,80,80,0.3)',green:'rgba(48,209,88,0.6)',yellow:'rgba(255,159,10,0.6)',red:'rgba(255,69,58,0.6)'};
+            stages.forEach((s, i) => {
+                const y = topPad + i * rowH;
+                // Stage name
+                ctx.fillStyle = '#888'; ctx.font = '11px -apple-system';
+                ctx.fillText(s.name, 4, y + 18);
+
+                // Bar background
+                ctx.fillStyle = 'rgba(255,255,255,0.03)';
+                ctx.fillRect(leftPad, y + 4, chartW, 20);
+
+                // Progress bar
+                const barW = chartW * (s.progress / 100);
+                if (barW > 0) {
+                    ctx.fillStyle = colors[s.status] || colors.pending;
+                    const radius = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(leftPad + radius, y + 4);
+                    ctx.lineTo(leftPad + barW - (barW > radius ? radius : 0), y + 4);
+                    ctx.arcTo(leftPad + barW, y + 4, leftPad + barW, y + 14, barW > radius ? radius : 0);
+                    ctx.lineTo(leftPad + barW, y + 24 - (barW > radius ? radius : 0));
+                    ctx.arcTo(leftPad + barW, y + 24, leftPad + barW - radius, y + 24, barW > radius ? radius : 0);
+                    ctx.lineTo(leftPad + radius, y + 24);
+                    ctx.arcTo(leftPad, y + 24, leftPad, y + 14, radius);
+                    ctx.lineTo(leftPad, y + 4 + radius);
+                    ctx.arcTo(leftPad, y + 4, leftPad + radius, y + 4, radius);
+                    ctx.fill();
+                }
+
+                // Progress text
+                ctx.fillStyle = '#666'; ctx.font = '10px -apple-system';
+                ctx.fillText(s.progress + '%', leftPad + chartW + 4, y + 18);
+            });
+        }
+
+        window.addEventListener('resize', () => { if (project) renderGantt(); });
+    </script>
+<script src="/static/js/global.js"></script>
+</body>
+</html>
