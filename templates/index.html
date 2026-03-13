@@ -20,17 +20,16 @@
 
         /* --- 1. 核心定义 --- */
         :root {
-            --bg-color: #000000;
-            --text-color: #ffffff;
+            --bg-color: #f3f4f6;
+            --text-color: #111111;
             --accent-red: #E60012;
-            --input-bg: #333333;
-            --card-bg: #1a1a1a;
+            --input-bg: #f0f1f3;
+            --card-bg: #ffffff;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at top right, #2a2a2a 0%, #000000 80%);
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -38,24 +37,19 @@
             align-items: center; /* 水平居中 */
         }
 
-        /* === 毛玻璃霓虹通用基类 (Glassmorphism + Neon) === */
+        /* === 卡片通用基类 === */
         .glass-neon {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 24px;
-            box-shadow: 0 0 15px rgba(230, 0, 18, 0.3),
-                        0 8px 32px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
             transition: border-color 0.4s ease,
                         box-shadow 0.4s ease,
                         transform 0.4s ease;
         }
         .glass-neon:hover {
-            border-color: rgba(230, 0, 18, 0.7);
-            box-shadow: 0 0 25px rgba(230, 0, 18, 0.55),
-                        0 0 60px rgba(230, 0, 18, 0.2),
-                        0 12px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(230, 0, 18, 0.4);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
             transform: translateY(-3px);
         }
 
@@ -68,10 +62,10 @@
             align-items: center;
             padding: 0 20px;
             margin-bottom: 40px; /* 和下面内容的间距 */
-            border-bottom: 1px solid rgba(255,255,255,0.1); /* 加条线区分 */
+            border-bottom: 1px solid #e5e7eb; /* 加条线区分 */
         }
 
-        .logo-text { font-size: 32px; font-weight: bold; color: white; }
+        .logo-text { font-size: 32px; font-weight: bold; color: #111; }
         .logo-red { color: var(--accent-red); margin-left: 5px; }
         
         .logo-img {
@@ -105,33 +99,27 @@
             min-width: 400px; /* 最小宽度 */
         }
 
-        /* 右侧：结果卡片 — 毛玻璃霓虹 */
+        /* 右侧：结果卡片 */
         .right-panel {
             width: 450px;
             padding: 40px;
-            /* 毛玻璃霓虹基底 */
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 24px;
-            box-shadow: 0 0 15px rgba(230, 0, 18, 0.3),
-                        0 8px 32px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
             transition: border-color 0.4s ease,
                         box-shadow 0.4s ease,
                         transform 0.4s ease;
         }
         .right-panel:hover {
-            border-color: rgba(230, 0, 18, 0.7);
-            box-shadow: 0 0 25px rgba(230, 0, 18, 0.55),
-                        0 0 60px rgba(230, 0, 18, 0.2),
-                        0 12px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(230, 0, 18, 0.4);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
             transform: translateY(-3px);
         }
 
         /* --- 4. 标题与表单样式 --- */
         h1 { font-size: 42px; margin-bottom: 10px; line-height: 1.2; }
-        p.subtitle { color: #888; font-size: 18px; margin-bottom: 40px; }
+        p.subtitle { color: #6b7280; font-size: 18px; margin-bottom: 40px; }
 
         .form-row {
             display: flex;
@@ -145,7 +133,7 @@
 
         label {
             display: block;
-            color: #aaa;
+            color: #6b7280;
             margin-bottom: 8px;
             font-size: 14px;
         }
@@ -155,15 +143,15 @@
             height: 50px;
             padding: 0 15px;
             background-color: var(--input-bg);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-            color: white;
+            color: #111;
             font-size: 16px;
             outline: none;
         }
 
         /* 修复下拉菜单背景色 */
-        select option { background-color: #333; color: white; }
+        select option { background-color: #fff; color: #111; }
 
         button.btn-red {
             width: 100%;
@@ -183,10 +171,10 @@
         /* --- 5. 澳洲联通宣传区域样式 --- */
         .promo-section {
             width: 100%;
-            background-color: #0a0a0a;
+            background-color: #f9fafb;
             padding: 80px 20px;
             margin-top: 80px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid #e5e7eb;
         }
 
         .promo-container {
@@ -197,7 +185,7 @@
         .promo-title {
             font-size: 36px;
             font-weight: bold;
-            color: white;
+            color: #111;
             margin-bottom: 50px;
             text-align: center;
         }
@@ -210,14 +198,11 @@
         }
 
         .promo-card {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 0 15px rgba(230, 0, 18, 0.3),
-                        0 8px 32px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
             transition: border-color 0.4s ease,
                         box-shadow 0.4s ease,
                         transform 0.4s ease;
@@ -226,10 +211,8 @@
         }
 
         .promo-card:hover {
-            border-color: rgba(230, 0, 18, 0.7);
-            box-shadow: 0 0 25px rgba(230, 0, 18, 0.55),
-                        0 0 60px rgba(230, 0, 18, 0.2),
-                        0 12px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(230, 0, 18, 0.4);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
             transform: translateY(-5px);
         }
 
@@ -251,14 +234,14 @@
         .promo-card-title {
             font-size: 20px;
             font-weight: bold;
-            color: white;
+            color: #111;
             margin-bottom: 15px;
             line-height: 1.4;
         }
 
         .promo-card-snippet {
             font-size: 14px;
-            color: #aaa;
+            color: #6b7280;
             line-height: 1.6;
             margin-bottom: 20px;
             flex: 1;
@@ -276,25 +259,20 @@
             color: #ff1a1a;
         }
 
-        /* --- 官方价格参考横幅 — 毛玻璃霓虹 --- */
+        /* --- 官方价格参考横幅 --- */
         .price-ref-banner {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 24px;
             padding: 30px;
             margin-bottom: 40px;
-            box-shadow: 0 0 15px rgba(230, 0, 18, 0.3),
-                        0 8px 32px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
             transition: border-color 0.4s ease,
                         box-shadow 0.4s ease;
         }
         .price-ref-banner:hover {
-            border-color: rgba(230, 0, 18, 0.5);
-            box-shadow: 0 0 20px rgba(230, 0, 18, 0.4),
-                        0 0 50px rgba(230, 0, 18, 0.15),
-                        0 10px 36px rgba(0, 0, 0, 0.45);
+            border-color: rgba(230, 0, 18, 0.3);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         }
         .price-ref-header {
             display: flex;
@@ -313,9 +291,9 @@
             border: 1px solid rgba(230, 0, 18, 0.25);
         }
         .sla-badge-inline.sla-green {
-            background: rgba(48, 209, 88, 0.1);
-            color: #30d158;
-            border-color: rgba(48, 209, 88, 0.25);
+            background: #dcfce7;
+            color: #16a34a;
+            border-color: rgba(22, 163, 74, 0.25);
         }
         .sla-badge-inline.sla-blue {
             background: rgba(10, 132, 255, 0.1);
@@ -328,60 +306,53 @@
             gap: 20px;
         }
         .price-ref-card {
-            background: rgba(20, 20, 20, 0.5);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
             border-radius: 20px;
             padding: 24px;
             text-align: center;
-            box-shadow: 0 0 10px rgba(230, 0, 18, 0.15),
-                        0 4px 16px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
             transition: border-color 0.4s ease,
                         box-shadow 0.4s ease,
                         transform 0.4s ease;
         }
         .price-ref-card:hover {
-            border-color: rgba(230, 0, 18, 0.6);
-            box-shadow: 0 0 20px rgba(230, 0, 18, 0.45),
-                        0 0 50px rgba(230, 0, 18, 0.15),
-                        0 8px 28px rgba(0, 0, 0, 0.4);
+            border-color: rgba(230, 0, 18, 0.3);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
             transform: translateY(-4px);
         }
         .price-ref-card.prc-custom {
-            border-color: rgba(255, 159, 10, 0.35);
-            background: rgba(255, 159, 10, 0.06);
+            border-color: rgba(217, 119, 6, 0.35);
+            background: #fef3c7;
         }
         .price-ref-card.prc-custom:hover {
-            border-color: rgba(255, 159, 10, 0.7);
-            box-shadow: 0 0 20px rgba(255, 159, 10, 0.4),
-                        0 0 50px rgba(255, 159, 10, 0.12),
-                        0 8px 28px rgba(0, 0, 0, 0.4);
+            border-color: rgba(217, 119, 6, 0.6);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         }
         .prc-speed {
             font-size: 22px;
             font-weight: 700;
-            color: white;
+            color: #111;
             margin-bottom: 6px;
         }
         .prc-desc {
             font-size: 13px;
-            color: #888;
+            color: #6b7280;
             margin-bottom: 16px;
         }
         .prc-price {
             font-size: 32px;
             font-weight: 700;
-            color: #30d158;
+            color: #16a34a;
         }
         .prc-price span {
             font-size: 14px;
             font-weight: 400;
-            color: #666;
+            color: #6b7280;
         }
         .prc-price.prc-contact {
             font-size: 18px;
-            color: #ff9f0a;
+            color: #d97706;
         }
         .prc-phone {
             display: inline-block;
@@ -397,8 +368,8 @@
         /* --- 页脚 --- */
         .site-footer {
             width: 100%;
-            background: #050505;
-            border-top: 1px solid rgba(255,255,255,0.06);
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
             padding: 20px 40px;
         }
         .footer-inner {
@@ -441,31 +412,28 @@
         }
 
         /* --- 6. 结果展示样式 --- */
-        .price-label { font-size: 14px; color: #aaa; margin-bottom: 10px; }
-        .price-value { font-size: 48px; font-weight: bold; color: white; margin-bottom: 5px; }
-        .price-unit { font-size: 20px; font-weight: normal; color: #888; }
+        .price-label { font-size: 14px; color: #6b7280; margin-bottom: 10px; }
+        .price-value { font-size: 48px; font-weight: bold; color: #111; margin-bottom: 5px; }
+        .price-unit { font-size: 20px; font-weight: normal; color: #9ca3af; }
 
         /* 置信度条 */
         .confidence-wrapper { margin-top: 30px; }
-        .bar-bg { width: 100%; height: 6px; background: #444; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+        .bar-bg { width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px; margin-top: 8px; overflow: hidden; }
         .bar-fill { height: 100%; background: var(--accent-red); width: 0%; transition: width 0.5s; }
-        
-        /* 历史列表 */
-        .history-list { margin-top: 30px; border-top: 1px solid #444; padding-top: 20px; }
-        .history-item { display: flex; justify-content: space-between; color: #aaa; font-size: 14px; margin-bottom: 10px; }
-        .history-price { color: white; font-weight: bold; }
 
-        /* --- 低置信度警告模块（人机回环）— 毛玻璃霓虹 --- */
+        /* 历史列表 */
+        .history-list { margin-top: 30px; border-top: 1px solid #e5e7eb; padding-top: 20px; }
+        .history-item { display: flex; justify-content: space-between; color: #6b7280; font-size: 14px; margin-bottom: 10px; }
+        .history-price { color: #111; font-weight: bold; }
+
+        /* --- 低置信度警告模块（人机回环） --- */
         .low-confidence-warning {
             margin-top: 24px;
             padding: 20px;
-            background: rgba(255, 77, 79, 0.06);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 77, 79, 0.35);
+            background: #fff7ed;
+            border: 1px solid rgba(217, 119, 6, 0.35);
             border-radius: 20px;
-            box-shadow: 0 0 12px rgba(255, 77, 79, 0.2),
-                        0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
             display: none; /* 默认隐藏，由 JS 控制显示 */
             transition: border-color 0.4s ease,
                         box-shadow 0.4s ease;
@@ -476,14 +444,14 @@
             align-items: center;
             gap: 8px;
             font-size: 13px;
-            color: #ff9f0a;
+            color: #d97706;
             margin-bottom: 12px;
             font-weight: 500;
         }
 
         .low-confidence-warning .warning-desc {
             font-size: 12px;
-            color: #888;
+            color: #6b7280;
             line-height: 1.6;
             margin-bottom: 16px;
         }
@@ -493,13 +461,13 @@
             display: none;
             margin-top: 15px;
             padding: 12px 16px;
-            background: rgba(255,255,255,0.05);
+            background: #f3f4f6;
             border-radius: 12px;
             text-align: center;
         }
         .feedback-label {
             font-size: 13px;
-            color: #999;
+            color: #9ca3af;
             margin-bottom: 10px;
         }
         .feedback-buttons {
@@ -510,32 +478,32 @@
         .feedback-btn {
             padding: 8px 20px;
             border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(255,255,255,0.05);
-            color: #ccc;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: #374151;
             font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
         }
         .feedback-btn:hover {
-            background: rgba(255,255,255,0.12);
-            color: #fff;
+            background: #f9fafb;
+            color: #111;
         }
         .feedback-btn.selected-accurate {
-            background: rgba(48, 209, 88, 0.2);
-            border-color: #30d158;
-            color: #30d158;
+            background: #dcfce7;
+            border-color: #16a34a;
+            color: #16a34a;
             pointer-events: none;
         }
         .feedback-btn.selected-inaccurate {
-            background: rgba(255, 69, 58, 0.2);
-            border-color: #ff453a;
-            color: #ff453a;
+            background: #fee2e2;
+            border-color: #dc2626;
+            color: #dc2626;
             pointer-events: none;
         }
         .feedback-thanks {
             font-size: 12px;
-            color: #888;
+            color: #9ca3af;
             margin-top: 8px;
             display: none;
         }
@@ -547,18 +515,17 @@
             right: 20px;
             z-index: 1000;
             padding: 10px 18px;
-            background: rgba(30,30,30,0.9);
-            border: 1px solid rgba(255,255,255,0.15);
+            background: #ffffff;
+            border: 1px solid #d1d5db;
             border-radius: 10px;
-            color: #ccc;
+            color: #374151;
             font-size: 13px;
             cursor: pointer;
-            backdrop-filter: blur(10px);
             transition: all 0.2s;
         }
         .history-panel-toggle:hover {
-            background: rgba(50,50,50,0.95);
-            color: #fff;
+            background: #f9fafb;
+            color: #111;
         }
         .history-panel {
             display: none;
@@ -567,24 +534,23 @@
             right: 20px;
             width: 360px;
             max-height: 70vh;
-            background: rgba(25,25,25,0.97);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 16px;
             z-index: 999;
             overflow-y: auto;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
         .history-panel.active { display: block; }
         .history-panel-header {
             padding: 16px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid #e5e7eb;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .history-panel-header h3 {
-            color: #fff;
+            color: #111;
             font-size: 15px;
             margin: 0;
         }
@@ -599,9 +565,9 @@
         .history-record {
             padding: 12px;
             margin-bottom: 10px;
-            background: rgba(255,255,255,0.04);
+            background: #f9fafb;
             border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.06);
+            border: 1px solid #f0f0f0;
         }
         .history-record-top {
             display: flex;
@@ -612,20 +578,20 @@
         .history-record-price {
             font-size: 18px;
             font-weight: 700;
-            color: #30d158;
+            color: #16a34a;
         }
         .history-record-time {
             font-size: 11px;
-            color: #666;
+            color: #6b7280;
         }
         .history-record-detail {
             font-size: 12px;
-            color: #999;
+            color: #9ca3af;
             line-height: 1.6;
         }
         .history-empty {
             text-align: center;
-            color: #666;
+            color: #6b7280;
             font-size: 13px;
             padding: 30px 0;
         }
@@ -729,14 +695,10 @@
             right: 30px;
             width: 400px;
             height: 600px;
-            /* 毛玻璃霓虹 */
-            background: rgba(20, 20, 20, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 24px;
-            box-shadow: 0 0 18px rgba(230, 0, 18, 0.35),
-                        0 10px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
             display: none;
             flex-direction: column;
             z-index: 1001;
@@ -750,7 +712,7 @@
 
         .deepseek-chat-header {
             padding: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid #e5e7eb;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -760,7 +722,7 @@
 
         .deepseek-chat-header h3 {
             margin: 0;
-            color: white;
+            color: #111;
             font-size: 18px;
             flex: 1;
         }
@@ -772,7 +734,7 @@
         }
 
         .model-selector label {
-            color: #aaa;
+            color: #6b7280;
             font-size: 12px;
             white-space: nowrap;
         }
@@ -780,9 +742,9 @@
         .model-selector select {
             padding: 6px 12px;
             background: var(--input-bg);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid #d1d5db;
             border-radius: 6px;
-            color: white;
+            color: #111;
             font-size: 12px;
             outline: none;
             cursor: pointer;
@@ -790,22 +752,22 @@
         }
 
         .model-selector select option {
-            background: #333;
-            color: white;
+            background: #fff;
+            color: #111;
         }
 
         .model-status {
             font-size: 11px;
-            color: #888;
+            color: #9ca3af;
             padding: 2px 8px;
-            background: rgba(255,255,255,0.05);
+            background: #f3f4f6;
             border-radius: 4px;
         }
 
         .deepseek-chat-close {
             background: none;
             border: none;
-            color: #aaa;
+            color: #9ca3af;
             font-size: 24px;
             cursor: pointer;
             padding: 0;
@@ -817,7 +779,7 @@
         }
 
         .deepseek-chat-close:hover {
-            color: white;
+            color: #111;
         }
 
         .deepseek-chat-messages {
@@ -845,14 +807,14 @@
         }
 
         .deepseek-message.ai {
-            background: rgba(255,255,255,0.1);
-            color: #ddd;
+            background: #f3f4f6;
+            color: #374151;
             align-self: flex-start;
         }
 
         .deepseek-chat-input-container {
             padding: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid #e5e7eb;
             display: flex;
             gap: 10px;
         }
@@ -861,9 +823,9 @@
             flex: 1;
             padding: 12px 16px;
             background: var(--input-bg);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-            color: white;
+            color: #111;
             font-size: 14px;
             outline: none;
         }
@@ -884,7 +846,7 @@
         }
 
         .deepseek-chat-send:disabled {
-            background: #666;
+            background: #d1d5db;
             cursor: not-allowed;
         }
 
@@ -897,7 +859,7 @@
             border-radius: 50%;
             border: none;
             background: var(--input-bg);
-            color: #aaa;
+            color: #6b7280;
             font-size: 20px;
             cursor: pointer;
             display: flex;
@@ -911,8 +873,8 @@
             -webkit-user-select: none;
         }
         .voice-mic-btn:hover {
-            color: white;
-            background: rgba(255,255,255,0.15);
+            color: #111;
+            background: rgba(0,0,0,0.08);
         }
 
         /* 录音中状态：红色背景 + 脉冲声波动画 */
@@ -954,7 +916,7 @@
             gap: 6px;
             cursor: pointer;
             font-size: 11px;
-            color: #aaa;
+            color: #6b7280;
             user-select: none;
             -webkit-user-select: none;
         }
@@ -969,7 +931,7 @@
         /* 浏览器不支持时的提示 */
         .voice-unsupported {
             font-size: 11px;
-            color: #666;
+            color: #6b7280;
             text-align: center;
             padding: 4px 8px;
             display: none;
@@ -992,8 +954,8 @@
         .coverage-map-section {
             width: 100%;
             padding: 60px 20px;
-            background: #050505;
-            border-top: 1px solid rgba(255,255,255,0.06);
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
         }
         .coverage-map-container {
             max-width: 1200px;
@@ -1009,7 +971,7 @@
         .coverage-map-title {
             font-size: 24px;
             font-weight: 700;
-            color: white;
+            color: #111;
             margin: 0;
         }
         .coverage-map-badge {
@@ -1024,35 +986,21 @@
         .coverage-map-wrapper {
             border-radius: 24px;
             overflow: hidden;
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 15px rgba(230, 0, 18, 0.3),
-                        0 8px 32px rgba(0, 0, 0, 0.5);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
             transition: border-color 0.4s ease,
                         box-shadow 0.4s ease;
         }
         .coverage-map-wrapper:hover {
-            border-color: rgba(230, 0, 18, 0.6);
-            box-shadow: 0 0 22px rgba(230, 0, 18, 0.45),
-                        0 0 55px rgba(230, 0, 18, 0.15),
-                        0 10px 36px rgba(0, 0, 0, 0.5);
+            border-color: rgba(230, 0, 18, 0.3);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         }
         /* 地图容器 */
         #coverage-map {
             width: 100%;
             height: 420px;
-            background: #111;
-            /* 深色模式滤镜：白底地图 → 科技感深色 */
-            filter: invert(90%) hue-rotate(180deg) saturate(1.5) brightness(0.7);
-        }
-        /* Leaflet 的 tile 图片也需反转（二次反转恢复卫星/标注颜色） */
-        #coverage-map .leaflet-tile-pane {
-            filter: invert(100%) hue-rotate(180deg) saturate(2);
-        }
-        /* 弹窗样式修正（滤镜会影响弹窗颜色，需反转回来） */
-        #coverage-map .leaflet-popup-content-wrapper,
-        #coverage-map .leaflet-popup-tip {
-            filter: invert(100%) hue-rotate(180deg);
+            background: #f0f0f0;
         }
         .coverage-map-legend {
             display: flex;
@@ -1065,7 +1013,7 @@
             align-items: center;
             gap: 8px;
             font-size: 13px;
-            color: #888;
+            color: #6b7280;
         }
         .legend-dot {
             width: 12px;
@@ -1101,93 +1049,6 @@
                 opacity: 1;
                 transform: none;
                 transition: none;
-            }
-        }
-
-        /* ==========================================================
-           赛博朋克屏幕质感 — 胶片噪点 + 边缘色散
-           ========================================================== */
-
-        /* --- 1. 胶片噪点层 (Film Grain) ---
-         *  使用 body::after 覆盖全屏，引用内联 SVG feTurbulence 滤镜
-         *  opacity 极低，只产生隐约的颗粒感，完全不影响阅读
-         */
-        body::after {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            z-index: 9999;
-            pointer-events: none;          /* 不阻挡任何交互 */
-
-            /* 引用 SVG 噪点滤镜 */
-            background: transparent;
-            filter: url(#film-grain-filter);
-
-            opacity: 0.05;                 /* 极低透明度 */
-            animation: grain-shift 0.5s steps(4) infinite;
-            will-change: transform;
-        }
-
-        /* 噪点微移动画：让噪点不是静态的，产生"胶片抖动"感 */
-        @keyframes grain-shift {
-            0%   { transform: translate(0, 0); }
-            25%  { transform: translate(-2%, -3%); }
-            50%  { transform: translate(3%, 1%); }
-            75%  { transform: translate(-1%, 2%); }
-            100% { transform: translate(2%, -1%); }
-        }
-
-        /* --- 2. 边缘色散层 (Chromatic Aberration Vignette) ---
-         *  使用 body::before 在屏幕四边叠加 RGB 色彩分离光晕
-         *  模拟老式 CRT / 科幻屏幕的显示瑕疵
-         */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9998;
-            pointer-events: none;
-
-            /* 四边渐变色散：红色偏左上、青色偏右下 */
-            background:
-                /* 左边缘 — 红色色散 */
-                linear-gradient(to right,
-                    rgba(255, 0, 0, 0.06) 0%,
-                    transparent 5%
-                ),
-                /* 右边缘 — 青色色散 */
-                linear-gradient(to left,
-                    rgba(0, 255, 255, 0.05) 0%,
-                    transparent 5%
-                ),
-                /* 上边缘 — 品红色散 */
-                linear-gradient(to bottom,
-                    rgba(255, 0, 120, 0.04) 0%,
-                    transparent 4%
-                ),
-                /* 下边缘 — 蓝色色散 */
-                linear-gradient(to top,
-                    rgba(0, 80, 255, 0.04) 0%,
-                    transparent 4%
-                ),
-                /* CRT 暗角效果 (Vignette) */
-                radial-gradient(ellipse at center,
-                    transparent 55%,
-                    rgba(0, 0, 0, 0.25) 100%
-                );
-            opacity: 1;
-        }
-
-        /* 尊重减弱动画偏好：关闭噪点动画 */
-        @media (prefers-reduced-motion: reduce) {
-            body::after {
-                animation: none;
             }
         }
 
@@ -1268,20 +1129,6 @@
         </div>
     </div>
 
-    <!-- SVG 噪点滤镜定义（不可见，仅供 CSS filter 引用） -->
-    <svg style="position:absolute;width:0;height:0;" aria-hidden="true">
-        <defs>
-            <filter id="film-grain-filter" x="0%" y="0%" width="100%" height="100%">
-                <!-- feTurbulence 生成伪随机噪点纹理 -->
-                <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" result="noise" />
-                <!-- 转为灰度噪点 -->
-                <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise" />
-                <!-- 叠加到源图形 -->
-                <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply" />
-            </filter>
-        </defs>
-    </svg>
-
     <!-- 自定义磁吸光标 -->
     <div class="custom-cursor" id="custom-cursor"></div>
 
@@ -1353,7 +1200,7 @@
         <div class="right-panel" data-animate="fade-up">
             <div class="price-label">预估月费 (Estimated MRC)</div>
             <div id="price-display">
-                <div style="font-size: 32px; color: #888;">等待输入...</div>
+                <div style="font-size: 32px; color: #9ca3af;">等待输入...</div>
             </div>
 
             <div id="analysis-box" style="display: none;">
@@ -1500,17 +1347,17 @@
         <div class="footer-inner">
             <div class="footer-left">
                 <span class="logo-text" style="font-size:20px;">澳洲</span><span class="logo-text logo-red" style="font-size:20px;">联通</span>
-                <span style="color:#555; font-size:12px; margin-left:10px;">Australia Unicom</span>
+                <span style="color:#6b7280; font-size:12px; margin-left:10px;">Australia Unicom</span>
             </div>
             <div class="footer-center">
                 <span>📞 <a href="tel:1300864266" style="color:#E60012; text-decoration:none; font-weight:600;">1300-UNICOM</a></span>
-                <span style="color:#444; margin:0 12px;">|</span>
-                <span style="color:#666;">24小时中英双语客服</span>
-                <span style="color:#444; margin:0 12px;">|</span>
-                <span style="color:#666;">99.99% SLA</span>
+                <span style="color:#d1d5db; margin:0 12px;">|</span>
+                <span style="color:#6b7280;">24小时中英双语客服</span>
+                <span style="color:#d1d5db; margin:0 12px;">|</span>
+                <span style="color:#6b7280;">99.99% SLA</span>
             </div>
             <div class="footer-right">
-                <span style="color:#555; font-size:12px;">© 2026 Australia Unicom</span>
+                <span style="color:#9ca3af; font-size:12px;">© 2026 Australia Unicom</span>
             </div>
         </div>
     </footer>
@@ -1539,7 +1386,7 @@
                     <span>启用实时资料查找</span>
                 </label>
                 <!-- TTS 语音朗读开关 -->
-                <span style="color:#444; margin:0 6px;">|</span>
+                <span style="color:#d1d5db; margin:0 6px;">|</span>
                 <span class="tts-toggle" id="tts-toggle" onclick="toggleTTS()" title="AI 语音朗读开关">
                     <span class="tts-toggle-icon" id="tts-icon">🔊</span>
                     <span id="tts-label">朗读</span>
@@ -1937,9 +1784,9 @@
                     .bindPopup(`
                         <div style="font-family:sans-serif; min-width:180px; line-height:1.6;">
                             <strong style="color:#E60012;">📡 核心节点：信号极佳</strong><br>
-                            <span style="color:#333;">区域: ${location.name}</span><br>
-                            <span style="color:#333;">邮编: ${postcode}</span><br>
-                            <span style="color:#555; font-size:12px;">覆盖半径 2km · 99.99% SLA</span>
+                            <span style="color:#374151;">区域: ${location.name}</span><br>
+                            <span style="color:#374151;">邮编: ${postcode}</span><br>
+                            <span style="color:#6b7280; font-size:12px;">覆盖半径 2km · 99.99% SLA</span>
                         </div>
                     `)
                     .openPopup();
@@ -2073,7 +1920,7 @@
                             `;
                         });
                     } else {
-                        list.innerHTML = "<div style='font-size:12px; color:#666;'>无完全匹配记录</div>";
+                        list.innerHTML = "<div style='font-size:12px; color:#9ca3af;'>无完全匹配记录</div>";
                     }
 
                     // === 更新网络覆盖地图 ===
@@ -2224,7 +2071,7 @@
             const tipDiv = document.createElement('div');
             tipDiv.className = 'deepseek-message ai';
             tipDiv.style.fontSize = '12px';
-            tipDiv.style.color = '#888';
+            tipDiv.style.color = '#9ca3af';
             tipDiv.textContent = `已切换到 ${getModelName(currentModel)} 模型`;
             messagesContainer.appendChild(tipDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -2329,7 +2176,7 @@
                 const searchTip = document.createElement('div');
                 searchTip.className = 'deepseek-message ai';
                 searchTip.style.fontSize = '12px';
-                searchTip.style.color = '#888';
+                searchTip.style.color = '#9ca3af';
                 searchTip.textContent = '🔍 正在联网搜索相关资料...';
                 searchTip.id = 'search-tip';
                 messagesContainer.appendChild(searchTip);

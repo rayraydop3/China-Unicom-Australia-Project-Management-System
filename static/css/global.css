@@ -4,19 +4,19 @@
 
 /* --- CSS Variables --- */
 :root {
-  --primary: #00f0ff;
-  --primary-dim: rgba(0, 240, 255, 0.15);
-  --primary-glow: rgba(0, 240, 255, 0.4);
+  --primary: #2563eb;
+  --primary-dim: rgba(37, 99, 235, 0.12);
+  --primary-glow: rgba(37, 99, 235, 0.25);
   --accent: #E60012;
-  --bg-dark: #0a0e1a;
-  --bg-card: #111827;
-  --bg-card-hover: #1a2332;
-  --bg-surface: #1f2937;
-  --border: #1e293b;
-  --border-light: #334155;
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --bg-dark: #f3f4f6;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f9fafb;
+  --bg-surface: #f3f4f6;
+  --border: #e5e7eb;
+  --border-light: #d1d5db;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
@@ -24,8 +24,8 @@
   --radius: 12px;
   --radius-sm: 8px;
   --radius-xs: 4px;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
@@ -225,7 +225,7 @@
   padding: 10px 14px;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
-  background: var(--bg-dark);
+  background: #f9fafb;
   color: var(--text-primary);
   font-size: 14px;
   margin-top: 12px;
@@ -244,7 +244,7 @@
   gap: 10px;
   padding: 16px 24px;
   border-top: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -281,8 +281,8 @@
 }
 
 .g-btn-primary {
-  background: linear-gradient(135deg, var(--primary), #0080ff);
-  color: #000;
+  background: linear-gradient(135deg, var(--primary), #1d4ed8);
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -353,7 +353,7 @@
   position: fixed;
   inset: 0;
   z-index: 99998;
-  background: rgba(10, 14, 26, 0.7);
+  background: rgba(240, 241, 242, 0.85);
   backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
@@ -432,7 +432,7 @@
   padding: 10px 14px;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
-  background: var(--bg-dark);
+  background: #f9fafb;
   color: var(--text-primary);
   font-size: 14px;
   font-family: var(--font-family);
@@ -685,15 +685,15 @@
   animation: modalFadeOut 0.2s ease forwards;
 }
 .changelog-modal {
-  background: #111827;
-  border: 1px solid #1e293b;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 14px;
   width: 520px;
   max-width: calc(100vw - 40px);
   max-height: 80vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
   animation: modalScaleIn 0.2s ease;
 }
 .changelog-header {
@@ -701,7 +701,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px 16px;
-  border-bottom: 1px solid #1e293b;
+  border-bottom: 1px solid #e5e7eb;
 }
 .changelog-title-wrap {
   display: flex;
@@ -711,7 +711,7 @@
 .changelog-title {
   font-size: 17px;
   font-weight: 700;
-  color: #e2e8f0;
+  color: #111827;
 }
 .changelog-version-tag {
   font-size: 12px;
@@ -738,8 +738,8 @@
   transition: color 0.2s, background 0.2s;
 }
 .changelog-close:hover {
-  color: #e2e8f0;
-  background: rgba(255,255,255,0.08);
+  color: #111827;
+  background: rgba(0,0,0,0.05);
 }
 .changelog-body {
   padding: 20px 24px;
@@ -766,7 +766,7 @@
   align-items: flex-start;
   gap: 10px;
   font-size: 14px;
-  color: #cbd5e1;
+  color: #374151;
   line-height: 1.5;
 }
 .changelog-item-dot {
@@ -779,8 +779,8 @@
 }
 .changelog-footer {
   padding: 14px 24px;
-  border-top: 1px solid #1e293b;
+  border-top: 1px solid #e5e7eb;
   font-size: 12px;
-  color: #475569;
+  color: #6b7280;
   text-align: center;
 }

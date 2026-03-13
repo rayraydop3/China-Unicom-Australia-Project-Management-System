@@ -7,88 +7,83 @@
     <link rel="stylesheet" href="/static/css/global.css">
     <style>
         *{box-sizing:border-box;margin:0;padding:0}
-        :root{--bg:#000;--accent:#E60012;--green:#30d158;--yellow:#ff9f0a;--red:#ff453a;--card:rgba(20,20,20,0.6);--border:rgba(255,255,255,0.1);--input-bg:#333}
-        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#000;background-image:radial-gradient(circle at top right,#2a2a2a 0%,#000 80%);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center}
-        .header{width:100%;max-width:1400px;height:60px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid var(--border);margin-bottom:20px}
+        :root{--bg:#f3f4f6;--accent:#E60012;--green:#16a34a;--yellow:#d97706;--red:#dc2626;--card:#ffffff;--border:#e5e7eb;--input-bg:#f9fafb}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f3f4f6;color:#111;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+        .header{width:100%;max-width:1400px;height:60px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid #e5e7eb;margin-bottom:20px;background:#ffffff}
         .header a{color:var(--accent);text-decoration:none;font-size:13px;margin-right:16px}
-        .logo{font-size:24px;font-weight:700;margin-right:auto}.logo span{color:var(--accent)}
+        .logo{font-size:24px;font-weight:700;margin-right:auto;color:#111}.logo span{color:var(--accent)}
         .main{width:100%;max-width:1400px;padding:0 20px;display:grid;grid-template-columns:1fr 380px;gap:20px;padding-bottom:60px}
         @media(max-width:900px){.main{grid-template-columns:1fr}}
         /* Left panel */
-        .card{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px}
-        .project-title{font-size:26px;font-weight:700;margin-bottom:8px}
+        .card{background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+        .project-title{font-size:26px;font-weight:700;margin-bottom:8px;color:#111}
         .meta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:16px 0}
-        .meta-item{font-size:12px;color:#777}.meta-item span{color:#ccc;font-weight:500}
-        .meta-item label{display:block;color:#555;font-size:10px;margin-bottom:2px}
+        .meta-item{font-size:12px;color:#9ca3af}.meta-item span{color:#374151;font-weight:500}
+        .meta-item label{display:block;color:#6b7280;font-size:10px;margin-bottom:2px}
         .priority-tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700}
-        .priority-tag.high{background:rgba(255,69,58,0.15);color:var(--red)}
-        .priority-tag.medium{background:rgba(255,159,10,0.15);color:var(--yellow)}
-        .priority-tag.low{background:rgba(48,209,88,0.15);color:var(--green)}
+        .priority-tag.high{background:#fee2e2;color:var(--red)}
+        .priority-tag.medium{background:#fef3c7;color:var(--yellow)}
+        .priority-tag.low{background:#dcfce7;color:var(--green)}
         .due-tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600}
-        .due-tag.overdue{background:rgba(255,69,58,0.15);color:var(--red);animation:blink 1.5s infinite}
-        .due-tag.soon{background:rgba(255,159,10,0.15);color:var(--yellow)}
-        .due-tag.ok{color:#888}
+        .due-tag.overdue{background:#fee2e2;color:var(--red);animation:blink 1.5s infinite}
+        .due-tag.soon{background:#fef3c7;color:var(--yellow)}
+        .due-tag.ok{color:#9ca3af}
         @keyframes blink{50%{opacity:.6}}
         .team-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-        .team-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:4px 12px 4px 4px;font-size:11px}
+        .team-chip{display:flex;align-items:center;gap:6px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:20px;padding:4px 12px 4px 4px;font-size:11px;color:#374151}
         .team-chip .avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
         /* Progress */
         .progress-section{margin:16px 0}
-        .progress-bar-bg{width:100%;height:10px;background:rgba(255,255,255,0.06);border-radius:5px;overflow:hidden}
+        .progress-bar-bg{width:100%;height:10px;background:#f3f4f6;border-radius:5px;overflow:hidden}
         .progress-bar-fill{height:100%;border-radius:5px;transition:width 0.6s;background:linear-gradient(90deg,var(--accent),#ff4757)}
-        .progress-bar-fill.complete{background:linear-gradient(90deg,var(--green),#38ef7d)}
-        .progress-label{display:flex;justify-content:space-between;font-size:12px;color:#888;margin-top:6px}
+        .progress-bar-fill.complete{background:linear-gradient(90deg,var(--green),#22c55e)}
+        .progress-label{display:flex;justify-content:space-between;font-size:12px;color:#9ca3af;margin-top:6px}
         /* Stages list */
-        .stage-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;margin-bottom:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all 0.2s}
-        .stage-row:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.12)}
+        .stage-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;margin-bottom:8px;background:#f9fafb;border:1px solid #f0f0f0;cursor:pointer;transition:all 0.2s}
+        .stage-row:hover{background:#f3f4f6;border-color:#e5e7eb}
         .stage-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
-        .stage-num.pending{background:rgba(80,80,80,0.2);color:#555}
-        .stage-num.green{background:rgba(48,209,88,0.1);color:var(--green)}
-        .stage-num.yellow{background:rgba(255,159,10,0.1);color:var(--yellow)}
-        .stage-num.red{background:rgba(255,69,58,0.1);color:var(--red)}
+        .stage-num.pending{background:#f3f4f6;color:#9ca3af}
+        .stage-num.green{background:#dcfce7;color:var(--green)}
+        .stage-num.yellow{background:#fef3c7;color:var(--yellow)}
+        .stage-num.red{background:#fee2e2;color:var(--red)}
         .stage-info{flex:1;min-width:0}
-        .stage-info .name{font-size:14px;font-weight:600}
-        .stage-info .sub{font-size:11px;color:#666;margin-top:2px}
-        .stage-progress-mini{width:100px;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+        .stage-info .name{font-size:14px;font-weight:600;color:#111}
+        .stage-info .sub{font-size:11px;color:#6b7280;margin-top:2px}
+        .stage-progress-mini{width:100px;height:4px;background:#f3f4f6;border-radius:2px;overflow:hidden}
         .stage-progress-mini div{height:100%;border-radius:2px}
-        .stage-assignee-tag{font-size:10px;color:#888;background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:10px}
+        .stage-assignee-tag{font-size:10px;color:#6b7280;background:#f3f4f6;padding:2px 8px;border-radius:10px}
         /* Gantt */
         .gantt-container{position:relative;overflow-x:auto;margin-top:12px}
         .gantt-canvas{display:block;width:100%}
         /* Right panel - Timeline */
         .right-panel{display:flex;flex-direction:column;gap:16px}
-        .section-title{font-size:14px;font-weight:700;color:#aaa;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+        .section-title{font-size:14px;font-weight:700;color:#6b7280;margin-bottom:12px;display:flex;align-items:center;gap:8px}
         .timeline{max-height:400px;overflow-y:auto;padding-right:8px}
-        .timeline-item{padding:10px 12px;border-left:2px solid rgba(255,255,255,0.06);margin-left:8px;margin-bottom:4px;font-size:12px;line-height:1.5;position:relative}
-        .timeline-item::before{content:'';position:absolute;left:-5px;top:14px;width:8px;height:8px;border-radius:50%;background:#333}
+        .timeline-item{padding:10px 12px;border-left:2px solid #f0f0f0;margin-left:8px;margin-bottom:4px;font-size:12px;line-height:1.5;position:relative;color:#374151}
+        .timeline-item::before{content:'';position:absolute;left:-5px;top:14px;width:8px;height:8px;border-radius:50%;background:#d1d5db}
         .timeline-item.comment{border-left-color:var(--accent)}.timeline-item.comment::before{background:var(--accent)}
-        .timeline-item.action::before{background:#555}
-        .timeline-item .tl-time{color:#555;font-size:10px}
+        .timeline-item.action::before{background:#9ca3af}
+        .timeline-item .tl-time{color:#9ca3af;font-size:10px}
         .timeline-item .tl-author{color:var(--accent);font-weight:600}
         /* Comment input */
         .comment-form{display:flex;gap:8px;margin-top:8px}
-        .comment-input{flex:1;height:38px;padding:0 12px;background:var(--input-bg);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#fff;font-size:13px;outline:none}
+        .comment-input{flex:1;height:38px;padding:0 12px;background:#f9fafb;border:1px solid #d1d5db;border-radius:8px;color:#111;font-size:13px;outline:none}
         .comment-btn{padding:0 16px;height:38px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
         /* Attachments */
-        .attachment-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;margin-bottom:6px;font-size:12px}
-        .attachment-item .filename{flex:1;color:#ccc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-        .attachment-item .size{color:#555;font-size:10px}
+        .attachment-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#f9fafb;border:1px solid #f0f0f0;border-radius:8px;margin-bottom:6px;font-size:12px}
+        .attachment-item .filename{flex:1;color:#374151;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .attachment-item .size{color:#9ca3af;font-size:10px}
         .attachment-item a{color:var(--accent);text-decoration:none;font-size:11px}
-        .attachment-item .del-btn{color:#ff453a;cursor:pointer;font-size:11px;background:none;border:none}
-        .drop-zone{border:2px dashed rgba(255,255,255,0.1);border-radius:12px;padding:20px;text-align:center;color:#555;font-size:12px;margin-top:8px;transition:all 0.2s;cursor:pointer}
-        .drop-zone:hover,.drop-zone.dragover{border-color:var(--accent);color:var(--accent);background:rgba(230,0,18,0.05)}
+        .attachment-item .del-btn{color:#dc2626;cursor:pointer;font-size:11px;background:none;border:none}
+        .drop-zone{border:2px dashed #e5e7eb;border-radius:12px;padding:20px;text-align:center;color:#9ca3af;font-size:12px;margin-top:8px;transition:all 0.2s;cursor:pointer}
+        .drop-zone:hover,.drop-zone.dragover{border-color:var(--accent);color:var(--accent);background:rgba(230,0,18,0.03)}
         .drop-zone input{display:none}
         .action-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-        .action-row a,.action-row button{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#ccc;transition:all 0.2s;display:inline-flex;align-items:center;gap:4px}
-        .action-row a:hover,.action-row button:hover{background:rgba(255,255,255,0.1);color:#fff}
-        /* CyberPunk */
-        body::after{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:9999;pointer-events:none;background:transparent;filter:url(#g);opacity:.04;animation:gs .5s steps(4) infinite}
-        @keyframes gs{0%{transform:translate(0,0)}25%{transform:translate(-2%,-3%)}50%{transform:translate(3%,1%)}75%{transform:translate(-1%,2%)}100%{transform:translate(2%,-1%)}}
+        .action-row a,.action-row button{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #e5e7eb;background:rgba(0,0,0,0.03);color:#374151;transition:all 0.2s;display:inline-flex;align-items:center;gap:4px}
+        .action-row a:hover,.action-row button:hover{background:rgba(0,0,0,0.06);color:#111}
     </style>
 </head>
 <body>
-    <svg style="position:absolute;width:0;height:0"><defs><filter id="g" x="0%" y="0%" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="4" stitchTiles="stitch" result="n"/><feColorMatrix type="saturate" values="0" in="n" result="gn"/><feBlend in="SourceGraphic" in2="gn" mode="multiply"/></filter></defs></svg>
-
     <div class="header">
         <div class="logo">澳洲<span>联通</span></div>
         <a href="/projects">← 返回项目列表</a>
@@ -134,7 +129,7 @@
                 <div class="section-title">文件附件</div>
                 <div id="attachments-list"></div>
                 <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-                    拖拽文件到此处或点击上传<br><span style="font-size:10px;color:#444">支持 PDF, DOC, XLS, JPG, PNG, ZIP (10MB)</span>
+                    拖拽文件到此处或点击上传<br><span style="font-size:10px;color:#9ca3af">支持 PDF, DOC, XLS, JPG, PNG, ZIP (10MB)</span>
                     <input type="file" id="file-input" onchange="uploadFile(this.files[0])">
                 </div>
             </div>
@@ -189,7 +184,7 @@
             let badges = `<span class="priority-tag ${project.priority||'medium'}">${prioNames[project.priority||'medium']}</span>`;
             if (dueInfo) badges += ` <span class="due-tag ${dueInfo.cls}">${dueInfo.text}</span>`;
             const statusNames = {active:'进行中',completed:'已完成',cancelled:'已取消'};
-            badges += ` <span style="color:#888;font-size:11px;background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:8px">${statusNames[project.status]||project.status}</span>`;
+            badges += ` <span style="color:#6b7280;font-size:11px;background:#f3f4f6;padding:2px 8px;border-radius:8px">${statusNames[project.status]||project.status}</span>`;
             document.getElementById('p-badges').innerHTML = badges;
 
             document.getElementById('p-meta').innerHTML = [
@@ -202,8 +197,8 @@
             document.getElementById('p-team').innerHTML = team.map((m,i) => {
                 const name = typeof m === 'string' ? m : m.name;
                 const role = typeof m === 'object' ? (m.role||'成员') : '成员';
-                return `<div class="team-chip"><div class="avatar" style="background:${AVATAR_COLORS[i%AVATAR_COLORS.length]}">${name[0]}</div>${name} <span style="color:#555">${role}</span></div>`;
-            }).join('') || '<span style="color:#555;font-size:12px">暂无团队成员</span>';
+                return `<div class="team-chip"><div class="avatar" style="background:${AVATAR_COLORS[i%AVATAR_COLORS.length]}">${name[0]}</div>${name} <span style="color:#9ca3af">${role}</span></div>`;
+            }).join('') || '<span style="color:#9ca3af;font-size:12px">暂无团队成员</span>';
 
             const p = project.overall_progress || 0;
             const bar = document.getElementById('p-progress-bar');
@@ -222,7 +217,7 @@
             const list = document.getElementById('stages-list');
             list.innerHTML = (project.stages || []).map(s => {
                 const st = s.status || 'pending';
-                const color = {green:'var(--green)',yellow:'var(--yellow)',red:'var(--red)',pending:'#555'}[st];
+                const color = {green:'var(--green)',yellow:'var(--yellow)',red:'var(--red)',pending:'#9ca3af'}[st];
                 const dueInfo = getDueInfo(s.due_date);
                 const dueTxt = dueInfo ? `<span class="due-tag ${dueInfo.cls}" style="margin-left:6px">${dueInfo.text}</span>` : '';
                 let sub = s.name_en || '';
@@ -268,12 +263,12 @@
             const comments = (project.comments || []).map(c => ({...c, _type: 'comment', _time: c.timestamp}));
             const logs = (project.activity_log || []).map(l => ({...l, _type: 'action', _time: l.timestamp}));
             const all = [...comments, ...logs].sort((a,b) => new Date(b._time) - new Date(a._time));
-            if (all.length === 0) { tl.innerHTML = '<div style="color:#555;font-size:12px;text-align:center;padding:20px">暂无记录</div>'; return; }
+            if (all.length === 0) { tl.innerHTML = '<div style="color:#9ca3af;font-size:12px;text-align:center;padding:20px">暂无记录</div>'; return; }
             tl.innerHTML = all.slice(0, 50).map(item => {
                 if (item._type === 'comment') {
                     return `<div class="timeline-item comment"><span class="tl-author">${item.author}</span>: ${item.text}<div class="tl-time">${item.timestamp}</div></div>`;
                 } else {
-                    return `<div class="timeline-item action"><span style="color:#aaa">${item.action}</span> - ${item.detail}<div class="tl-time">${item.timestamp}</div></div>`;
+                    return `<div class="timeline-item action"><span style="color:#6b7280">${item.action}</span> - ${item.detail}<div class="tl-time">${item.timestamp}</div></div>`;
                 }
             }).join('');
         }
@@ -298,7 +293,7 @@
         function renderAttachments() {
             const list = document.getElementById('attachments-list');
             const atts = project.attachments || [];
-            if (atts.length === 0) { list.innerHTML = '<div style="color:#555;font-size:12px">暂无附件</div>'; return; }
+            if (atts.length === 0) { list.innerHTML = '<div style="color:#9ca3af;font-size:12px">暂无附件</div>'; return; }
             list.innerHTML = atts.map(a => {
                 const sizeStr = a.size > 1024*1024 ? (a.size/1024/1024).toFixed(1)+'MB' : (a.size/1024).toFixed(0)+'KB';
                 return `<div class="attachment-item">
@@ -364,18 +359,18 @@
             const todayPos = Math.max(0, Math.min(1, (now - created) / (endDate - created)));
 
             // Background
-            ctx.fillStyle = 'rgba(255,255,255,0.02)';
+            ctx.fillStyle = '#f9fafb';
             ctx.fillRect(0, 0, W, H);
 
             // Grid lines
-            ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+            ctx.strokeStyle = '#e5e7eb';
             ctx.lineWidth = 1;
             for (let i = 0; i <= 4; i++) {
                 const x = leftPad + (chartW * i / 4);
                 ctx.beginPath(); ctx.moveTo(x, topPad - 10); ctx.lineTo(x, topPad + stages.length * rowH + 5); ctx.stroke();
                 // Date label
                 const d = new Date(created.getTime() + totalDays * 86400000 * i / 4);
-                ctx.fillStyle = '#444'; ctx.font = '10px -apple-system';
+                ctx.fillStyle = '#9ca3af'; ctx.font = '10px -apple-system';
                 ctx.fillText(`${d.getMonth()+1}/${d.getDate()}`, x - 12, topPad - 14);
             }
 
@@ -387,15 +382,15 @@
             ctx.fillStyle = '#E60012'; ctx.font = 'bold 9px -apple-system'; ctx.fillText('今天', todayX - 10, topPad - 14);
 
             // Bars
-            const colors = {pending:'rgba(80,80,80,0.3)',green:'rgba(48,209,88,0.6)',yellow:'rgba(255,159,10,0.6)',red:'rgba(255,69,58,0.6)'};
+            const colors = {pending:'#d1d5db',green:'rgba(22,163,74,0.5)',yellow:'rgba(217,119,6,0.5)',red:'rgba(220,38,38,0.5)'};
             stages.forEach((s, i) => {
                 const y = topPad + i * rowH;
                 // Stage name
-                ctx.fillStyle = '#888'; ctx.font = '11px -apple-system';
+                ctx.fillStyle = '#6b7280'; ctx.font = '11px -apple-system';
                 ctx.fillText(s.name, 4, y + 18);
 
                 // Bar background
-                ctx.fillStyle = 'rgba(255,255,255,0.03)';
+                ctx.fillStyle = '#f3f4f6';
                 ctx.fillRect(leftPad, y + 4, chartW, 20);
 
                 // Progress bar
@@ -417,7 +412,7 @@
                 }
 
                 // Progress text
-                ctx.fillStyle = '#666'; ctx.font = '10px -apple-system';
+                ctx.fillStyle = '#9ca3af'; ctx.font = '10px -apple-system';
                 ctx.fillText(s.progress + '%', leftPad + chartW + 4, y + 18);
             });
         }

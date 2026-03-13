@@ -7,23 +7,21 @@
     <link rel="stylesheet" href="/static/css/global.css">
     <style>
         *{box-sizing:border-box;margin:0;padding:0}
-        :root{--accent:#E60012;--green:#30d158;--yellow:#ff9f0a;--red:#ff453a}
-        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#000;background-image:radial-gradient(circle at top right,#2a2a2a 0%,#000 80%);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center}
-        .header{width:100%;max-width:1400px;height:60px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px}
-        .logo{font-size:24px;font-weight:700;margin-right:auto}.logo span{color:var(--accent)}
+        :root{--accent:#E60012;--green:#16a34a;--yellow:#d97706;--red:#dc2626}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f3f4f6;color:#111;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+        .header{width:100%;max-width:1400px;height:60px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid #e5e7eb;margin-bottom:20px;background:#ffffff}
+        .logo{font-size:24px;font-weight:700;margin-right:auto;color:#111}.logo span{color:var(--accent)}
         .header a{color:var(--accent);text-decoration:none;font-size:13px;margin-left:16px}
-        .page-title{width:100%;max-width:1400px;padding:0 20px;margin-bottom:20px;font-size:28px;font-weight:700}
+        .page-title{width:100%;max-width:1400px;padding:0 20px;margin-bottom:20px;font-size:28px;font-weight:700;color:#111}
         .grid{width:100%;max-width:1400px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:16px;padding-bottom:60px}
         @media(max-width:500px){.grid{grid-template-columns:1fr}}
-        .chart-card{background:rgba(20,20,20,0.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px}
-        .chart-title{font-size:15px;font-weight:700;color:#aaa;margin-bottom:16px}
+        .chart-card{background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+        .chart-title{font-size:15px;font-weight:700;color:#6b7280;margin-bottom:16px}
         canvas{display:block;width:100%}
         .kpi-row{width:100%;max-width:1400px;padding:0 20px;display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
-        .kpi{background:rgba(20,20,20,0.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px 24px;flex:1;min-width:150px;text-align:center}
+        .kpi{background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;padding:16px 24px;flex:1;min-width:150px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
         .kpi-value{font-size:32px;font-weight:700}
-        .kpi-label{font-size:11px;color:#666;margin-top:4px}
-        body::after{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:9999;pointer-events:none;opacity:.04;animation:gs .5s steps(4) infinite}
-        @keyframes gs{0%{transform:translate(0,0)}25%{transform:translate(-2%,-3%)}50%{transform:translate(3%,1%)}75%{transform:translate(-1%,2%)}100%{transform:translate(2%,-1%)}}
+        .kpi-label{font-size:11px;color:#9ca3af;margin-top:4px}
     </style>
 </head>
 <body>
@@ -35,7 +33,7 @@
     <h1 class="page-title">项目数据分析</h1>
 
     <div class="kpi-row">
-        <div class="kpi"><div class="kpi-value" id="kpi-total" style="color:#fff">-</div><div class="kpi-label">总项目数</div></div>
+        <div class="kpi"><div class="kpi-value" id="kpi-total" style="color:#111">-</div><div class="kpi-label">总项目数</div></div>
         <div class="kpi"><div class="kpi-value" id="kpi-active" style="color:var(--green)">-</div><div class="kpi-label">进行中</div></div>
         <div class="kpi"><div class="kpi-value" id="kpi-completed" style="color:#5e5ce6">-</div><div class="kpi-label">已完成</div></div>
         <div class="kpi"><div class="kpi-value" id="kpi-avg" style="color:var(--yellow)">-</div><div class="kpi-label">平均进度</div></div>
@@ -90,7 +88,7 @@
         // 1. Status donut chart
         function drawStatusChart() {
             const {ctx, W, H} = setupCanvas('chart-status');
-            const data = [{label:'进行中',value:stats.active,color:'#30d158'},{label:'已完成',value:stats.completed,color:'#5e5ce6'},{label:'已取消',value:stats.cancelled,color:'#555'}];
+            const data = [{label:'进行中',value:stats.active,color:'#16a34a'},{label:'已完成',value:stats.completed,color:'#5e5ce6'},{label:'已取消',value:stats.cancelled,color:'#9ca3af'}];
             const total = data.reduce((s,d) => s + d.value, 0) || 1;
             const cx = W/2, cy = H/2 - 10, r = Math.min(W,H)/2 - 40, innerR = r * 0.55;
 
@@ -106,9 +104,9 @@
             });
 
             // Center text
-            ctx.fillStyle = '#fff'; ctx.font = 'bold 28px -apple-system'; ctx.textAlign = 'center';
+            ctx.fillStyle = '#111'; ctx.font = 'bold 28px -apple-system'; ctx.textAlign = 'center';
             ctx.fillText(total, cx, cy + 4);
-            ctx.fillStyle = '#666'; ctx.font = '11px -apple-system';
+            ctx.fillStyle = '#9ca3af'; ctx.font = '11px -apple-system';
             ctx.fillText('总计', cx, cy + 20);
 
             // Legend
@@ -118,7 +116,7 @@
                 const lx = (W / data.length) * i + 20;
                 ctx.fillStyle = d.color;
                 ctx.fillRect(lx, ly - 8, 10, 10);
-                ctx.fillStyle = '#aaa'; ctx.font = '11px -apple-system';
+                ctx.fillStyle = '#6b7280'; ctx.font = '11px -apple-system';
                 ctx.fillText(`${d.label}: ${d.value}`, lx + 14, ly);
             });
         }
@@ -128,7 +126,7 @@
             const {ctx, W, H} = setupCanvas('chart-heatmap');
             const issues = stats.stage_issues;
             const stageIds = Object.keys(issues).sort((a,b) => a-b);
-            if (stageIds.length === 0) { ctx.fillStyle = '#555'; ctx.font = '13px -apple-system'; ctx.fillText('暂无数据', W/2-30, H/2); return; }
+            if (stageIds.length === 0) { ctx.fillStyle = '#9ca3af'; ctx.font = '13px -apple-system'; ctx.fillText('暂无数据', W/2-30, H/2); return; }
 
             const cellH = 36, pad = 90, gap = 6;
             const cellW = Math.min((W - pad - 20) / 3 - gap, 80);
@@ -138,13 +136,13 @@
 
             // Header
             statuses.forEach((s, i) => {
-                ctx.fillStyle = '#666'; ctx.font = '10px -apple-system'; ctx.textAlign = 'center';
+                ctx.fillStyle = '#9ca3af'; ctx.font = '10px -apple-system'; ctx.textAlign = 'center';
                 ctx.fillText(statusNames[i], pad + i * (cellW + gap) + cellW/2, 14);
             });
 
             stageIds.forEach((id, row) => {
                 const y = 24 + row * (cellH + gap);
-                ctx.fillStyle = '#888'; ctx.font = '11px -apple-system'; ctx.textAlign = 'right';
+                ctx.fillStyle = '#6b7280'; ctx.font = '11px -apple-system'; ctx.textAlign = 'right';
                 ctx.fillText(issues[id].name, pad - 8, y + cellH/2 + 4);
 
                 statuses.forEach((s, col) => {
@@ -162,7 +160,7 @@
                     ctx.fill();
 
                     if (val > 0) {
-                        ctx.fillStyle = '#fff'; ctx.font = 'bold 13px -apple-system'; ctx.textAlign = 'center';
+                        ctx.fillStyle = '#111'; ctx.font = 'bold 13px -apple-system'; ctx.textAlign = 'center';
                         ctx.fillText(val, x + cellW/2, y + cellH/2 + 5);
                     }
                 });
@@ -173,19 +171,19 @@
         function drawProgressChart() {
             const {ctx, W, H} = setupCanvas('chart-progress');
             const list = stats.progress_list.sort((a,b) => b.progress - a.progress);
-            if (list.length === 0) { ctx.fillStyle = '#555'; ctx.font = '13px -apple-system'; ctx.fillText('暂无数据', W/2-30, H/2); return; }
+            if (list.length === 0) { ctx.fillStyle = '#9ca3af'; ctx.font = '13px -apple-system'; ctx.fillText('暂无数据', W/2-30, H/2); return; }
 
             const barH = 26, gap = 8, pad = 140, maxBars = Math.min(list.length, 10);
             list.slice(0, maxBars).forEach((p, i) => {
                 const y = 10 + i * (barH + gap);
                 // Name
-                ctx.fillStyle = '#888'; ctx.font = '11px -apple-system'; ctx.textAlign = 'right';
+                ctx.fillStyle = '#6b7280'; ctx.font = '11px -apple-system'; ctx.textAlign = 'right';
                 const name = p.name.length > 14 ? p.name.substring(0,14)+'...' : p.name;
                 ctx.fillText(name, pad - 10, y + barH/2 + 4);
 
                 // Bar background
                 const barW = W - pad - 50;
-                ctx.fillStyle = 'rgba(255,255,255,0.04)';
+                ctx.fillStyle = '#f3f4f6';
                 ctx.fillRect(pad, y, barW, barH);
 
                 // Bar fill
@@ -203,7 +201,7 @@
                 }
 
                 // Percentage
-                ctx.fillStyle = '#aaa'; ctx.font = 'bold 11px -apple-system'; ctx.textAlign = 'left';
+                ctx.fillStyle = '#374151'; ctx.font = 'bold 11px -apple-system'; ctx.textAlign = 'left';
                 ctx.fillText(p.progress + '%', pad + barW + 8, y + barH/2 + 4);
             });
         }
@@ -213,9 +211,9 @@
             const {ctx, W, H} = setupCanvas('chart-product');
             const dist = stats.product_distribution || {};
             const entries = Object.entries(dist);
-            if (entries.length === 0) { ctx.fillStyle = '#555'; ctx.font = '13px -apple-system'; ctx.fillText('暂无数据', W/2-30, H/2); return; }
+            if (entries.length === 0) { ctx.fillStyle = '#9ca3af'; ctx.font = '13px -apple-system'; ctx.fillText('暂无数据', W/2-30, H/2); return; }
 
-            const colors = ['#E60012','#30d158','#ff9f0a','#5e5ce6','#bf5af2'];
+            const colors = ['#E60012','#16a34a','#d97706','#5e5ce6','#bf5af2'];
             const total = entries.reduce((s,[,v]) => s + v, 0) || 1;
             const cx = W/2, cy = H/2 - 10, r = Math.min(W,H)/2 - 40, innerR = r * 0.55;
             const nameMap = {INTERNET:'DIA 专线',WAN:'MPLS/SD-WAN',VPN:'IP VPN'};
@@ -231,9 +229,9 @@
                 startAngle += sweep;
             });
 
-            ctx.fillStyle = '#fff'; ctx.font = 'bold 24px -apple-system'; ctx.textAlign = 'center';
+            ctx.fillStyle = '#111'; ctx.font = 'bold 24px -apple-system'; ctx.textAlign = 'center';
             ctx.fillText(total, cx, cy + 4);
-            ctx.fillStyle = '#666'; ctx.font = '11px -apple-system';
+            ctx.fillStyle = '#9ca3af'; ctx.font = '11px -apple-system';
             ctx.fillText('产品', cx, cy + 20);
 
             let ly = H - 20;
@@ -242,7 +240,7 @@
                 const lx = (W / entries.length) * i + 10;
                 ctx.fillStyle = colors[i % colors.length];
                 ctx.fillRect(lx, ly - 8, 10, 10);
-                ctx.fillStyle = '#aaa'; ctx.font = '11px -apple-system';
+                ctx.fillStyle = '#6b7280'; ctx.font = '11px -apple-system';
                 ctx.fillText(`${nameMap[key]||key}: ${val}`, lx + 14, ly);
             });
         }

@@ -9,60 +9,60 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
-            --bg-color: #000000; --text-color: #ffffff; --accent-red: #E60012;
-            --input-bg: #333333; --card-bg: #1a1a1a;
-            --green: #30d158; --yellow: #ff9f0a; --red: #ff453a; --pending-gray: #555;
+            --bg-color: #f3f4f6; --text-color: #111111; --accent-red: #E60012;
+            --input-bg: #f0f1f3; --card-bg: #ffffff;
+            --green: #16a34a; --yellow: #d97706; --red: #dc2626; --pending-gray: #9ca3af;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at top right, #2a2a2a 0%, #000000 80%);
             color: var(--text-color); min-height: 100vh;
             display: flex; flex-direction: column; align-items: center;
         }
         .header-bar {
             width: 100%; max-width: 1400px; height: 70px;
             display: flex; align-items: center; padding: 0 20px;
-            margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px; border-bottom: 1px solid #e5e7eb;
+            background: #ffffff;
         }
-        .logo-text { font-size: 28px; font-weight: bold; color: white; }
+        .logo-text { font-size: 28px; font-weight: bold; color: #111; }
         .logo-red { color: var(--accent-red); margin-left: 5px; }
         .logo-img { width: 32px; height: 32px; margin-left: 12px; object-fit: contain; }
         .header-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
         .header-right a { color: var(--accent-red); text-decoration: none; font-size: 13px; }
         .notif-btn { position: relative; cursor: pointer; background: none; border: none; padding: 6px; }
-        .notif-btn svg { width: 22px; height: 22px; stroke: #aaa; fill: none; transition: stroke 0.2s; }
-        .notif-btn:hover svg { stroke: #fff; }
-        .notif-badge { position: absolute; top: 0; right: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--red); color: white; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid #000; }
+        .notif-btn svg { width: 22px; height: 22px; stroke: #6b7280; fill: none; transition: stroke 0.2s; }
+        .notif-btn:hover svg { stroke: #111; }
+        .notif-badge { position: absolute; top: 0; right: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--red); color: white; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; }
         .notif-badge.hidden { display: none; }
-        .notif-panel { display: none; position: absolute; top: 40px; right: 0; width: 360px; max-height: 420px; overflow-y: auto; background: rgba(25,25,25,0.98); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); z-index: 6000; padding: 12px; }
+        .notif-panel { display: none; position: absolute; top: 40px; right: 0; width: 360px; max-height: 420px; overflow-y: auto; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); z-index: 6000; padding: 12px; }
         .notif-panel.active { display: block; }
-        .notif-panel-title { font-size: 14px; font-weight: 700; color: #aaa; padding: 4px 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 8px; }
+        .notif-panel-title { font-size: 14px; font-weight: 700; color: #6b7280; padding: 4px 8px 10px; border-bottom: 1px solid #f0f0f0; margin-bottom: 8px; }
         .notif-item { padding: 10px; border-radius: 10px; margin-bottom: 4px; font-size: 12px; line-height: 1.5; transition: background 0.2s; cursor: pointer; }
-        .notif-item:hover { background: rgba(255,255,255,0.05); }
+        .notif-item:hover { background: rgba(0,0,0,0.04); }
         .notif-item.unread { border-left: 3px solid var(--accent-red); }
-        .notif-item .notif-time { color: #555; font-size: 10px; margin-top: 4px; }
+        .notif-item .notif-time { color: #9ca3af; font-size: 10px; margin-top: 4px; }
         .notif-item .notif-project { color: var(--accent-red); font-weight: 600; }
-        .notif-empty { color: #555; text-align: center; padding: 30px; font-size: 13px; }
+        .notif-empty { color: #9ca3af; text-align: center; padding: 30px; font-size: 13px; }
         .page-title-section { width: 100%; max-width: 1400px; padding: 0 20px; margin-bottom: 16px; }
         .page-title { font-size: 32px; font-weight: bold; margin-bottom: 6px; }
-        .page-subtitle { color: #888; font-size: 14px; }
+        .page-subtitle { color: #6b7280; font-size: 14px; }
         /* Search/Filter bar */
         .filter-bar { width: 100%; max-width: 1400px; padding: 0 20px; margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-        .search-input { flex: 1; min-width: 200px; height: 42px; padding: 0 14px 0 38px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: white; font-size: 14px; outline: none; transition: border-color 0.2s; }
+        .search-input { flex: 1; min-width: 200px; height: 42px; padding: 0 14px 0 38px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; color: #111; font-size: 14px; outline: none; transition: border-color 0.2s; }
         .search-input:focus { border-color: var(--accent-red); }
         .search-wrap { position: relative; flex: 1; min-width: 200px; }
-        .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: #666; fill: none; pointer-events: none; }
-        .filter-select { height: 42px; padding: 0 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #ccc; font-size: 13px; outline: none; cursor: pointer; }
-        .filter-select option { background: #222; color: #ccc; }
+        .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: #9ca3af; fill: none; pointer-events: none; }
+        .filter-select { height: 42px; padding: 0 12px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; color: #374151; font-size: 13px; outline: none; cursor: pointer; }
+        .filter-select option { background: #fff; color: #111; }
         /* Stats */
         .action-bar { width: 100%; max-width: 1400px; padding: 0 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         .stats-row { display: flex; gap: 14px; flex-wrap: wrap; }
-        .stat-card { background: rgba(20,20,20,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 20px; display: flex; align-items: center; gap: 10px; min-width: 120px; }
+        .stat-card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px 20px; display: flex; align-items: center; gap: 10px; min-width: 120px; }
         .stat-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .stat-icon svg { width: 16px; height: 16px; }
-        .stat-icon.icon-total { background: rgba(255,255,255,0.08); }
-        .stat-icon.icon-total svg { fill: #fff; stroke: #fff; }
+        .stat-icon.icon-total { background: rgba(0,0,0,0.05); }
+        .stat-icon.icon-total svg { fill: #374151; stroke: #374151; }
         .stat-icon.icon-active { background: rgba(48,209,88,0.12); }
         .stat-icon.icon-active svg { fill: var(--green); stroke: var(--green); }
         .stat-icon.icon-warning { background: rgba(255,159,10,0.12); }
@@ -71,29 +71,29 @@
         .stat-icon.icon-critical svg { fill: var(--red); stroke: var(--red); }
         .stat-info { display: flex; flex-direction: column; }
         .stat-number { font-size: 22px; font-weight: 700; line-height: 1; }
-        .stat-label { font-size: 10px; color: #888; margin-top: 3px; }
+        .stat-label { font-size: 10px; color: #9ca3af; margin-top: 3px; }
         .action-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
         .btn-action { padding: 10px 20px; background: var(--accent-red); color: white; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
         .btn-action:hover { background: #ff1a1a; transform: translateY(-1px); }
-        .btn-action.secondary { background: rgba(255,255,255,0.08); color: #ccc; }
-        .btn-action.secondary:hover { background: rgba(255,255,255,0.15); color: #fff; }
+        .btn-action.secondary { background: #f3f4f6; color: #374151; border: 1px solid #e5e7eb; }
+        .btn-action.secondary:hover { background: #e5e7eb; color: #111; }
         /* Project cards */
         .projects-wrapper { width: 100%; max-width: 1400px; padding: 0 20px; display: flex; flex-direction: column; align-items: stretch; }
         .projects-container { width: 100%; display: flex; flex-direction: column; gap: 18px; padding-bottom: 20px; }
-        .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 24px 0 40px; width: 100%; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.12); margin-top: 16px; flex-shrink: 0; background: rgba(255,255,255,0.02); border-radius: 12px; }
-        .pagination button { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #ccc; padding: 8px 16px; border-radius: 10px; font-size: 13px; cursor: pointer; transition: all 0.3s; }
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 24px 0 40px; width: 100%; flex-wrap: wrap; border-top: 1px solid #e5e7eb; margin-top: 16px; flex-shrink: 0; background: #f9fafb; border-radius: 12px; }
+        .pagination button { background: #ffffff; border: 1px solid #d1d5db; color: #374151; padding: 8px 16px; border-radius: 10px; font-size: 13px; cursor: pointer; transition: all 0.3s; }
         .pagination button:hover:not(:disabled) { background: var(--accent-red); color: #fff; border-color: var(--accent-red); }
         .pagination button:disabled { opacity: 0.3; cursor: not-allowed; }
         .pagination button.active { background: var(--accent-red); color: #fff; border-color: var(--accent-red); font-weight: 700; }
-        .pagination .page-info { color: #888; font-size: 12px; margin: 0 8px; }
-        .project-card { background: rgba(20,20,20,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 24px 28px; box-shadow: 0 0 12px rgba(230,0,18,0.15), 0 6px 24px rgba(0,0,0,0.3); transition: all 0.3s; }
-        .project-card:hover { border-color: rgba(230,0,18,0.4); box-shadow: 0 0 20px rgba(230,0,18,0.3), 0 10px 36px rgba(0,0,0,0.4); transform: translateY(-2px); }
+        .pagination .page-info { color: #9ca3af; font-size: 12px; margin: 0 8px; }
+        .project-card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 24px 28px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .project-card:hover { border-color: rgba(230,0,18,0.3); box-shadow: 0 2px 12px rgba(0,0,0,0.1); transform: translateY(-2px); }
         .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
-        .project-name-link { font-size: 20px; font-weight: 700; margin-bottom: 4px; color: white; text-decoration: none; cursor: pointer; transition: color 0.2s; }
+        .project-name-link { font-size: 20px; font-weight: 700; margin-bottom: 4px; color: #111; text-decoration: none; cursor: pointer; transition: color 0.2s; }
         .project-name-link:hover { color: var(--accent-red); }
         .project-meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-        .project-meta-item { font-size: 12px; color: #777; }
-        .project-meta-item span { color: #bbb; }
+        .project-meta-item { font-size: 12px; color: #9ca3af; }
+        .project-meta-item span { color: #4b5563; }
         .priority-tag { padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
         .priority-tag.high { background: rgba(255,69,58,0.15); color: var(--red); }
         .priority-tag.medium { background: rgba(255,159,10,0.15); color: var(--yellow); }
@@ -101,93 +101,95 @@
         .due-tag { padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; }
         .due-tag.overdue { background: rgba(255,69,58,0.15); color: var(--red); animation: blink 1.5s infinite; }
         .due-tag.soon { background: rgba(255,159,10,0.15); color: var(--yellow); }
-        .due-tag.ok { background: rgba(255,255,255,0.06); color: #888; }
+        .due-tag.ok { background: #f3f4f6; color: #9ca3af; }
         @keyframes blink { 50% { opacity: 0.6; } }
         .team-avatars { display: flex; margin-left: 8px; }
-        .team-avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white; border: 2px solid #111; margin-left: -6px; }
+        .team-avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white; border: 2px solid #fff; margin-left: -6px; }
         .team-avatar:first-child { margin-left: 0; }
-        .team-more { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 9px; color: #888; margin-left: -6px; border: 2px solid #111; }
+        .team-more { width: 24px; height: 24px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #9ca3af; margin-left: -6px; border: 2px solid #fff; }
         .project-actions { display: flex; gap: 8px; flex-shrink: 0; }
-        .btn-sm { padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); color: #bbb; font-size: 11px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px; }
-        .btn-sm:hover { background: rgba(255,255,255,0.1); color: #fff; }
-        .btn-sm.danger { border-color: rgba(255,69,58,0.2); color: #ff453a; }
-        .btn-sm.danger:hover { background: rgba(255,69,58,0.1); }
+        .btn-sm { padding: 6px 14px; border-radius: 8px; border: 1px solid #e5e7eb; background: rgba(0,0,0,0.03); color: #4b5563; font-size: 11px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px; }
+        .btn-sm:hover { background: rgba(0,0,0,0.06); color: #111; }
+        .btn-sm.danger { border-color: rgba(220,38,38,0.2); color: #dc2626; }
+        .btn-sm.danger:hover { background: rgba(220,38,38,0.08); }
         .overall-progress { margin-bottom: 18px; }
         .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .progress-label { font-size: 12px; color: #888; }
+        .progress-label { font-size: 12px; color: #9ca3af; }
         /* Segmented progress bar */
         .progress-segmented { width: 100%; }
         .progress-seg-track { display: flex; width: 100%; height: 6px; gap: 3px; }
-        .progress-seg { flex: 1; height: 100%; border-radius: 3px; background: rgba(255,255,255,0.06); transition: background 0.4s; }
-        .progress-seg.filled { background: var(--accent-red); }
+        .progress-seg { flex: 1; height: 100%; border-radius: 3px; background: #e5e7eb; transition: background 0.4s; }
+        .progress-seg.seg-green { background: #16a34a; }
+        .progress-seg.seg-red { background: #dc2626; }
+        .progress-seg.seg-yellow { background: #dc2626; }
         .progress-seg-labels { display: flex; width: 100%; margin-top: 6px; }
-        .progress-seg-labels span { flex: 1; text-align: center; font-size: 9px; color: #555; }
+        .progress-seg-labels span { flex: 1; text-align: center; font-size: 9px; color: #9ca3af; }
         /* Stages pipeline */
         .stages-pipeline { display: flex; gap: 0; align-items: flex-start; overflow-x: auto; padding: 8px 0; }
         .stage-item { flex: 1; min-width: 90px; display: flex; flex-direction: column; align-items: center; position: relative; cursor: pointer; }
         .stage-dot { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; z-index: 1; transition: all 0.3s; border: 2px solid transparent; position: relative; }
         .stage-dot svg { width: 20px; height: 20px; }
-        .stage-dot.pending { background: rgba(60,60,60,0.3); border-color: rgba(80,80,80,0.3); }
-        .stage-dot.pending svg { fill: #555; stroke: #555; }
-        .stage-dot.green { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); }
-        .stage-dot.green svg { fill: #ccc; stroke: #ccc; }
-        .stage-dot.yellow { background: rgba(255,159,10,0.08); border-color: rgba(255,159,10,0.4); box-shadow: 0 0 12px rgba(255,159,10,0.15); }
+        .stage-dot.pending { background: #f3f4f6; border-color: #d1d5db; }
+        .stage-dot.pending svg { fill: #9ca3af; stroke: #9ca3af; }
+        .stage-dot.green { background: #dcfce7; border-color: rgba(22,163,74,0.3); }
+        .stage-dot.green svg { fill: #16a34a; stroke: #16a34a; }
+        .stage-dot.yellow { background: #fef3c7; border-color: rgba(217,119,6,0.4); box-shadow: 0 0 8px rgba(217,119,6,0.1); }
         .stage-dot.yellow svg { fill: var(--yellow); stroke: var(--yellow); }
-        .stage-dot.red { background: rgba(255,69,58,0.1); border-color: rgba(255,69,58,0.5); box-shadow: 0 0 12px rgba(255,69,58,0.2); animation: pulse-red 2.4s ease-in-out infinite; }
+        .stage-dot.red { background: #fee2e2; border-color: rgba(220,38,38,0.5); box-shadow: 0 0 8px rgba(220,38,38,0.15); animation: pulse-red 2.4s ease-in-out infinite; }
         .stage-dot.red svg { fill: var(--red); stroke: var(--red); }
         .stage-dot.blocked { opacity: 0.4; cursor: not-allowed; }
         @keyframes pulse-red { 0%,100% { box-shadow: 0 0 12px rgba(255,69,58,0.2); } 50% { box-shadow: 0 0 24px rgba(255,69,58,0.4); } }
         .stage-item:hover .stage-dot:not(.blocked) { transform: scale(1.1) translateY(-2px); }
-        .stage-dot .status-badge { position: absolute; top: -3px; right: -3px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #111; }
+        .stage-dot .status-badge { position: absolute; top: -3px; right: -3px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; }
         .stage-dot .status-badge svg { width: 8px; height: 8px; }
-        .stage-dot.green .status-badge { background: #aaa; }
+        .stage-dot.green .status-badge { background: #16a34a; }
         .stage-dot.green .status-badge svg, .stage-dot.yellow .status-badge svg, .stage-dot.red .status-badge svg { fill: #fff; stroke: #fff; }
         .stage-dot.yellow .status-badge { background: var(--yellow); }
         .stage-dot.red .status-badge { background: var(--red); }
-        .stage-name { font-size: 10px; color: #999; margin-top: 8px; text-align: center; line-height: 1.3; font-weight: 500; }
-        .stage-progress-text { font-size: 9px; color: #555; margin-top: 2px; font-weight: 600; }
-        .stage-expand-btn { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-left: 4px; border-radius: 4px; background: rgba(255,255,255,0.06); cursor: pointer; transition: all 0.2s; vertical-align: middle; }
-        .stage-expand-btn:hover { background: rgba(255,255,255,0.12); }
+        .stage-name { font-size: 10px; color: #9ca3af; margin-top: 8px; text-align: center; line-height: 1.3; font-weight: 500; }
+        .stage-progress-text { font-size: 9px; color: #9ca3af; margin-top: 2px; font-weight: 600; }
+        .stage-expand-btn { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-left: 4px; border-radius: 4px; background: rgba(0,0,0,0.05); cursor: pointer; transition: all 0.2s; vertical-align: middle; }
+        .stage-expand-btn:hover { background: rgba(0,0,0,0.1); }
         .stage-expand-btn svg { width: 10px; height: 10px; transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); }
         .stage-expand-btn.expanded { background: rgba(230,0,18,0.15); }
         .stage-expand-btn.expanded svg { transform: rotate(180deg); }
         /* Sub-expand inline accordion */
-        .sub-expand-section { display: none; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 10px; padding-top: 12px; }
+        .sub-expand-section { display: none; border-top: 1px solid #f0f0f0; margin-top: 10px; padding-top: 12px; }
         .sub-expand-section.open { display: block; animation: subExpandIn 0.25s cubic-bezier(0.4,0,0.2,1); }
         @keyframes subExpandIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-        .sub-section-header { font-size: 10px; color: #666; margin-bottom: 10px; padding: 0 2px 6px; border-bottom: 1px solid rgba(255,255,255,0.04); letter-spacing: 0.3px; }
+        .sub-section-header { font-size: 10px; color: #6b7280; margin-bottom: 10px; padding: 0 2px 6px; border-bottom: 1px solid #f3f4f6; letter-spacing: 0.3px; }
         .sub-stages-row { display: flex; gap: 0; align-items: flex-start; overflow-x: auto; padding: 4px 0 8px; }
         .sub-stage-item { flex: 1; min-width: 72px; display: flex; flex-direction: column; align-items: center; cursor: default; }
-        .sub-stage-dot { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1); transition: all 0.2s; }
-        .sub-stage-dot svg { width: 18px; height: 18px; fill: none; stroke: #666; }
+        .sub-stage-dot { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #f3f4f6; border: 1.5px solid #e5e7eb; transition: all 0.2s; }
+        .sub-stage-dot svg { width: 18px; height: 18px; fill: none; stroke: #9ca3af; }
         .sub-stage-item { cursor: pointer; }
-        .sub-stage-item:hover .sub-stage-dot { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); transform: scale(1.06) translateY(-2px); }
-        .sub-stage-item:hover .sub-stage-dot svg { stroke: #aaa; }
-        .sub-stage-dot.pending { background: rgba(60,60,60,0.3); border-color: rgba(80,80,80,0.3); }
-        .sub-stage-dot.pending svg { stroke: #555; }
-        .sub-stage-dot.green { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); }
-        .sub-stage-dot.green svg { stroke: #ccc; }
-        .sub-stage-dot.yellow { background: rgba(255,159,10,0.08); border-color: rgba(255,159,10,0.4); box-shadow: 0 0 10px rgba(255,159,10,0.15); }
+        .sub-stage-item:hover .sub-stage-dot { background: #e5e7eb; border-color: #d1d5db; transform: scale(1.06) translateY(-2px); }
+        .sub-stage-item:hover .sub-stage-dot svg { stroke: #374151; }
+        .sub-stage-dot.pending { background: #f3f4f6; border-color: #d1d5db; }
+        .sub-stage-dot.pending svg { stroke: #9ca3af; }
+        .sub-stage-dot.green { background: #dcfce7; border-color: rgba(22,163,74,0.3); }
+        .sub-stage-dot.green svg { stroke: #16a34a; }
+        .sub-stage-dot.yellow { background: #fef3c7; border-color: rgba(217,119,6,0.4); box-shadow: 0 0 6px rgba(217,119,6,0.1); }
         .sub-stage-dot.yellow svg { stroke: var(--yellow); }
-        .sub-stage-dot.red { background: rgba(255,69,58,0.1); border-color: rgba(255,69,58,0.5); box-shadow: 0 0 10px rgba(255,69,58,0.2); }
+        .sub-stage-dot.red { background: #fee2e2; border-color: rgba(220,38,38,0.5); box-shadow: 0 0 6px rgba(220,38,38,0.12); }
         .sub-stage-dot.red svg { stroke: var(--red); }
-        .sub-stage-name { font-size: 10px; color: #888; margin-top: 7px; text-align: center; line-height: 1.3; font-weight: 500; }
-        .sub-stage-status-text { font-size: 9px; color: #555; margin-top: 2px; font-weight: 600; }
+        .sub-stage-name { font-size: 10px; color: #6b7280; margin-top: 7px; text-align: center; line-height: 1.3; font-weight: 500; }
+        .sub-stage-status-text { font-size: 9px; color: #9ca3af; margin-top: 2px; font-weight: 600; }
         /* Modals */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); z-index: 5000; align-items: center; justify-content: center; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 5000; align-items: center; justify-content: center; }
         .modal-overlay.active { display: flex; }
-        .modal-box { background: rgba(25,25,25,0.98); border: 1px solid rgba(255,255,255,0.15); border-radius: 18px; padding: 24px; width: 520px; max-width: 92vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 30px rgba(230,0,18,0.3), 0 20px 60px rgba(0,0,0,0.6); }
-        .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+        .modal-box { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 18px; padding: 24px; width: 520px; max-width: 92vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 8px 40px rgba(0,0,0,0.12); }
+        .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 14px; color: #111; }
         .modal-field { margin-bottom: 10px; }
-        .modal-field label { display: block; font-size: 11px; color: #888; margin-bottom: 4px; }
-        .modal-field input, .modal-field select { width: 100%; height: 36px; padding: 0 10px; background: var(--input-bg); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: white; font-size: 12px; outline: none; }
-        .modal-field select option { background: #333; color: white; }
+        .modal-field label { display: block; font-size: 11px; color: #6b7280; margin-bottom: 4px; }
+        .modal-field input, .modal-field select { width: 100%; height: 36px; padding: 0 10px; background: #f9fafb; border: 1px solid #d1d5db; border-radius: 8px; color: #111; font-size: 12px; outline: none; }
+        .modal-field select option { background: #fff; color: #111; }
         .modal-row { display: flex; gap: 10px; }
         .modal-row .modal-field { flex: 1; min-width: 0; }
         .modal-buttons { display: flex; gap: 10px; margin-top: 16px; }
         .modal-buttons button { flex: 1; height: 40px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s; }
-        .btn-modal-cancel { background: rgba(255,255,255,0.08); color: #aaa; }
-        .btn-modal-cancel:hover { background: rgba(255,255,255,0.15); color: #fff; }
+        .btn-modal-cancel { background: #f3f4f6; color: #374151; }
+        .btn-modal-cancel:hover { background: #e5e7eb; color: #111; }
         .btn-modal-confirm { background: var(--accent-red); color: white; }
         .btn-modal-confirm:hover { background: #ff1a1a; }
         .stage-edit-modal .modal-box { width: 500px; }
@@ -199,23 +201,19 @@
         .status-option.opt-yellow:hover, .status-option.opt-yellow.selected { border-color: var(--yellow); background: rgba(255,159,10,0.15); }
         .status-option.opt-red { background: rgba(255,69,58,0.06); color: var(--red); }
         .status-option.opt-red:hover, .status-option.opt-red.selected { border-color: var(--red); background: rgba(255,69,58,0.15); }
-        .status-option.opt-pending { background: rgba(85,85,85,0.1); color: #888; }
-        .status-option.opt-pending:hover, .status-option.opt-pending.selected { border-color: #666; background: rgba(85,85,85,0.2); }
-        .stage-progress-slider input[type="range"] { width: 100%; height: 6px; -webkit-appearance: none; appearance: none; background: rgba(255,255,255,0.08); border-radius: 3px; outline: none; margin-top: 8px; }
+        .status-option.opt-pending { background: #f3f4f6; color: #9ca3af; }
+        .status-option.opt-pending:hover, .status-option.opt-pending.selected { border-color: #d1d5db; background: #e5e7eb; }
+        .stage-progress-slider input[type="range"] { width: 100%; height: 6px; -webkit-appearance: none; appearance: none; background: #e5e7eb; border-radius: 3px; outline: none; margin-top: 8px; }
         .stage-progress-slider input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-red); cursor: pointer; }
-        .stage-progress-value { display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; color: #666; }
-        .stage-notes-input { width: 100%; height: 52px; padding: 6px 10px; background: var(--input-bg); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: white; font-size: 12px; outline: none; resize: none; font-family: inherit; }
-        .blocked-warning { background: rgba(255,159,10,0.1); border: 1px solid rgba(255,159,10,0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px; color: var(--yellow); line-height: 1.5; }
-        .empty-state { text-align: center; padding: 60px 20px; color: #555; }
+        .stage-progress-value { display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; color: #6b7280; }
+        .stage-notes-input { width: 100%; height: 52px; padding: 6px 10px; background: #f9fafb; border: 1px solid #d1d5db; border-radius: 8px; color: #111; font-size: 12px; outline: none; resize: none; font-family: inherit; }
+        .blocked-warning { background: #fef3c7; border: 1px solid rgba(217,119,6,0.3); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px; color: #d97706; line-height: 1.5; }
+        .empty-state { text-align: center; padding: 60px 20px; color: #9ca3af; }
         .empty-state-icon { margin-bottom: 16px; }
-        .empty-state-text { font-size: 16px; margin-bottom: 6px; color: #777; }
-        .empty-state-hint { font-size: 13px; color: #555; }
-        .site-footer { width: 100%; background: #050505; border-top: 1px solid rgba(255,255,255,0.06); padding: 16px 40px; margin-top: auto; }
+        .empty-state-text { font-size: 16px; margin-bottom: 6px; color: #6b7280; }
+        .empty-state-hint { font-size: 13px; color: #9ca3af; }
+        .site-footer { width: 100%; background: #f9fafb; border-top: 1px solid #e5e7eb; padding: 16px 40px; margin-top: auto; }
         .footer-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 12px; }
-        /* Cyberpunk layer */
-        body::after { content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; z-index: 9999; pointer-events: none; background: transparent; filter: url(#film-grain-filter); opacity: 0.04; animation: grain-shift 0.5s steps(4) infinite; }
-        @keyframes grain-shift { 0% { transform: translate(0,0); } 25% { transform: translate(-2%,-3%); } 50% { transform: translate(3%,1%); } 75% { transform: translate(-1%,2%); } 100% { transform: translate(2%,-1%); } }
-        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9998; pointer-events: none; background: linear-gradient(to right, rgba(255,0,0,0.05) 0%, transparent 5%), linear-gradient(to left, rgba(0,255,255,0.04) 0%, transparent 5%), linear-gradient(to bottom, rgba(255,0,120,0.03) 0%, transparent 4%), linear-gradient(to top, rgba(0,80,255,0.03) 0%, transparent 4%), radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.2) 100%); }
         @media (max-width: 768px) {
             .page-title { font-size: 24px; }
             .stage-item { min-width: 90px; }
@@ -229,7 +227,6 @@
 </head>
 <body>
     <svg style="position:absolute;width:0;height:0;" aria-hidden="true">
-        <defs><filter id="film-grain-filter" x="0%" y="0%" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" result="noise"/><feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/><feBlend in="SourceGraphic" in2="grayNoise" mode="multiply"/></filter></defs>
         <symbol id="ic-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></symbol>
         <symbol id="ic-location" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
         <symbol id="ic-blueprint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
@@ -321,7 +318,7 @@
 
     <div class="action-bar">
         <div class="stats-row">
-            <div class="stat-card"><div class="stat-icon icon-total"><svg><use href="#ic-folder"/></svg></div><div class="stat-info"><span class="stat-number" id="stat-total" style="color:#fff;">0</span><span class="stat-label">总项目</span></div></div>
+            <div class="stat-card"><div class="stat-icon icon-total"><svg><use href="#ic-folder"/></svg></div><div class="stat-info"><span class="stat-number" id="stat-total" style="color:#111;">0</span><span class="stat-label">总项目</span></div></div>
             <div class="stat-card"><div class="stat-icon icon-active"><svg><use href="#ic-play"/></svg></div><div class="stat-info"><span class="stat-number" id="stat-active" style="color:var(--green);">0</span><span class="stat-label">进行中</span></div></div>
             <div class="stat-card"><div class="stat-icon icon-warning"><svg><use href="#ic-warn"/></svg></div><div class="stat-info"><span class="stat-number" id="stat-warning" style="color:var(--yellow);">0</span><span class="stat-label">有问题</span></div></div>
             <div class="stat-card"><div class="stat-icon icon-critical"><svg><use href="#ic-zap"/></svg></div><div class="stat-info"><span class="stat-number" id="stat-critical" style="color:var(--red);">0</span><span class="stat-label">严重</span></div></div>
@@ -335,7 +332,7 @@
     <div class="projects-wrapper">
         <div class="projects-container" id="projects-container">
             <div class="empty-state" id="empty-state">
-                <div class="empty-state-icon"><svg style="width:56px;height:56px;stroke:#444;fill:none;"><use href="#ic-inbox"/></svg></div>
+                <div class="empty-state-icon"><svg style="width:56px;height:56px;stroke:#d1d5db;fill:none;"><use href="#ic-inbox"/></svg></div>
                 <div class="empty-state-text">暂无项目</div>
                 <div class="empty-state-hint">点击"+ 新建项目"开始追踪您的项目</div>
             </div>
@@ -346,9 +343,9 @@
     </div>
 
     <footer class="site-footer"><div class="footer-inner">
-        <div><span class="logo-text" style="font-size:18px;">澳洲</span><span class="logo-text logo-red" style="font-size:18px;">联通</span><span style="color:#555;font-size:11px;margin-left:8px;">Australia Unicom</span></div>
-        <div><a href="tel:1300864266" style="color:#E60012;text-decoration:none;font-weight:600;">1300-UNICOM</a><span style="color:#444;margin:0 10px;">|</span><span style="color:#555;">24小时中英双语客服</span><span style="color:#444;margin:0 10px;">|</span><span style="color:#555;">99.99% SLA</span></div>
-        <div><span style="color:#555;">© 2026 Australia Unicom</span></div>
+        <div><span class="logo-text" style="font-size:18px;">澳洲</span><span class="logo-text logo-red" style="font-size:18px;">联通</span><span style="color:#9ca3af;font-size:11px;margin-left:8px;">Australia Unicom</span></div>
+        <div><a href="tel:1300864266" style="color:#E60012;text-decoration:none;font-weight:600;">1300-UNICOM</a><span style="color:#d1d5db;margin:0 10px;">|</span><span style="color:#6b7280;">24小时中英双语客服</span><span style="color:#d1d5db;margin:0 10px;">|</span><span style="color:#6b7280;">99.99% SLA</span></div>
+        <div><span style="color:#9ca3af;">© 2026 Australia Unicom</span></div>
     </div></footer>
 
     <!-- New Project Modal -->
@@ -377,7 +374,7 @@
             <div class="modal-title" id="sub-edit-title">编辑子类</div>
             <div class="modal-field"><label>状态</label>
                 <div class="status-selector" id="sub-status-selector">
-                    <div class="status-option opt-pending" data-status="pending" onclick="selectSubStatus('pending')"><svg style="width:18px;height:18px;stroke:#888;fill:none;"><use href="#ic-clock"/></svg><span>待开始</span></div>
+                    <div class="status-option opt-pending" data-status="pending" onclick="selectSubStatus('pending')"><svg style="width:18px;height:18px;stroke:#9ca3af;fill:none;"><use href="#ic-clock"/></svg><span>待开始</span></div>
                     <div class="status-option opt-green" data-status="green" onclick="selectSubStatus('green')"><svg style="width:18px;height:18px;stroke:var(--green);fill:none;"><use href="#ic-check"/></svg><span>顺利</span></div>
                     <div class="status-option opt-yellow" data-status="yellow" onclick="selectSubStatus('yellow')"><svg style="width:18px;height:18px;stroke:var(--yellow);fill:none;"><use href="#ic-alert"/></svg><span>有问题</span></div>
                     <div class="status-option opt-red" data-status="red" onclick="selectSubStatus('red')"><svg style="width:18px;height:18px;stroke:var(--red);fill:none;"><use href="#ic-x-circle"/></svg><span>严重</span></div>
@@ -396,7 +393,7 @@
             <div id="blocked-warning" class="blocked-warning" style="display:none;"></div>
             <div class="modal-field"><label>阶段状态</label>
                 <div class="status-selector" id="status-selector">
-                    <div class="status-option opt-pending" data-status="pending" onclick="selectStatus('pending')"><svg style="width:18px;height:18px;stroke:#888;fill:none;"><use href="#ic-clock"/></svg><span>待开始</span></div>
+                    <div class="status-option opt-pending" data-status="pending" onclick="selectStatus('pending')"><svg style="width:18px;height:18px;stroke:#9ca3af;fill:none;"><use href="#ic-clock"/></svg><span>待开始</span></div>
                     <div class="status-option opt-green" data-status="green" onclick="selectStatus('green')"><svg style="width:18px;height:18px;stroke:var(--green);fill:none;"><use href="#ic-check"/></svg><span>顺利</span></div>
                     <div class="status-option opt-yellow" data-status="yellow" onclick="selectStatus('yellow')"><svg style="width:18px;height:18px;stroke:var(--yellow);fill:none;"><use href="#ic-alert"/></svg><span>有问题</span></div>
                     <div class="status-option opt-red" data-status="red" onclick="selectStatus('red')"><svg style="width:18px;height:18px;stroke:var(--red);fill:none;"><use href="#ic-x-circle"/></svg><span>严重</span></div>
@@ -457,7 +454,7 @@
             badge.classList.toggle('hidden', unread === 0);
             if (notifications.length === 0) { list.innerHTML = '<div class="notif-empty">暂无通知</div>'; return; }
             list.innerHTML = notifications.slice(0, 20).map(n => {
-                const typeColors = {critical:'var(--red)',warning:'var(--yellow)',complete:'var(--green)',info:'#aaa'};
+                const typeColors = {critical:'var(--red)',warning:'var(--yellow)',complete:'var(--green)',info:'#9ca3af'};
                 return `<div class="notif-item ${n.read ? '' : 'unread'}" onclick="window.location='/projects/${n.project_id}'">
                     <div><span class="notif-project">${n.project_name}</span></div>
                     <div style="color:${typeColors[n.type] || '#aaa'}">${n.message}</div>
@@ -514,7 +511,7 @@
             if (!container) return;
             container.innerHTML = '';
             if (filteredProjects.length === 0) {
-                container.innerHTML = `<div class="empty-state"><div class="empty-state-icon"><svg style="width:56px;height:56px;stroke:#444;fill:none;"><use href="#ic-inbox"/></svg></div><div class="empty-state-text">${projects.length === 0 ? '暂无项目' : '没有匹配的项目'}</div><div class="empty-state-hint">${projects.length === 0 ? '点击"+ 新建项目"开始追踪' : '尝试调整筛选条件'}</div></div>`;
+                container.innerHTML = `<div class="empty-state"><div class="empty-state-icon"><svg style="width:56px;height:56px;stroke:#d1d5db;fill:none;"><use href="#ic-inbox"/></svg></div><div class="empty-state-text">${projects.length === 0 ? '暂无项目' : '没有匹配的项目'}</div><div class="empty-state-hint">${projects.length === 0 ? '点击"+ 新建项目"开始追踪' : '尝试调整筛选条件'}</div></div>`;
                 if (paginationEl) paginationEl.innerHTML = '<span class="page-info">暂无项目</span>';
                 return;
             }
@@ -671,14 +668,14 @@
             // Status badge
             const svgS = 'width:11px;height:11px;vertical-align:middle;margin-right:2px;';
             const statusBadge = project.status === 'completed'
-                ? `<span style="color:#30d158;font-size:11px;background:rgba(48,209,88,0.12);padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#30d158;fill:none;"><use href="#ic-check-circle"/></svg>已完成</span>`
+                ? `<span style="color:#16a34a;font-size:11px;background:#dcfce7;padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#16a34a;fill:none;"><use href="#ic-check-circle"/></svg>已完成</span>`
                 : project.status === 'cancelled'
-                ? '<span style="color:#888;font-size:11px;background:rgba(128,128,128,0.12);padding:2px 8px;border-radius:10px;">已取消</span>'
+                ? '<span style="color:#9ca3af;font-size:11px;background:#f3f4f6;padding:2px 8px;border-radius:10px;">已取消</span>'
                 : hasRed
-                ? `<span style="color:#ff453a;font-size:11px;background:rgba(255,69,58,0.12);padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#ff453a;fill:none;"><use href="#ic-x-circle"/></svg>需关注</span>`
+                ? `<span style="color:#dc2626;font-size:11px;background:#fee2e2;padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#dc2626;fill:none;"><use href="#ic-x-circle"/></svg>需关注</span>`
                 : hasYellow
-                ? `<span style="color:#ff9f0a;font-size:11px;background:rgba(255,159,10,0.12);padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#ff9f0a;fill:none;"><use href="#ic-alert"/></svg>有问题</span>`
-                : `<span style="color:#30d158;font-size:11px;background:rgba(48,209,88,0.12);padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#30d158;fill:none;"><use href="#ic-check"/></svg>正常</span>`;
+                ? `<span style="color:#d97706;font-size:11px;background:#fef3c7;padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#d97706;fill:none;"><use href="#ic-alert"/></svg>有问题</span>`
+                : `<span style="color:#16a34a;font-size:11px;background:#dcfce7;padding:2px 8px;border-radius:10px;"><svg style="${svgS}stroke:#16a34a;fill:none;"><use href="#ic-check"/></svg>正常</span>`;
 
             // Stages pipeline: 大类 + 浮窗展开小类
             let stagesHTML = '<div class="stages-pipeline">';
@@ -701,17 +698,24 @@
                 if (stages[i].progress >= 100) completedStages++;
                 else break;
             }
-            const segCount = stages.length;
+            let lastGreenIdx = -1;
+            for (let i = 0; i < stages.length; i++) {
+                if ((stages[i].status || 'pending') === 'green') lastGreenIdx = i;
+            }
             let segsHTML = '<div class="progress-seg-track">';
-            for (let i = 0; i < segCount; i++) {
-                segsHTML += `<div class="progress-seg${i < completedStages ? ' filled' : ''}"></div>`;
+            for (let i = 0; i < stages.length; i++) {
+                const st = stages[i].status || 'pending';
+                let cls = '';
+                if (st === 'red' || st === 'yellow') cls = 'seg-red';
+                else if (i <= lastGreenIdx) cls = 'seg-green';
+                segsHTML += `<div class="progress-seg${cls ? ' ' + cls : ''}"></div>`;
             }
             segsHTML += '</div>';
 
             return `
                 <div class="project-header">
                     <div style="flex:1;min-width:0;">
-                        <div style="font-size:11px;color:#888;margin-bottom:2px;">项目编号: ${project.id}</div>
+                        <div style="font-size:11px;color:#9ca3af;margin-bottom:2px;">项目编号: ${project.id}</div>
                         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
                             <a class="project-name-link" href="/projects/${project.id}">${project.name}</a>
                             ${statusBadge} ${prioTag} ${dueTag}
@@ -728,9 +732,9 @@
                         <a class="btn-sm" href="/projects/${project.id}"><svg style="width:12px;height:12px;stroke:currentColor;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-clipboard"/></svg>详情</a>
                         <a class="btn-sm" href="/api/projects/${project.id}/export/pdf" target="_blank"><svg style="width:12px;height:12px;stroke:currentColor;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-download"/></svg>PDF</a>
                         <a class="btn-sm" href="/api/projects/${project.id}/export/excel" target="_blank"><svg style="width:12px;height:12px;stroke:currentColor;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-download"/></svg>Excel</a>
-                        <button class="btn-sm" onclick="openShareModal('${project.id}','${project.name.replace(/'/g,"\\'")}')" style="border-color:rgba(100,210,255,0.25);color:#64d2ff"><svg style="width:12px;height:12px;stroke:#64d2ff;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-share"/></svg>分享</button>
+                        <button class="btn-sm" onclick="openShareModal('${project.id}','${project.name.replace(/'/g,"\\'")}')" style="border-color:#d1d5db;color:#374151"><svg style="width:12px;height:12px;stroke:#374151;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-share"/></svg>分享</button>
                         ${project.status === 'active' ? `<button class="btn-sm" onclick="markCompleted('${project.id}')"><svg style="width:12px;height:12px;stroke:var(--green);fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-check-circle"/></svg>完成</button>` : ''}
-                        <button class="btn-sm danger" onclick="deleteProject('${project.id}')"><svg style="width:12px;height:12px;stroke:#ff453a;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-trash"/></svg>删除</button>
+                        <button class="btn-sm danger" onclick="deleteProject('${project.id}')"><svg style="width:12px;height:12px;stroke:#dc2626;fill:none;vertical-align:middle;margin-right:3px;"><use href="#ic-trash"/></svg>删除</button>
                     </div>
                 </div>
                 <div class="overall-progress">
@@ -874,9 +878,9 @@
             }
             const btn = document.getElementById('copy-link-btn');
             btn.textContent = '已复制！';
-            btn.style.background = 'rgba(48,209,88,0.2)';
-            btn.style.borderColor = 'rgba(48,209,88,0.5)';
-            btn.style.color = '#30d158';
+            btn.style.background = '#dcfce7';
+            btn.style.borderColor = 'rgba(22,163,74,0.4)';
+            btn.style.color = '#16a34a';
             setTimeout(() => {
                 btn.textContent = '复制链接';
                 btn.style.background = '';
@@ -955,48 +959,48 @@
 <div class="modal-overlay" id="share-modal" style="z-index:7000">
     <div class="modal-box" style="width:420px;max-width:94vw">
         <div class="modal-title" style="display:flex;align-items:center;gap:8px">
-            <svg style="width:18px;height:18px;stroke:#64d2ff;fill:none;flex-shrink:0"><use href="#ic-share"/></svg>
+            <svg style="width:18px;height:18px;stroke:#2563eb;fill:none;flex-shrink:0"><use href="#ic-share"/></svg>
             分享项目
         </div>
-        <p style="font-size:12px;color:#666;margin-bottom:16px">生成只读分享链接，或直接在邮件客户端中撰写分享邮件</p>
+        <p style="font-size:12px;color:#6b7280;margin-bottom:16px">生成只读分享链接，或直接在邮件客户端中撰写分享邮件</p>
 
         <!-- 静态链接 -->
         <div style="margin-bottom:14px">
-            <div style="font-size:11px;color:#888;margin-bottom:6px;display:flex;align-items:center;gap:5px">
-                <svg style="width:13px;height:13px;stroke:#64d2ff;fill:none"><use href="#ic-link"/></svg>
+            <div style="font-size:11px;color:#6b7280;margin-bottom:6px;display:flex;align-items:center;gap:5px">
+                <svg style="width:13px;height:13px;stroke:#2563eb;fill:none"><use href="#ic-link"/></svg>
                 静态分享链接
             </div>
             <div style="display:flex;gap:8px;align-items:center">
                 <input id="share-link-input" type="text" readonly
-                    style="flex:1;height:36px;padding:0 10px;background:rgba(100,210,255,0.06);border:1px solid rgba(100,210,255,0.2);border-radius:8px;color:#ccc;font-size:12px;outline:none;font-family:monospace"
+                    style="flex:1;height:36px;padding:0 10px;background:#f9fafb;border:1px solid #d1d5db;border-radius:8px;color:#374151;font-size:12px;outline:none;font-family:monospace"
                     onclick="this.select()">
                 <button id="copy-link-btn" onclick="copyShareLink()"
-                    style="padding:0 14px;height:36px;border-radius:8px;border:1px solid rgba(100,210,255,0.3);background:rgba(100,210,255,0.08);color:#64d2ff;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s">
+                    style="padding:0 14px;height:36px;border-radius:8px;border:1px solid #d1d5db;background:#f3f4f6;color:#374151;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s">
                     复制链接
                 </button>
             </div>
-            <div style="font-size:10px;color:#555;margin-top:5px">任何人通过此链接均可查看项目只读页面</div>
+            <div style="font-size:10px;color:#9ca3af;margin-top:5px">任何人通过此链接均可查看项目只读页面</div>
         </div>
 
-        <div style="height:1px;background:rgba(255,255,255,0.06);margin:16px 0"></div>
+        <div style="height:1px;background:#f0f0f0;margin:16px 0"></div>
 
         <!-- 邮件分享 -->
         <div style="margin-bottom:8px">
-            <div style="font-size:11px;color:#888;margin-bottom:8px;display:flex;align-items:center;gap:5px">
-                <svg style="width:13px;height:13px;stroke:#ff9f0a;fill:none"><use href="#ic-mail"/></svg>
+            <div style="font-size:11px;color:#6b7280;margin-bottom:8px;display:flex;align-items:center;gap:5px">
+                <svg style="width:13px;height:13px;stroke:#d97706;fill:none"><use href="#ic-mail"/></svg>
                 邮件分享
             </div>
             <!-- 主按钮：打开 Outlook / 默认邮件客户端 -->
             <button id="email-share-btn" onclick="shareByEmail()"
-                style="width:100%;height:42px;border-radius:10px;border:1px solid rgba(255,159,10,0.35);background:rgba(255,159,10,0.1);color:#ff9f0a;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;margin-bottom:8px">
-                <svg style="width:15px;height:15px;stroke:#ff9f0a;fill:none"><use href="#ic-mail"/></svg>
+                style="width:100%;height:42px;border-radius:10px;border:1px solid rgba(217,119,6,0.35);background:#fef3c7;color:#d97706;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;margin-bottom:8px">
+                <svg style="width:15px;height:15px;stroke:#d97706;fill:none"><use href="#ic-mail"/></svg>
                 打开 Outlook / 邮件客户端
             </button>
-            <div style="font-size:10px;color:#555;margin-bottom:10px">自动打开系统默认邮件客户端（Outlook / Apple Mail 等），正文为纯文本格式</div>
+            <div style="font-size:10px;color:#9ca3af;margin-bottom:10px">自动打开系统默认邮件客户端（Outlook / Apple Mail 等），正文为纯文本格式</div>
             <!-- 次级按钮：下载 EML（HTML格式，双击在 Outlook 中打开撰写窗口） -->
             <button id="html-download-btn" onclick="downloadShareEml()"
-                style="width:100%;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#888;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s">
-                <svg style="width:13px;height:13px;stroke:#888;fill:none"><use href="#ic-download"/></svg>
+                style="width:100%;height:36px;border-radius:9px;border:1px solid #e5e7eb;background:#f9fafb;color:#6b7280;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s">
+                <svg style="width:13px;height:13px;stroke:#9ca3af;fill:none"><use href="#ic-download"/></svg>
                 下载 .eml 文件（双击在 Outlook 中打开 HTML 撰写界面）
             </button>
         </div>

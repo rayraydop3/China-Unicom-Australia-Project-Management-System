@@ -6,54 +6,57 @@
     <title>澳洲联通 | {{ project.name }} — 项目分享</title>
     <style>
         *{box-sizing:border-box;margin:0;padding:0}
-        :root{--bg:#000;--accent:#E60012;--green:#30d158;--yellow:#ff9f0a;--red:#ff453a;--card:rgba(20,20,20,0.7);--border:rgba(255,255,255,0.1)}
-        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#000;background-image:radial-gradient(circle at top right,#1e1e1e 0%,#000 80%);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding-bottom:60px}
-        .header{width:100%;max-width:900px;height:60px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid var(--border);margin-bottom:30px}
-        .logo{font-size:22px;font-weight:700}.logo span{color:var(--accent)}
+        :root{--accent:#E60012;--green:#1a9e3f;--yellow:#c47d00;--red:#d93025;--card:#ffffff;--border:#e5e7eb}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f3f4f6;color:#111;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding-bottom:60px}
+        .header-wrap{width:100%;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:30px}
+        .header{width:100%;max-width:900px;height:60px;display:flex;align-items:center;padding:0 20px;margin:0 auto}
+        .logo{font-size:22px;font-weight:700;color:#111}.logo span{color:var(--accent)}
         .badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;margin-right:6px}
-        .badge.readonly{background:rgba(100,210,255,0.12);color:#64d2ff;border:1px solid rgba(100,210,255,0.3)}
-        .badge.high{background:rgba(255,69,58,0.15);color:var(--red)}
-        .badge.medium{background:rgba(255,159,10,0.15);color:var(--yellow)}
-        .badge.low{background:rgba(48,209,88,0.15);color:var(--green)}
-        .badge.active{background:rgba(48,209,88,0.12);color:var(--green)}
-        .badge.completed{background:rgba(255,255,255,0.1);color:#aaa}
-        .badge.cancelled{background:rgba(255,69,58,0.1);color:var(--red)}
-        .card{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:16px;padding:24px;margin:0 20px 16px;width:calc(100% - 40px);max-width:860px}
-        .project-title{font-size:28px;font-weight:700;margin-bottom:10px}
+        .badge.readonly{background:#eff6ff;color:#1d6fa4;border:1px solid #bfdbfe}
+        .badge.high{background:#fee2e2;color:var(--red)}
+        .badge.medium{background:#fef3c7;color:var(--yellow)}
+        .badge.low{background:#dcfce7;color:var(--green)}
+        .badge.active{background:#dcfce7;color:var(--green)}
+        .badge.completed{background:#f3f4f6;color:#666}
+        .badge.cancelled{background:#fee2e2;color:var(--red)}
+        .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin:0 20px 16px;width:calc(100% - 40px);max-width:860px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
+        .project-title{font-size:26px;font-weight:700;color:#111;margin-bottom:10px}
         .meta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin:18px 0}
-        .meta-item label{display:block;font-size:10px;color:#555;margin-bottom:3px}
-        .meta-item span{font-size:13px;color:#ccc;font-weight:500}
-        .section-title{font-size:13px;font-weight:700;color:#888;margin-bottom:14px;letter-spacing:0.5px;text-transform:uppercase}
-        .progress-bar-bg{width:100%;height:10px;background:rgba(255,255,255,0.06);border-radius:5px;overflow:hidden;margin-top:8px}
+        .meta-item label{display:block;font-size:10px;color:#9ca3af;margin-bottom:3px}
+        .meta-item span{font-size:13px;color:#374151;font-weight:500}
+        .section-title{font-size:11px;font-weight:700;color:#9ca3af;margin-bottom:14px;letter-spacing:0.8px;text-transform:uppercase}
+        .progress-bar-bg{width:100%;height:10px;background:#f3f4f6;border-radius:5px;overflow:hidden;margin-top:8px;border:1px solid #e5e7eb}
         .progress-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),#ff4757)}
-        .progress-bar-fill.complete{background:linear-gradient(90deg,var(--green),#38ef7d)}
-        .progress-labels{display:flex;justify-content:space-between;font-size:11px;color:#666;margin-top:5px}
+        .progress-bar-fill.complete{background:linear-gradient(90deg,var(--green),#16a34a)}
+        .progress-labels{display:flex;justify-content:space-between;font-size:11px;color:#9ca3af;margin-top:5px}
         /* Stages */
-        .stages-grid{display:flex;flex-direction:column;gap:8px}
-        .stage-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)}
+        .stages-grid{display:flex;flex-direction:column;gap:7px}
+        .stage-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;background:#fafafa;border:1px solid #e5e7eb}
         .stage-num{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
-        .stage-num.pending{background:rgba(80,80,80,0.2);color:#555}
-        .stage-num.green{background:rgba(48,209,88,0.1);color:var(--green)}
-        .stage-num.yellow{background:rgba(255,159,10,0.1);color:var(--yellow)}
-        .stage-num.red{background:rgba(255,69,58,0.1);color:var(--red)}
-        .stage-name{flex:1;font-size:13px;font-weight:600}
-        .stage-sub{font-size:11px;color:#666;margin-top:2px}
-        .stage-pct{font-size:12px;color:#888;font-weight:600;min-width:50px;text-align:right}
-        .mini-bar{width:80px;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+        .stage-num.pending{background:#f3f4f6;color:#9ca3af}
+        .stage-num.green{background:#dcfce7;color:var(--green)}
+        .stage-num.yellow{background:#fef3c7;color:var(--yellow)}
+        .stage-num.red{background:#fee2e2;color:var(--red)}
+        .stage-name{flex:1;font-size:13px;font-weight:600;color:#111}
+        .stage-sub{font-size:11px;color:#9ca3af;margin-top:2px}
+        .stage-pct{font-size:12px;color:#6b7280;font-weight:600;min-width:50px;text-align:right}
+        .mini-bar{width:80px;height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden}
         .mini-bar div{height:100%;border-radius:2px;transition:width 0.4s}
         /* Team */
         .team-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-        .team-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:4px 12px 4px 4px;font-size:11px}
+        .team-chip{display:flex;align-items:center;gap:6px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:20px;padding:4px 12px 4px 4px;font-size:11px;color:#374151}
         .avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
         /* Footer */
-        .share-footer{font-size:11px;color:#444;text-align:center;margin-top:20px}
-        .share-footer a{color:#555;text-decoration:none}
+        .share-footer{font-size:11px;color:#9ca3af;text-align:center;margin-top:20px}
+        .share-footer a{color:#6b7280;text-decoration:none}
     </style>
 </head>
 <body>
-<div class="header">
-    <div class="logo">澳洲<span>联通</span></div>
-    <span class="badge readonly" style="margin-left:14px">只读分享</span>
+<div class="header-wrap">
+    <div class="header">
+        <div class="logo">澳洲<span>联通</span></div>
+        <span class="badge readonly" style="margin-left:14px">只读分享</span>
+    </div>
 </div>
 
 <div class="card">
