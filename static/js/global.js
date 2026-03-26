@@ -700,6 +700,15 @@ function startNotificationPoller(callback) {
 // =========================================
 const CHANGELOG = [
   {
+    version: 'v0.4.0.2',
+    date: '13/03/2026',
+    changes: [
+      '系统背景改为白色，字体改为黑色',
+      '进度条颜色优化：完成区域显示绿色，异常部分显示红色',
+      '新增虚拟项目以体现翻页功能',
+    ],
+  },
+  {
     version: 'v0.4.0.1',
     date: '06/03/2026',
     changes: [
